@@ -1,0 +1,514 @@
+"*************** set var convig***************
+
+"--- mostrar el numero de linea relativo a la linea del cursor
+set relativenumber
+
+"--- mientras se escribe la busqueda se mostraran coincidencias
+set nohlsearch
+
+"--- cuando esta off el bufer que se avandona se oculta
+set hidden
+
+"--- no sonar pitidos cuando hayan errores
+set noerrorbells
+
+"--- numero de espacios de tabulacion ---
+set tabstop=2 softtabstop=2
+
+"--- numero de espacios al aplicar >> o << ---
+set shiftwidth=2
+
+"--- Sangrar con espacion enblanco en lugar de tabulaciones ---
+set expandtab
+
+"--- sangrar automaticamente el texto ---
+set autoindent
+
+"--- Sangrar en funcion del lenguaje, estilo y sintaxis ---
+set smartindent
+
+" --- mostrar el  numero de cada linea
+set nu
+
+"--- para desactivar el ajuste a la pantalla usar nowrap
+set nowrap
+
+"enable the mouse
+set mouse=a
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" To use clipboard for cut and paste, set clipboard option
+set clipboard=unnamedplus
+
+"forma del cursor segun el nodo
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+"display the status line always
+set laststatus=2
+
+" Status bar config current mode
+set statusline+=%#warningmsg#
+
+"set the leader key
+let mapleader = " "
+"set encoding for icons
+set encoding=UTF-8
+
+let g:ale_linters_explicit = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+let g:ale_fix_on_save = 1
+
+"disable quote cancealing in json  files
+let g:vim_json_conceal=0
+
+
+
+
+
+" ==================================
+" ============= Plug ===============
+" ==================================
+call plug#begin('~/.vim/plugged')
+
+"nerdtree sidebar file manager
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+"agregar iconos a nerdtree
+Plug 'ryanoasis/vim-devicons'
+
+Plug 'nvim-tree/nvim-web-devicons'
+
+"======= este plugin provoca el error =========
+"=>Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+"adds filetype-specific icons to nerdtree files and folders
+Plug 'ryanoasis/vim-devicons'
+
+" Code completion coc
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+"emmet
+Plug 'mattn/emmet-vim'
+
+"moverse entre palabras easymotion
+Plug 'easymotion/vim-easymotion'
+
+"onfigurable statusbar statusline/tabline
+Plug 'itchyny/lightline.vim'
+
+"------- Tabs buffers --------------
+Plug 'ap/vim-buftabline'
+"-----------------------------------
+
+"tmux navegator
+Plug 'christoomey/vim-tmux-navigator'
+
+"theme gruvbox
+Plug 'morhetz/gruvbox'
+
+"buscador fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Autocompletado de corchetes, paréntesis, etc
+Plug 'raimondi/delimitmate'
+
+" Mejora de indentado
+Plug 'yggdroot/indentline'
+
+" Reabre los archivos en el punto donde los dejaste
+ Plug 'farmergreg/vim-lastplace'
+ 
+ " Pone el código bonito
+Plug 'zeekay/vim-beautify'
+
+"abrir navegadorweb
+Plug 'tyru/open-browser.vim'
+
+"para comentar en modo visual (estudiar)
+Plug 'scrooloose/nerdcommenter'
+
+Plug 'heavenshell/vim-jsdoc', { 
+  \ 'for': ['javascript', 'javascript.jsx','typescript'], 
+  \ 'do': 'make install'
+\}
+
+"-----mostrar nombre de rama git en pantalla ------------
+Plug 'itchyny/lightline.vim' " Lightline UI
+Plug 'tpope/vim-fugitive'    " Git wrapper for Vim
+Plug 'itchyny/vim-gitbranch' " Show branch in buffer
+"---------------------------------------------------------
+
+"----- theme nord ----
+Plug 'arcticicestudio/nord-vim'
+
+"----- theme papercolor -----
+Plug 'NLKNguyen/papercolor-theme'
+
+
+
+"===================================
+call plug#end() 
+" ==================================
+" ============= End Plug ===========
+" ==================================
+
+
+" Habilitar la fuente de iconos
+set guifont=Fira\ Code\ Nerd\ Font\ Mono:h11
+
+" Habilitar los iconos en la interfaz de usuario
+let g:webdevicons_enable = 1
+let g:NERDTreeShowBookmarks = 1
+
+
+"************************* configuration*************************
+
+"--------------configuration of variables----COC------------
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+"Usar TAB para el autocompletado
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+"if has('nvim')
+"  inoremap <silent><expr> <c-space> coc#refresh()
+"else
+"  inoremap <silent><expr> <c-@> coc#refresh()
+"endif
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+
+set colorcolumn=100
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+
+"--------------- config emmet ---------
+let g:user_emmet_leader_key=','
+
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+
+"---------------------------------------
+
+"----config easymotion ---
+" easymotion
+let g:EasyMotion_smartcase = 1 " turn on case insensitive feature
+let g:EasyMotion_do_mapping = 0 " disable default mappings
+let g:EasyMotion_use_smartsign_us = 1 " 1 will match 1 and !
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_keys = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ;'
+let g:EasyMotion_space_jump_first = 1
+let g:EasyMotion_enter_jump_first = 1
+
+nmap <leader>g <Plug>(easymotion-bd-w)
+nmap s <Plug>(easymotion-s2)
+map t <Plug>(easymotion-bd-t)
+map f <Plug>(easymotion-bd-f)
+omap t <Plug>(easymotion-tl)
+omap f <Plug>(easymotion-fl)
+
+" jk motions: line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+" end of easymotion
+"map <Leader> <Plug>(easymotion-s2)
+"-------------------------------------
+
+"------theme colors ----------------
+let g:gruvbox_contrast_dark='soft'
+"set background=dark
+colorscheme gruvbox
+
+"set t_Co=256   " This is may or may not needed.
+"set background=dark
+"colorscheme PaperColor
+
+"let g:PaperColor_Theme_Options = {
+""  \   'theme': {
+""  \     'default': {
+""  \       'transparent_background': 1
+""  \     }
+""  \   }
+""  \ }
+"  
+"let g:PaperColor_Theme_Options = {
+""  \   'theme': {
+""  \     'default.dark': {
+""  \       'override' : {
+""  \         'color00' : ['#080808', '232'],
+""  \         'linenumber_bg' : ['#080808', '232']
+""  \       }
+""  \     }
+""  \   }
+""  \ }
+
+"-------------------------------------
+
+" Fix files automatically on save
+let g:ale_fixers = {}
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_linters = {
+  \'javascript': ['eslint'],
+  \'vue': ['eslint', 'stylelint', 'tsserver'],
+\}
+
+let g:ale_fixers = {
+  \'javascript': ['prettier', 'eslint'],
+  \'vue': ['eslint', 'stylelint'],
+\}
+"-------------------------------------------
+"expand folder nerdtree
+let g:NERDTreeDirArrowExpandable="+"
+let g:NERDTreeDirArrowCollapsible="~"
+
+"cerrar al abrir archivo nerdtree
+let NERDTreeQuitOnOpen=1
+
+
+" Close NERDTree when closing the last buffer (provoca error)
+"autocmd bufenter * if (winnr("$") == 1 && "exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | "endif
+"fun! TrimWhitespace()
+"    let l:save = winsaveview()
+"    keeppatterns %s/\s\+$//e
+"    call winrestview(l:save)
+"endfun
+
+"autocmd BufWritePre * :call TrimWhitespace()
+"command! -bang -nargs=* Rg
+"  \ call fzf#vim#grep(
+"  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+"  \   fzf#vim#with_preview(), <bang>0)
+
+".................................................
+
+
+
+
+"***********************************************************
+"*************************SHORTCUTS*************************
+"***********************************************************
+
+"mostrar y esconder barra derdtree
+map <C-n> :NERDTreeToggle<CR>
+
+"-----configuracion fzf buscador
+"buscar archivo
+map <C-f> :Files<CR>
+"buscar en palabra en archivos
+map <C-p> :Rg<CR>
+"crear nuevo archivo desde el editor
+map <C-t> :e <cfile><cr>
+"mover al siguiente buffer
+"map <S-Tab> :bn<CR>
+
+"force vim to use en_gb as default dictionary
+"map <F5> :setlocal spell! spelllang=en_gb<CR>
+
+"----coc navegation-----
+"go to definition
+nmap <leader>gd <Plug>(coc-definition)
+"go tipo definicion
+nmap <leader>gy <Plug>(coc-type-definition)
+"go implementacion
+nmap <leader>gi <Plug>(coc-implementation)
+"go referencias
+nmap <leader>gr <Plug>(coc-references)
+"renombrar
+nmap <leader>rn <Plug>(coc-rename)
+"reiniciar coc
+nnoremap <leader>cr :CocRestart
+
+"---- coc diagnostico 
+"nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+"nmap <leader>g] <Plug>(coc-diagnostic-next)
+"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
+"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
+
+"describe la diferencia entre dos,tres o cuatro version es del mismo archivo entrar diff mode 
+":diffsplit
+"Sweet Sweet FuGITive
+"nmap <leader>gj :diffget //3<CR>
+"nmap <leader>gf :diffget //2<CR>
+"nmap <leader>gs :G<CR>
+
+" coc config  -> temporal
+let g:coc_global_extensions = [
+  \ 'coc-tsserver',
+  \ 'coc-eslint',
+  \ 'coc-json'
+  \ ]
+" --------> temporal
+
+" Buscar y remplazar palabra clave
+"noremap H :%s//<New><left><left><left><left><left><left>
+"noremap HH :%s/
+"noremap <leader>remp :%s//<New><left><left><left><left><left><left>
+noremap <leader>rem :%s/
+"--------- mostrar rama git en pantalla ---------
+let g:lightline = {
+      "\ 'colorscheme': 'dracula',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ 'component_prefix': {
+      \   'gitbranch': '\uf126 '
+      \ },
+        \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ ['close'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
+      \ }
+
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+"--------------------------------------------------------
+
+"--- correccion ortografica en español------
+augroup markdownSpell
+  autocmd!
+  autocmd FileType markdown setlocal spell spelllang=es
+  autocmd BufRead,BufNewFile *.md setlocal spell spelllang=es
+augroup END
+  
+".................................................
+
+"---personal omar-----
+
+"-----salvar documento -----
+noremap <c-s> :w<CR>
+
+"-----salir de nvim-----
+"noremap <Leader><Esc> :q<CR>
+
+"------forzar salida-----
+noremap <Esc><Esc> :q!<CR>
+
+"------ejecutar comando en terminal-----
+noremap <F2> :!
+
+"------cerrar buffer
+noremap <F3> :bd<CR>
+
+"ejecutar vimscript
+noremap <F4> :so
+
+"moverse en las pestañas
+noremap <F8> :bnext<CR>
+noremap <F7> :bprev<CR>
+
+noremap <C-right> :bnext<CR>
+noremap <C-left> :bprev<CR>
+
+"--- recargar vimrc---
+noremap <F9> :source ~/.config/nvim/init.vim<CR>
+
+"------- Pasar a modo normal ------
+:inoremap º <Esc>
+
+
+"--------incertart llaves-----
+inoremap ññ <Esc>$a{<cr>}<c-o><s-o>
+inoremap ÑÑ {}<Esc>i
+
+"--------incertart corchetes-----
+inoremap çç <Esc>$a[<cr>]<c-o><s-o>
+inoremap ÇÇ []<Esc>i
+
+"--------guardar-----
+inoremap <C-s> <Esc>:w<Enter>
+
+"-----poner punto y coma al final de la linea---------
+:inoremap ;; <Esc>A;
+
+
+"-----console.log();
+:inoremap csl console.log();<Esc>hhi
+:inoremap rlp <meta http-equiv="refresh" content="2" />
+
+"----- for ---------
+inoremap fori for(let i=0; i< any; i ++)<Esc>$a{<cr>}<c-o><s-o>
+
+"mover la linea arriba y abajo
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+inoremap forj for(let j=0; j< any; j ++)<Esc>$a{<cr>}<c-o><s-o>
+inoremap fork for(let k=0; k< any; k ++)<Esc>$a{<cr>}<c-o><s-o>
+
+
+"------------------------------
+
+"--------- usar  cursor en modo insercion ---------
+inoremap <C-j> <down>
+inoremap <C-k> <up>
+inoremap <C-l> <right>
+inoremap <C-h> <left>
+
+"--------------- configuracion prettier -------------
+
+command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
+"vmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
+
+"bloquear
+"nnoremap q <Nop>
+
+"---- llamar a la funcion prettier ---------------
+function! MyPrettier()
+	Prettier
+	return 0
+endfunction
+
+nnoremap ª :call MyPrettier()<CR>
+"------------------------------------------
+
+nnoremap H <Nop>
+nnoremap J <Nop>
+nnoremap K <Nop>
+nnoremap I <Nop>
+nnoremap L <Nop>
+nnoremap <C,z> <Nop>
+nnoremap <C,Z> <Nop>
+
+"------------nueva linea en insert mode-----------
+inoremap <c-o> <esc>o
+
+
+
+
+
