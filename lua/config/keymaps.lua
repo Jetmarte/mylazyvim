@@ -29,6 +29,7 @@ map("i", ";;", "<Esc>A;")
 
 -- Escape alternativo
 map("i", "º", "<Esc>")
+map("v", "º", "<Esc>")
 
 map("i", "<Esc><Esc>", "<Esc>:q!<CR>")
 map("n", "<Esc><Esc>", ":q!<CR>")

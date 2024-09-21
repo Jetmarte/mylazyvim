@@ -4,13 +4,13 @@ require("config.lazy")
 
 -- ********* themes ***********
 --vim.cmd.colorscheme("catppuccin")
---vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme gruvbox")
 --vim.cmd("colorscheme gruvbox-material")
 --vim.cmd("colorscheme solarized-osaka")
 --vim.cmd("colorscheme nord")
-vim.cmd("colorscheme everforest")
---
---
+--vim.cmd("colorscheme everforest")
+--vim.cmd("colorscheme nightfly")
+
 --color menu autocompletado
 vim.api.nvim_set_hl(0, "Pmenu", { bg = "#1d4d63", fg = "#C3BAC6" }) -- Color de fondo y texto del menú de autocompletado original 1E1E2E 102C57
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#254336", fg = "#D9E0EE" }) -- Color de fondo y texto de la selección en el menú de autocompletado 575268

@@ -87,6 +87,20 @@ return {
     lazy = false,
     priority = 1000,
     opts = {},
+    config = function()
+      require("solarized-osaka").setup({
+        -- disable italic for functions
+        styles = {
+          functions = {},
+        },
+        sidebars = { "qf", "vista_kind", "terminal", "packer" },
+        -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+        on_colors = function(colors)
+          colors.hint = colors.orange
+          colors.error = "#ff0000"
+        end,
+      })
+    end,
   },
   {
     "shaunsingh/nord.nvim",
@@ -94,17 +108,39 @@ return {
     priority = 100,
     name = "nord",
   },
+  {
+    "sainnhe/everforest",
+    config = function()
+      -- Configuración adicional del tema (opcional)
+      vim.g.everforest_background = "medium"
+    end,
+  },
 
   {
     "neanias/everforest-nvim",
     version = false,
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
     config = function()
-      require("everforest").setup({
-        -- Your config here
-      })
+      require("everforest").setup()
     end,
+  },
+  {
+    "EdenEast/nightfox.nvim",
+  },
+  {
+    "rebelot/kanagawa.nvim",
+  },
+  {
+    "projekt0n/github-nvim-theme",
+  },
+  {
+    "Mofiqul/vscode.nvim",
+  },
+  {
+    "bluz71/vim-nightfly-colors",
+    name = "nightfly",
+    lazy = false,
+    priority = 1000,
   },
 }

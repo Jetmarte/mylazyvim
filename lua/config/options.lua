@@ -56,8 +56,8 @@ vim.g.trouble_lualine = true
 
 local opt = vim.opt
 
--- agregar winbar
-vim.opt.winbar = "%=%m %f"
+-- agregar winbar del archivo en la parte superior de la pantalla
+--vim.opt.winbar = "%=%m %f"
 
 opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
@@ -91,7 +91,7 @@ opt.mouse = "a" -- Enable mouse mode
 opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.relativenumber = true -- Relative line numbers
+opt.relativenumber = false --true -- Relative line numbers
 opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
