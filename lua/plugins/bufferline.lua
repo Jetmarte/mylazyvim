@@ -8,13 +8,15 @@ return {
           separator_style = "thin", -- otras opciones "thick", "thin", "padded_slant"
           show_buffer_close_icons = true,
           show_close_icon = false,
+          enforce_regular_tabs = true, --fuerza a los buffers a ocupar todo el espacio
+          always_show_bufferline = true, --asegura que siempre se muestre el bufferline
         },
         highlights = {
           buffer_selected = {
-            underline = true,
+            --underline = true,
             italic = false,
             gui = "bold,italic", -- Resalta el buffer seleccionado con negritas e itálicas
-            fg = "#d16328", -- Color del texto
+            fg = "#ffffff", -- Color del texto
             bg = "#151921", -- Fondo personalizado para el buffer seleccionado
           },
           buffer_visible = {

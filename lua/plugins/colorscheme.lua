@@ -88,7 +88,27 @@ return {
     priority = 1000,
     opts = function()
       return {
-        transparent = true,
+        transparent = false,
+        terminal_colors = true,
+        styles = {
+          comments = { italic = true },
+          keywords = { italic = true },
+          functions = {},
+          variables = {},
+          sidebars = "dark",
+          floats = "dark",
+        },
+        sidebars = { "qf", "help" },
+        day_brightness = 0.3,
+        hide_inactive_statusline = false,
+        dim_inactive = false,
+        lualine_bold = false,
+
+        -- Cambiar colores específicos
+        on_highlights = function(highlights, colors)
+          -- Cambiar el color de fondo
+          highlights.Normal = { bg = "#06171f", fg = colors.fg } -- #002b36 es el color base de Solarized Dark
+        end,
       }
     end,
   },
