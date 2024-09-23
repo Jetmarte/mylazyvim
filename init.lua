@@ -65,3 +65,6 @@ vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", {
 --Configuración para cambiar el color de fondo globalmente en LazyVim
 --vim.api.nvim_set_hl(0, "Normal", { bg = "#282c34" }) -- Color de fondo global
 --vim.api.nvim_set_hl(0, "Visual", { bg = "#3c3836" }) -- Color de fondo en modo visual
+
+--cambiar la fuente
+vim.opt.guifont = { "FiraCode Nerd Font:h12" }
