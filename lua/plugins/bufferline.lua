@@ -16,16 +16,16 @@ return {
             --underline = true,
             italic = false,
             gui = "bold,italic", -- Resalta el buffer seleccionado con negritas e itálicas
-            fg = "#ffffff", -- Color del texto
-            bg = "#151921", -- Fondo personalizado para el buffer seleccionado
+            fg = "#fc8403", --Color del texto
+            --bg = "#151921", -- Fondo personalizado para el buffer seleccionado
           },
           buffer_visible = {
-            fg = "#ffffff", -- Color de los buffers visibles pero no seleccionados
-            bg = "#2e2e2e",
+            fg = "#228ef2", -- Color de los buffers visibles pero no seleccionados
+            --bg = "#2e2e2e",
           },
           buffer = {
             fg = "#888888", -- Color de los buffers inactivos
-            bg = "#1e1e1e",
+            --bg = "#1e1e1e",
           },
         },
       })

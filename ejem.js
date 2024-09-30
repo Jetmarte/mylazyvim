@@ -7,8 +7,12 @@ console.log("saludos")
 
 console.log("saludos")
 
-const nombre = () => {
-  let nombre = boris
-  console.log(nombre)
-  return nombre;
+const lastname = () => {
+  let apellido = boris
+  console.log(apellido)
+  return apellido;
 }
+
+lastname = 4
+lastname = omar;
+

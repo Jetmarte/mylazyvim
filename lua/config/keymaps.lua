@@ -86,3 +86,8 @@ vim.api.nvim_set_keymap("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { n
 -- Y así sucesivamente...
 -- select all
 map("n", "<C-a>", "gg<S-v>G")
+
+-- remane variable
+vim.keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
