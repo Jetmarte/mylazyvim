@@ -29,6 +29,7 @@ map("i", ";;", "<Esc>A;")
 
 -- Escape alternativo
 map("i", "º", "<Esc>")
+map("v", "º", "<Esc>")
 
 map("i", "<Esc><Esc>", "<Esc>:q!<CR>")
 map("n", "<Esc><Esc>", ":q!<CR>")
@@ -83,3 +84,10 @@ vim.api.nvim_set_keymap("n", "<leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { n
 vim.api.nvim_set_keymap("n", "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
 -- Y así sucesivamente...
+-- select all
+map("n", "<C-a>", "gg<S-v>G")
+
+-- remane variable
+vim.keymap.set("n", "<leader>rn", function()
+  return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })

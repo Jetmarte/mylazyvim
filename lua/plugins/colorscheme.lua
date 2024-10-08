@@ -84,9 +84,33 @@ return {
   },
   {
     "craftzdog/solarized-osaka.nvim",
-    lazy = false,
+    lazy = true,
     priority = 1000,
-    opts = {},
+    opts = function()
+      return {
+        transparent = false,
+        terminal_colors = true,
+        styles = {
+          comments = { italic = true },
+          keywords = { italic = true },
+          functions = {},
+          variables = {},
+          sidebars = "dark",
+          floats = "dark",
+        },
+        sidebars = { "qf", "help" },
+        day_brightness = 0.3,
+        hide_inactive_statusline = false,
+        dim_inactive = false,
+        lualine_bold = false,
+
+        -- Cambiar colores específicos
+        on_highlights = function(highlights, colors)
+          -- Cambiar el color de fondo
+          highlights.Normal = { bg = "#06171f", fg = colors.fg } -- #002b36 es el color base de Solarized Dark
+        end,
+      }
+    end,
   },
   {
     "shaunsingh/nord.nvim",
@@ -94,17 +118,39 @@ return {
     priority = 100,
     name = "nord",
   },
+  {
+    "sainnhe/everforest",
+    config = function()
+      -- Configuración adicional del tema (opcional)
+      vim.g.everforest_background = "medium"
+    end,
+  },
 
   {
     "neanias/everforest-nvim",
     version = false,
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
     config = function()
-      require("everforest").setup({
-        -- Your config here
-      })
+      require("everforest").setup()
     end,
+  },
+  {
+    "EdenEast/nightfox.nvim",
+  },
+  {
+    "rebelot/kanagawa.nvim",
+  },
+  {
+    "projekt0n/github-nvim-theme",
+  },
+  {
+    "Mofiqul/vscode.nvim",
+  },
+  {
+    "bluz71/vim-nightfly-colors",
+    name = "nightfly",
+    lazy = false,
+    priority = 1000,
   },
 }
