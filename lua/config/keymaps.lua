@@ -44,8 +44,6 @@ map("i", "<C-s>", "<Esc>:w<CR>")
 map("i", "<C-l>", "<right>")
 map("i", "<C-h>", "<left>")
 
---map('n', '<F9>', ':source ~/.config/nvim/init.lua<CR>')
-
 --control mayusculas normal mode hjkil
 map("n", "H", "<Nop>")
 map("n", "J", "<Nop>")
@@ -67,7 +65,7 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv") -- mover línea hacia abajo(v)
 --copiar la linea hacia abajo
 vim.api.nvim_set_keymap("n", "<C-A-j>", "yyp", { noremap = true, silent = true })
 
-map("n", "<leader>ñ", '<cmd>lua require("window-picker").pick_window()<CR>', { noremap = true, silent = true })
+-- map("n", "<leader>ñ", '<cmd>lua require("window-picker").pick_window()<CR>', { noremap = true, silent = true })
 
 --markdown--
 vim.api.nvim_set_keymap("n", "<leader>mr", ":RenderMarkdown<CR>", { noremap = true, silent = true })

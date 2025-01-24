@@ -1,6 +1,2 @@
-console.log(msg)
-function datos(args) {
-  // cuerpo de la función
-}
-
-
+consoleggg.log()
+consoleooo.log(msg)
