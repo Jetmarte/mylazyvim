@@ -4,13 +4,16 @@ require("config.lazy")
 
 -- ********* themes ***********
 --vim.cmd.colorscheme("catppuccin")
---vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme gruvbox")
 --vim.cmd("colorscheme gruvbox-material")
 --vim.cmd("colorscheme solarized-osaka")
 --vim.cmd("colorscheme nord")
-vim.cmd("colorscheme everforest")
+--vim.cmd("colorscheme everforest")
 --vim.cmd("colorscheme nightfly")
+--require("onedark").load()
+--vim.cmd("colorscheme miasma")
 
+---------------------------------------
 -- Configuración para separadores
 vim.api.nvim_set_hl(0, "BufferLineSeparator", {
   fg = "#3e4451",

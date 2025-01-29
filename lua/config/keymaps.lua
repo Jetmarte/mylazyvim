@@ -56,6 +56,9 @@ map("n", "<C,Z>", "<Nop>")
 map("n", "<F8>", ":bnext<CR>")
 map("n", "<F7>", ":bprev<CR>")
 
+-- reload lazyvim and update config
+map("n", "<F5>", ":source $MYVIMRC<CR>")
+
 --mover lineas
 map("n", "<A-j>", ":m .+1<CR>==") -- mover línea hacia arriba(n)
 map("n", "<A-k>", ":m .-2<CR>==") -- mover línea hacia abajo(n)
@@ -82,6 +85,7 @@ vim.api.nvim_set_keymap("n", "<leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { n
 vim.api.nvim_set_keymap("n", "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
 -- Y así sucesivamente...
+
 -- select all
 map("n", "<C-a>", "gg<S-v>G")
 
