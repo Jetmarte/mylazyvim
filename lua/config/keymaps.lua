@@ -55,6 +55,8 @@ map("n", "<C,Z>", "<Nop>")
 --moverse entre buffers
 map("n", "<F8>", ":bnext<CR>")
 map("n", "<F7>", ":bprev<CR>")
+vim.api.nvim_set_keymap("n", "<leader>i", ":bprev<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>o", ":bnext<CR>", { noremap = true, silent = true })
 
 -- reload lazyvim and update config
 map("n", "<F5>", ":source $MYVIMRC<CR>")
