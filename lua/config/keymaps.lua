@@ -23,6 +23,7 @@ map("i", "csl", "console.log()<Esc>i")
 
 --Nueva linea en insert mode
 map("i", "<C-o>", "<Esc>o")
+map("i", "<A-o>", "<CR><Esc>O")
 
 -- Punto y coma al final de la linea
 map("i", ";;", "<Esc>A;")
