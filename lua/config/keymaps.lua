@@ -23,6 +23,7 @@ map("i", "csl", "console.log()<Esc>i")
 
 --Nueva linea en insert mode
 map("i", "<C-o>", "<Esc>o")
+map("i", "<A-o>", "<CR><Esc>O")
 
 -- Punto y coma al final de la linea
 map("i", ";;", "<Esc>A;")
@@ -44,8 +45,6 @@ map("i", "<C-s>", "<Esc>:w<CR>")
 map("i", "<C-l>", "<right>")
 map("i", "<C-h>", "<left>")
 
---map('n', '<F9>', ':source ~/.config/nvim/init.lua<CR>')
-
 --control mayusculas normal mode hjkil
 map("n", "H", "<Nop>")
 map("n", "J", "<Nop>")
@@ -57,6 +56,11 @@ map("n", "<C,Z>", "<Nop>")
 --moverse entre buffers
 map("n", "<F8>", ":bnext<CR>")
 map("n", "<F7>", ":bprev<CR>")
+vim.api.nvim_set_keymap("n", "<leader>i", ":bprev<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>o", ":bnext<CR>", { noremap = true, silent = true })
+
+-- reload lazyvim and update config
+map("n", "<F5>", ":source $MYVIMRC<CR>")
 
 --mover lineas
 map("n", "<A-j>", ":m .+1<CR>==") -- mover línea hacia arriba(n)
@@ -67,7 +71,7 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv") -- mover línea hacia abajo(v)
 --copiar la linea hacia abajo
 vim.api.nvim_set_keymap("n", "<C-A-j>", "yyp", { noremap = true, silent = true })
 
-map("n", "<leader>ñ", '<cmd>lua require("window-picker").pick_window()<CR>', { noremap = true, silent = true })
+-- map("n", "<leader>ñ", '<cmd>lua require("window-picker").pick_window()<CR>', { noremap = true, silent = true })
 
 --markdown--
 vim.api.nvim_set_keymap("n", "<leader>mr", ":RenderMarkdown<CR>", { noremap = true, silent = true })
@@ -84,6 +88,7 @@ vim.api.nvim_set_keymap("n", "<leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { n
 vim.api.nvim_set_keymap("n", "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
 -- Y así sucesivamente...
+
 -- select all
 map("n", "<C-a>", "gg<S-v>G")
 

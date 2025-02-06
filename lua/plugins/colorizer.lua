@@ -1,6 +1,7 @@
 return {
   {
     "NvChad/nvim-colorizer.lua",
+    enabled = true,
     config = function()
       require("colorizer").setup({
         filetypes = { "*" }, -- Activa en todos los archivos

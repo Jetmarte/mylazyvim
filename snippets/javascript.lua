@@ -4,11 +4,12 @@ local t = ls.text_node
 local i = ls.insert_node
 
 return {
-  s("xyz", { t("console.log("), i(1, "msg"), t(")") }),
+  -- console.log()
+  s("csl", { t("console.log("), i(1, "msg"), t(")") }),
 
   -- Define un snippet para una función en JavaScript/TypeScript
   ls.add_snippets("javascript", {
-    s("sbb", {
+    s("jfn", {
       t("function "),
       i(1, "name"),
       t("("),

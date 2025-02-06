@@ -41,7 +41,7 @@ moverse de brackets previo o sigiente
 ayuda de lazyvim 
 Leader s h 
 
-// TODO: reparar este codigo  HACK BUG
+//TODO: reparar este codigo  HACK BUG
 para buscar TODO 
 Leader s t 
 
