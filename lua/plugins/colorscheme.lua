@@ -1,5 +1,24 @@
 return {
   {
+    "wtfox/jellybeans.nvim",
+    priority = 1000,
+    config = function()
+      require("jellybeans").setup({
+        style = "dark", -- "dark" or "light"
+        transparent = false,
+        italics = true,
+        flat_ui = true, -- toggles "flat UI" for pickers
+        plugins = {
+          all = false,
+          auto = true, -- will read lazy.nvim and apply the colors for plugins that are installed
+        },
+        on_highlights = function(highlights, colors) end,
+        on_colors = function(colors) end,
+      })
+      vim.cmd.colorscheme("jellybeans")
+    end,
+  },
+  {
     "xero/miasma.nvim",
     lazy = false,
     priority = 1000,
