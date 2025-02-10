@@ -117,7 +117,6 @@ opt.updatetime = 200 -- Save swap file and trigger CursorHold
 opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
-
 --========== editado por omar ================
 opt.wrap = true -- Disable line wrap
 opt.linebreak = true
@@ -142,3 +141,13 @@ vim.api.nvim_set_hl(0, "Pmenu", { bg = "#080852", fg = "#C3BAC6" }) -- Color de 
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#575268", fg = "#D9E0EE" }) -- Color de fondo y texto de la selección en el menú de autocompletado
 vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#3E4451" }) -- Color de fondo de la barra de desplazamiento del menú
 vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#ABADB3" }) -- Color de fondo del pulgar de la barra de desplazamiento
+
+--configuracion para emmet
+vim.g.user_emmet_settings = {
+  javascript = {
+    extends = "jsx",
+  },
+  typescriptreact = {
+    extends = "jsx",
+  },
+}
