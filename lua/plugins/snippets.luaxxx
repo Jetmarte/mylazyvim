@@ -51,7 +51,7 @@ ls.add_snippets("typescriptreact", {
 
 -- Define el snippet
 ls.add_snippets("javascript", {
-  s("csl", {
+  s("xyx", {
     t("console.log("), -- Inserta console.log("
     i(1, "argument"),
     t(");"),
