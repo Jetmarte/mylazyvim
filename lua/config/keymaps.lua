@@ -96,3 +96,10 @@ map("n", "<C-a>", "gg<S-v>G")
 vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
+
+vim.keymap.set("n", "<leader>ñ", function()
+  local picked_window_id = require("window-picker").pick_window()
+  if picked_window_id then
+    vim.api.nvim_set_current_win(picked_window_id)
+  end
+end, { desc = "Seleccionar ventana" })
