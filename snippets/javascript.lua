@@ -6,6 +6,14 @@ local i = ls.insert_node
 return {
   -- console.log()
   s("csl", { t("console.log("), i(1, "msg"), t(")") }),
+  -- ()=>{}
+  s("fff", {
+    t("("),
+    i(1, "msg"),
+    t(")=>{"),
+    i(2, "msg2"),
+    t("}"),
+  }),
 
   -- Define un snippet para una función en JavaScript/TypeScript
   ls.add_snippets("javascript", {
