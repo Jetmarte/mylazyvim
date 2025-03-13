@@ -21,6 +21,9 @@ map("i", "ÑL", "[<CR>]<c-o><s-o>")
 --Console.log()
 map("i", "csl", "console.log()<Esc>i")
 
+-- ()=>{}
+-- map("i", "fff", "()=>{}<Esc>hhhhi")
+
 --Nueva linea en insert mode
 map("i", "<C-o>", "<Esc>o")
 map("i", "<A-o>", "<CR><Esc>O")
@@ -96,3 +99,10 @@ map("n", "<C-a>", "gg<S-v>G")
 vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
+
+vim.keymap.set("n", "<leader>ñ", function()
+  local picked_window_id = require("window-picker").pick_window()
+  if picked_window_id then
+    vim.api.nvim_set_current_win(picked_window_id)
+  end
+end, { desc = "Seleccionar ventana" })
