@@ -21,6 +21,9 @@ map("i", "ÑL", "[<CR>]<c-o><s-o>")
 --Console.log()
 map("i", "csl", "console.log()<Esc>i")
 
+-- ()=>{}
+-- map("i", "fff", "()=>{}<Esc>hhhhi")
+
 --Nueva linea en insert mode
 map("i", "<C-o>", "<Esc>o")
 map("i", "<A-o>", "<CR><Esc>O")

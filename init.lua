@@ -51,3 +51,20 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 })
 
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e6aeae", bg = "None" }) -- Rojo
+
+-- cambiar si se puierde el foco
+local group = vim.api.nvim_create_augroup("FocusHighlight", { clear = true })
+
+vim.api.nvim_create_autocmd("FocusLost", {
+  group = group,
+  callback = function()
+    vim.cmd("highlight Normal guibg=#1f332d") -- Cambia el color de fondo al perder el foco
+  end,
+})
+
+vim.api.nvim_create_autocmd("FocusGained", {
+  group = group,
+  callback = function()
+    vim.cmd("highlight Normal guibg=#1e1e2e") -- Restaura el color original
+  end,
+})
