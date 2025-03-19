@@ -175,11 +175,44 @@ return {
         hide_inactive_statusline = false,
         dim_inactive = false,
         lualine_bold = false,
-
+        -- change colors
+        on_colors = function(colors)
+          colors.bg = "#002b36"
+          colors.hint = colors.orange
+          colors.error = colors.red
+        end,
         -- Cambiar colores específicos
-        on_highlights = function(highlights, colors)
+        on_highlights = function(hl, c)
           -- Cambiar el color de fondo
-          highlights.Normal = { bg = "#06171f", fg = colors.fg } -- #002b36 es el color base de Solarized Dark
+          -- highlights.Normal = { bg = "#06171f", fg = colors.fg } -- #002b36 es el color base de Solarized Dark
+          local prompt = "#2d3149"
+          hl.TelescopeNormal = {
+            bg = c.bg_dark,
+            fg = c.fg_dark,
+          }
+          hl.TelescopeBorder = {
+            bg = c.bg_dark,
+            fg = c.bg_dark,
+          }
+          hl.TelescopePromptNormal = {
+            bg = prompt,
+          }
+          hl.TelescopePromptBorder = {
+            bg = prompt,
+            fg = prompt,
+          }
+          hl.TelescopePromptTitle = {
+            bg = prompt,
+            fg = prompt,
+          }
+          hl.TelescopePreviewTitle = {
+            bg = c.bg_dark,
+            fg = c.bg_dark,
+          }
+          hl.TelescopeResultsTitle = {
+            bg = c.bg_dark,
+            fg = c.bg_dark,
+          }
         end,
       }
     end,

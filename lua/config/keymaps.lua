@@ -93,7 +93,8 @@ vim.api.nvim_set_keymap("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { n
 -- Y así sucesivamente...
 
 -- select all
-map("n", "<C-a>", "gg<S-v>G")
+-- map("n", "<C-a>", "gg<S-v>G")
+vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
 
 -- remane variable
 vim.keymap.set("n", "<leader>rn", function()
@@ -106,3 +107,9 @@ vim.keymap.set("n", "<leader>ñ", function()
     vim.api.nvim_set_current_win(picked_window_id)
   end
 end, { desc = "Seleccionar ventana" })
+
+-- encerrar una palabra u oracion entre comillas
+-- vim.keymap.set("v", '"', 'S"', { noremap = true, silent = true })
+-- vim.keymap.set("v", "'", "S'", { noremap = true, silent = true })
+vim.keymap.set("v", '"', [[c"<C-r>""<Esc>]], { noremap = true, silent = true })
+vim.keymap.set("v", "'", [[c'<C-r>"'<Esc>]], { noremap = true, silent = true })

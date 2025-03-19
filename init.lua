@@ -2,11 +2,11 @@
 require("config.lazy")
 -- ~/.config/nvim/init.lua
 
--- ********* themes ***********
-vim.cmd.colorscheme("catppuccin")
+-- ********* color themes  use <leader>uC ***********
+--vim.cmd.colorscheme("catppuccin")
 --vim.cmd("colorscheme gruvbox")
 --vim.cmd("colorscheme gruvbox-material")
---vim.cmd("colorscheme solarized-osaka")
+vim.cmd("colorscheme solarized-osaka")
 --vim.cmd("colorscheme jellybeans")
 --vim.cmd("colorscheme nord")
 --vim.cmd("colorscheme carbonfox")
@@ -14,8 +14,11 @@ vim.cmd.colorscheme("catppuccin")
 --vim.cmd("colorscheme nightfly")
 --require("onedark").load()
 --vim.cmd("colorscheme miasma")
-
+--vim.cmd("colorscheme tokyonight-storm")
+--vim.cmd("colorscheme dawnfox")
+--vim.cmd("colorscheme github_dark_high_contrast")
 ---------------------------------------
+---
 -- Configuración para separadores
 vim.api.nvim_set_hl(0, "BufferLineSeparator", {
   fg = "#3e4451",
@@ -49,10 +52,10 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     end
   end,
 })
-
+-- Windos separador color rosa
 vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e6aeae", bg = "None" }) -- Rojo
 
--- cambiar si se puierde el foco
+-- cambiar el color de fondo al perder el foco
 local group = vim.api.nvim_create_augroup("FocusHighlight", { clear = true })
 
 vim.api.nvim_create_autocmd("FocusLost", {
@@ -65,6 +68,6 @@ vim.api.nvim_create_autocmd("FocusLost", {
 vim.api.nvim_create_autocmd("FocusGained", {
   group = group,
   callback = function()
-    vim.cmd("highlight Normal guibg=#1e1e2e") -- Restaura el color original
+    vim.cmd("highlight Normal guibg=#001419") -- Restaura el color original
   end,
 })
