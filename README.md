@@ -11,4 +11,4 @@ My configuration is based on LazyVim.
 ### Installation (Debian-based distributions)  
 ```sh
 git clone https://github.com/Jetmarte/mylazyvim  
-cp -r mylazyvim ~/config/nvim/  
+cp -r mylazyvim ~/.config/nvim/  
