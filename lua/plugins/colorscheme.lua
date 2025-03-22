@@ -177,7 +177,8 @@ return {
         lualine_bold = false,
         -- change colors
         on_colors = function(colors)
-          colors.bg = "#002b36"
+          -- colors.bg = "#002b36"
+          colors.bg = "#001419"
           colors.hint = colors.orange
           colors.error = colors.red
         end,

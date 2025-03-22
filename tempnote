@@ -1,0 +1,28 @@
+
+local function IsLightTheme(mitheme)
+  local is_light_theme = false
+  local opcion = tostring(mitheme)
+
+  local switch = {
+    ["gruvbox"] = function()
+      is_light_theme = false
+    end,
+    ["solarized-osaka"] = function()
+      is_light_theme = false
+    end,
+    ["everforest"] = function()
+      is_light_theme = false
+    end,
+    ["github_light_default"] = function()
+      is_light_theme = true
+    end,
+  }
+
+  if switch[opcion] then
+    switch[opcion]()
+  else
+    print("Opción no válida")
+  end
+
+  return is_light_theme
+end
