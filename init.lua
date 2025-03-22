@@ -1,12 +1,17 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
--- ~/.config/nvim/init.lua
 
+require("config.lazy")
+-- require("./lua/config/personaltheme.lua")
+
+-- require(vim.fn.expand("~/.config/nvim/personaltheme"))
+-- ~/.config/nvim/init.lua
 -- ********* color themes  use <leader>uC ***********
---vim.cmd.colorscheme("catppuccin")
 --vim.cmd("colorscheme gruvbox")
---vim.cmd("colorscheme gruvbox-material")
 vim.cmd("colorscheme solarized-osaka")
+--vim.cmd("colorscheme github_light_default")
+--
+--vim.cmd.colorscheme("catppuccin")
+--vim.cmd("colorscheme gruvbox-material")
 --vim.cmd("colorscheme jellybeans")
 --vim.cmd("colorscheme nord")
 --vim.cmd("colorscheme carbonfox")
@@ -17,6 +22,7 @@ vim.cmd("colorscheme solarized-osaka")
 --vim.cmd("colorscheme tokyonight-storm")
 --vim.cmd("colorscheme dawnfox")
 --vim.cmd("colorscheme github_dark_high_contrast")
+--vim.cmd("colorscheme solarized-osaka-day")
 ---------------------------------------
 ---
 -- Configuración para separadores
@@ -52,22 +58,20 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     end
   end,
 })
--- Windos separador color rosa
-vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e6aeae", bg = "None" }) -- Rojo
 
--- cambiar el color de fondo al perder el foco
-local group = vim.api.nvim_create_augroup("FocusHighlight", { clear = true })
+-- ===============================MI CONFIGURACION==================================================R
 
-vim.api.nvim_create_autocmd("FocusLost", {
-  group = group,
+--Configuracion personal themes
+local mitheme = vim.g.colors_name or "desconocido"
+ConfigTheme(mitheme)
+print(mitheme)
+vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
-    vim.cmd("highlight Normal guibg=#1f332d") -- Cambia el color de fondo al perder el foco
+    local mithemetemp = vim.g.colors_name or "desconocido"
+    ConfigTheme(mitheme)
   end,
 })
 
-vim.api.nvim_create_autocmd("FocusGained", {
-  group = group,
-  callback = function()
-    vim.cmd("highlight Normal guibg=#001419") -- Restaura el color original
-  end,
-})
+-- detectar el color de fondo
+-- local bg_color = vim.api.nvim_get_hl_by_name("Normal", true).background
+-- print(string.format("#%06x", bg_color))
