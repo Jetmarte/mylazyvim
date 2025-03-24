@@ -42,8 +42,10 @@ local function ChangeCommentsColor(color)
   vim.api.nvim_set_hl(0, "Comment", { fg = color, italic = true }) -- Cambia el color de los comentarios
 end
 -- cambiar el color del cursor
-local function ChangeCursorColorNormalMode()
-  vim.api.nvim_set_hl(0, "Cursor", { fg = "#000000", bg = "#ff6600" }) -- Cursor naranja brillante
+local function ChangeCursorColorNormalMode(color, lineCursor)
+  vim.opt.guicursor = "n-v-c:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor,a:blinkon100"
+  vim.cmd("highlight Cursor guifg=black guibg=" .. color) -- Texto negro, fondo verde
+  vim.cmd("highlight CursorLine guibg=" .. lineCursor)
 end
 
 -- ========================= Funciones de configuracion ====================================
@@ -62,14 +64,14 @@ local function configSolarizedOsaka()
   ChaneColorSelectedText("#4a786c", "#0f382c")
 end
 
--- configuracion de solarized-osaka day
+-- configuracion de github_light
 local function GithubLightDefault()
   setColorSeparatorBar("#dea0a0")
   ChangeBackgroudnColor("#f6f8fa", "#ced8e2")
   ChangeColorWindowGetLostFocus("#f6f8fa", "#ced8e2")
   ChaneColorSelectedText("#69fad1", "#0f382c")
-  ChangeCommentsColor("#c7abab")
-  ChangeCursorColorNormalMode()
+  ChangeCommentsColor("#b0a5a5")
+  ChangeCursorColorNormalMode("#ff7575", "#e1e6c8")
 end
 -- =============================================================
 

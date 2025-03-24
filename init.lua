@@ -26,25 +26,24 @@ vim.cmd("colorscheme solarized-osaka")
 ---------------------------------------
 ---
 -- Configuración para separadores
-vim.api.nvim_set_hl(0, "BufferLineSeparator", {
-  fg = "#3e4451",
-  bg = "#1e222a",
-})
-
-vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", {
-  fg = "#3e4451",
-  bg = "#3e4451",
-})
-
+-- vim.api.nvim_set_hl(0, "BufferLineSeparator", {
+--   fg = "#3e4451",
+--   bg = "#1e222a",
+-- })
+--
+-- vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", {
+--   fg = "#3e4451",
+--   bg = "#3e4451",
+-- })
+--
 --cambiar la fuente
-vim.opt.guifont = { "FiraCode Nerd Font:h12" }
+-- vim.opt.guifont = { "FiraCode Nerd Font:h12" }
 
 -- Deshabilitar la tecla 'q' para grabak macros
 vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
 
 -----cambiar barra numerica segun el modo--------
 vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#0f3b8c", bg = "None" }) -- Rojo
-
 vim.api.nvim_create_autocmd("ModeChanged", {
   pattern = "*",
   callback = function()
@@ -61,17 +60,19 @@ vim.api.nvim_create_autocmd("ModeChanged", {
 
 -- ===============================MI CONFIGURACION==================================================R
 
---Configuracion personal themes
-local mitheme = vim.g.colors_name or "desconocido"
-ConfigTheme(mitheme)
-print(mitheme)
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    local mithemetemp = vim.g.colors_name or "desconocido"
-    ConfigTheme(mitheme)
-  end,
-})
-
--- detectar el color de fondo
--- local bg_color = vim.api.nvim_get_hl_by_name("Normal", true).background
--- print(string.format("#%06x", bg_color))
+--
+-- cargar configuracion personal al inicio
+local theme_name_load = vim.g.colors_name or "unknown"
+ConfigTheme(theme_name_load)
+-- detectar si se cambia el tema
+vim
+  .api
+  .nvim_create_autocmd("ColorScheme", {
+    callback = function()
+      local theme_name = vim.g.colors_name or "unknown"
+      vim.g.current_theme = theme_name
+      ConfigTheme(theme_name)
+      print("Tema cambiado a: " .. theme_name)
+    end,
+  })
+  (
