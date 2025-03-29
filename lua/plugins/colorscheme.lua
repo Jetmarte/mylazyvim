@@ -15,7 +15,7 @@ return {
         on_highlights = function(highlights, colors) end,
         on_colors = function(colors) end,
       })
-      vim.cmd.colorscheme("jellybeans")
+      -- vim.cmd.colorscheme("jellybeans")
     end,
   },
   {

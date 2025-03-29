@@ -6,14 +6,13 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
--- LazyVim auto format
+-- General options
 vim.g.autoformat = true
-
--- LazyVim picker to use.
--- Can be one of: telescope, fzf
--- Leave it to "auto" to automatically use the picker
--- enabled with `:LazyExtras`
 vim.g.lazyvim_picker = "auto"
+vim.g.deprecation_warnings = false
+vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
+vim.g.trouble_lualine = true
+vim.g.markdown_recommended_style = 0
 
 -- LazyVim root dir detection
 -- Each entry can be:
@@ -40,19 +39,6 @@ vim.g.lazyvim_statuscolumn = {
 -- * pwsh
 -- * powershell
 -- LazyVim.terminal.setup("pwsh")
-
--- Hide deprecation warnings
-vim.g.deprecation_warnings = false
-
--- Set filetype to `bigfile` for files larger than 1.5 MB
--- Only vim syntax will be enabled (with the correct filetype)
--- LSP, treesitter and other ft plugins will be disabled.
--- mini.animate will also be disabled.
-vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
-
--- Show the current document symbols location from Trouble in lualine
--- You can disable this for a buffer by setting `vim.b.trouble_lualine = false`
-vim.g.trouble_lualine = true
 
 local opt = vim.opt
 
@@ -119,10 +105,9 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 --========== editado por omar ================
 opt.wrap = true -- Disable line wrap
-opt.linebreak = true
---opt.textwidth = 80
 -- =======================================
 
+-- Fold settings for Neovim 0.10+
 if vim.fn.has("nvim-0.10") == 1 then
   opt.smoothscroll = true
   opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
@@ -133,14 +118,18 @@ else
   opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
 
--- Fix markdown indentation settings
-vim.g.markdown_recommended_style = 0
+-- Color menu completions dynamically based on the current color scheme
+local bg = vim.api.nvim_get_hl_by_name("Normal", true).background
+local fg = vim.api.nvim_get_hl_by_name("Normal", true).foreground
 
---color menu autocompletado
-vim.api.nvim_set_hl(0, "Pmenu", { bg = "#080852", fg = "#C3BAC6" }) -- Color de fondo y texto del menú de autocompletado
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#575268", fg = "#D9E0EE" }) -- Color de fondo y texto de la selección en el menú de autocompletado
-vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#3E4451" }) -- Color de fondo de la barra de desplazamiento del menú
-vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#ABADB3" }) -- Color de fondo del pulgar de la barra de desplazamiento
+vim.api.nvim_set_hl(0, "Pmenu", { bg = bg, fg = fg })
+vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#575268", fg = "#D9E0EE" })
+vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#3E4451" })
+vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#ABADB3" })
+
+-- Smooth cursor movement when scrolling
+opt.scrolljump = 5 -- Moves cursor with this amount of lines when scrolling
+opt.smoothscroll = true -- Enable smooth scrolling
 
 --configuracion para emmet
 vim.g.user_emmet_settings = {
@@ -148,6 +137,6 @@ vim.g.user_emmet_settings = {
     extends = "jsx",
   },
   typescriptreact = {
-    extends = "jsx",
+    extends = "tsx",
   },
 }

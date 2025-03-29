@@ -108,8 +108,5 @@ vim.keymap.set("n", "<leader>ñ", function()
   end
 end, { desc = "Seleccionar ventana" })
 
--- encerrar una palabra u oracion entre comillas
--- vim.keymap.set("v", '"', 'S"', { noremap = true, silent = true })
--- vim.keymap.set("v", "'", "S'", { noremap = true, silent = true })
-vim.keymap.set("v", '"', [[c"<C-r>""<Esc>]], { noremap = true, silent = true })
-vim.keymap.set("v", "'", [[c'<C-r>"'<Esc>]], { noremap = true, silent = true })
+-- Deshabilitar la tecla 'q' para grabak macros
+vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
