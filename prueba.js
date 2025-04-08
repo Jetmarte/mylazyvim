@@ -1,6 +1,1 @@
-function sensura (){
-  datos de la senculra
-}
-
-sensura()
-
+console.log("Hello World");

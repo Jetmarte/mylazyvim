@@ -57,8 +57,13 @@ map("n", "L", "<Nop>")
 map("n", "<C,Z>", "<Nop>")
 
 --moverse entre buffers
-map("n", "<F8>", ":bnext<CR>")
-map("n", "<F7>", ":bprev<CR>")
+-- map("n", "<F8>", ":bnext<CR>")
+-- map("n", "<F7>", ":bprev<CR>")
+
+-- togle neoCodeium
+map("n", "<F8>", ":NeoCodeium toggle<CR>")
+-- map("n", "<F7>", ":neoCodeium <CR>")
+
 vim.api.nvim_set_keymap("n", "<leader>i", ":bprev<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>o", ":bnext<CR>", { noremap = true, silent = true })
 
