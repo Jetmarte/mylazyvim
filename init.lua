@@ -36,3 +36,23 @@ vim.api.nvim_set_hl(0, "@keyword.function", { fg = "#ffcc00", bold = true }) -- 
 -- vim.api.nvim_set_hl(0, "@method", { fg = "#ffcc00", bold = true })
 
 vim.api.nvim_set_hl(0, "Visual", { bg = "#520606", fg = "NONE" })
+
+local lostFocusColor = "#1e1e2e" -- color de fondo cuando se pierde el foco
+local getFocusColor = "#001419" -- color de fondo cuando se gana el foco 
+-- Crear el grupo de autocmd
+local group = vim.api.nvim_create_augroup("FocusEvents", { clear = true })
+
+vim.api.nvim_create_autocmd("FocusLost", {
+  group = group,
+  callback = function()
+    vim.cmd("highlight Normal guibg=" .. lostFocusColor)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FocusGained", {
+    group = group,
+    callback = function()
+      vim.cmd("highlight Normal guibg=" .. getFocusColor)
+    end,
+  })
+

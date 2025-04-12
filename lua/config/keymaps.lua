@@ -115,3 +115,6 @@ end, { desc = "Seleccionar ventana" })
 
 -- Deshabilitar la tecla 'q' para grabak macros
 vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
+
+--deshabilitar control m
+vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })

@@ -1,3 +1,4 @@
+--herramienta para tipar automaticamente
 return {
   {
     "midoBB/nvim-quicktype",

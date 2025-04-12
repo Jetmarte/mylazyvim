@@ -1,4 +1,4 @@
--- Instalar nvim-autopairs
+-- inseratar automaticamente los pares de caracteres-- Instalar nvim-autopairs
 return {
   "windwp/nvim-autopairs",
   config = function()

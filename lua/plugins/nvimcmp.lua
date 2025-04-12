@@ -1,5 +1,6 @@
 return {
   {
+    -- Plugin de autocompletado aanzado
     "hrsh7th/nvim-cmp",
     ---@class opts cmp.ConfigSchema
     opts = function(_, opts)

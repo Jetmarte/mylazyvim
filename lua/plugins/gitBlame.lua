@@ -1,4 +1,6 @@
 return {
+  "lewis6991/gitsigns.nvim",
+  enabled = true,
   require("gitsigns").setup({
     signs = {
       add = { text = "┃" },
