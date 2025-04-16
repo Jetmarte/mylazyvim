@@ -4,12 +4,15 @@ return {
     config = function()
       require("bufferline").setup({
         options = {
+          max_name_length = 40, -- Ajusta este valor según sea necesario
+          max_prefix_length = 15, -- Este valor ajusta el ancho para los buffers largos 15
+          show_buffer_icons = true, -- Asegura que los íconos se muestren si los tienes habilitados
           numbers = "ordinal", -- Muestra los números de los buffers
           separator_style = "thin", -- otras opciones "thick", "thin", "padded_slant"
           show_buffer_close_icons = true,
           show_close_icon = false,
-          enforce_regular_tabs = true, --fuerza a los buffers a ocupar todo el espacio
           always_show_bufferline = true, --asegura que siempre se muestre el bufferline
+          enforce_regular_tabs = false, --fuerza a los buffers a ocupar todo el espacio
         },
         highlights = {
           buffer_selected = {
