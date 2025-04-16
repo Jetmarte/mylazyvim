@@ -1,24 +1,31 @@
--- cambiar el color de fondo al perder el foco
-local function ChangeBackgroudnColor(getFocusColor, lostFocusColor)
-  local group = vim.api.nvim_create_augroup("FocusHighlight", { clear = true })
+local Config = {}
 
+--[[
+configurar el color de fondo de la ventana al obtener y perder el foco
+]]
+function Config.BackgroudnColorToFocus(getFocusColor, lostFocusColor)
+  local group = vim.api.nvim_create_augroup("FocusEvents", { clear = true })
   vim.api.nvim_create_autocmd("FocusLost", {
     group = group,
     callback = function()
-      vim.cmd("highlight Normal guibg=" .. lostFocusColor)
+      vim.api.nvim_set_hl(0, "Normal", { bg = lostFocusColor })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = lostFocusColor })
     end,
   })
 
   vim.api.nvim_create_autocmd("FocusGained", {
     group = group,
     callback = function()
-      vim.cmd("highlight Normal guibg=" .. getFocusColor)
+      vim.api.nvim_set_hl(0, "Normal", { bg = getFocusColor })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = getFocusColor })
     end,
   })
 end
 
--- cambiar el color de la ventana al obtener y perder foco
-local function ChangeColorWindowGetLostFocus(getFocusColor, lostFocusColor)
+--[[
+--cambiar el color de fondo de la ventana al perder el foco
+--]]
+function Config.BackgroundColorWindowToFocus(getFocusColor, lostFocusColor)
   vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = function()
       vim.cmd("highlight Normal guibg=" .. getFocusColor) -- Color de la ventana activa
@@ -27,24 +34,32 @@ local function ChangeColorWindowGetLostFocus(getFocusColor, lostFocusColor)
   })
 end
 
--- cambiar el color de texto pintado
-local function ChaneColorSelectedText(bgColor, fgColor)
+--[[ 
+-- cambiar el color de la palabra seleccionada
+--]]
+function Config.ColorSelectedText(bgColor)
   vim.api.nvim_set_hl(0, "Visual", { bg = bgColor, fg = "NONE" })
 end
 
---color de coentarios
-local function ChangeCommentsColor(color)
-  vim.api.nvim_set_hl(0, "Comment", { fg = color, italic = true }) -- Cambia el color de los comentarios
+--[[ 
+-- cambiar el color de los comentarios
+--]]
+function Config.CommentColor(color)
+  vim.api.nvim_set_hl(0, "Comment", { fg = color, italic = true })
 end
 
--- cambiar el color de row cursor
-local function ChangeRowColorCursor(colorRow, colorNumber)
-  vim.api.nvim_set_hl(0, "CursorLine", { bg = colorRow }) -- Cambia el color de fondo
-  vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colorNumber, bold = true }) -- Cambia el número de línea actual
+--[[ 
+-- cambiar el color del numero de la linea del cursor
+--]]
+function Config.RowColorCursor(colorRow, colorNumber)
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = colorRow })
+  vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colorNumber, bold = true })
 end
 
--- cambiar el color del cursor
-local function ChangeCursorColor(foreground, background, iforeground, ibackground)
+--[[ 
+--cambiar el color del cursor
+--]]
+function Config.CursorColor(foreground, background, iforeground, ibackground)
   vim.opt.guicursor = "n-v-i-c:block-Cursor,i-ci-ve:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor"
   vim.api.nvim_set_hl(0, "Cursor", { fg = foreground, bg = background })
   -- -- Cambia el color de fondo del cursor en la línea activa solo en modo inserción
@@ -56,63 +71,70 @@ local function ChangeCursorColor(foreground, background, iforeground, ibackgroun
   -- Restaura el color de la línea activa cuando salgas del modo inserción
   vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
-      vim.api.nvim_set_hl(0, "Cursor", { bg = ibackground }) -- Restaura el color original
+      vim.api.nvim_set_hl(0, "Cursor", { bg = ibackground })
     end,
   })
 end
 
-function ChangeBackgroundColor(bgColor)
+--[[ 
+-- cambiar el color de fondo
+--]]
+function Config.BackgroundColor(bgColor)
   vim.api.nvim_set_hl(0, "Normal", { bg = bgColor }) -- Cambia el fondo a un color específico
   vim.api.nvim_set_hl(0, "Visual", { bg = bgColor, fg = "NONE" }) -- Cambia solo la selección
   vim.api.nvim_set_hl(0, "Insert", { bg = bgColor, fg = "NONE" }) -- Cambia solo la selección
 end
+
 -- =========================================================================================
 -- ========================= Funciones de configuracion ====================================
---   configuracion de gruvbox
-local function configGruvbox()
-  ChangeBackgroudnColor("#1d2021", "#103027")
-  ChangeColorWindowGetLostFocus("#1d2021", "#103027")
-end
-
 -- configuracion de solarized-osaka
 local function configSolarizedOsaka()
-  ChangeBackgroudnColor("#001419", "#290426")
-  ChangeColorWindowGetLostFocus("#001419", "#290426")
-  ChaneColorSelectedText("#456e63", "#0f382c")
-  ChangeCursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
+  Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
+  Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
+  Config.ColorSelectedText("#3b0d08")
+  Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
+end
+
+--   configuracion de gruvbox
+local function configGruvbox()
+  Config.BackgroudnColorToFocus("#1d2021", "#103027")
+  Config.BackgroundColorWindowToFocus("#1d2021", "#103027")
 end
 
 -- configuracion de github_light
 local function GithubLightDefault()
-  ChangeCommentsColor("#c7abab")
-  ChangeBackgroudnColor("#f6f8fa", "#ced8e2")
-  ChangeColorWindowGetLostFocus("#f6f8fa", "#ced8e2")
-  ChaneColorSelectedText("#69fad1", "#0f382c")
-  -- ChangeCursorColor("#000000", "#ff6600")
+  Config.CommentColor("#c7abab")
+  Config.BackgroudnColorToFocus("#f6f8fa", "#ced8e2")
+  Config.BackgroundColorWindowToFocus("#f6f8fa", "#ced8e2")
+  Config.ColorSelectedText("#69fad1")
+  -- CursorColor("#000000", "#ff6600")
 end
 
 -- configuracion de dayfox
 local function ConfigDayFox()
-  ChangeCommentsColor("#c7abab")
-  ChangeBackgroundColor("#f6f8fa")
-  ChangeBackgroudnColor("#f6f8fa", "#e0e0e0")
-  ChangeColorWindowGetLostFocus("#f6f8fa", "#e0e0e0")
-  ChaneColorSelectedText("#d3c7bb", "#0f382c")
-  ChangeCursorColor("#000000", "#ff6600", "#000000", "#ff6600")
-  ChangeRowColorCursor("#e0e0e0", "#ff6600")
+  Config.CommentColor("#c7abab")
+  Config.BackgroundColor("#f6f8fa")
+  Config.BackgroudnColorToFocus("#f6f8fa", "#e0e0e0")
+  Config.BackgroundColorWindowToFocus("#f6f8fa", "#e0e0e0")
+  Config.ColorSelectedText("#d3c7bb")
+  Config.CursorColor("#000000", "#ff6600", "#000000", "#ff6600")
+  Config.RowColorCursor("#e0e0e0", "#ff6600")
 end
 
 local function ConfingEverForest()
-  print("")
+  Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
+  Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
+  Config.ColorSelectedText("#3b0d08")
+  -- CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
 end
 
 local function ConfingCatppuccinLatte()
-  ChangeCommentsColor("#c7abab")
-  ChangeBackgroudnColor("#ffffff", "#e0e0e0") --lost focus
-  ChangeColorWindowGetLostFocus("#ffffff", "#e0e0e0") --windows lost focus
-  ChaneColorSelectedText("#d3c7bb", "#0f382c")
-  ChangeCursorColor("#000000", "#ff6600", "#000000", "#ff6600")
-  ChangeRowColorCursor("#e0e0e0", "#ff6600")
+  Config.CommentColor("#c7abab")
+  Config.BackgroudnColorToFocus("#ffffff", "#e0e0e0") --lost focus
+  Config.BackgroundColorWindowToFocus("#ffffff", "#e0e0e0") --windows lost focus
+  Config.ColorSelectedText("#d3c7bb")
+  Config.CursorColor("#000000", "#ff6600", "#000000", "#ff6600")
+  Config.RowColorCursor("#e0e0e0", "#ff6600")
 end
 
 -- =============================================================
@@ -165,4 +187,5 @@ function ConfigMyColor()
     end,
   })
 end
-return {}
+
+return Config

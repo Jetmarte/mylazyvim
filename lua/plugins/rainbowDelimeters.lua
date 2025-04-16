@@ -1,4 +1,3 @@
--- ~/.config/nvim/lua/plugins/rainbow.lua
 return {
   "HiPhish/rainbow-delimiters.nvim",
   config = function()

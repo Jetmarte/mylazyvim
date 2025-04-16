@@ -1,6 +1,5 @@
 -----cambiar barra numerica segun el modo--------
 vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#165d94", bg = "NONE" })
--- vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#543e3e", bg = "NONE" })
 
 vim.api.nvim_create_autocmd("ModeChanged", {
   pattern = "*",
@@ -13,6 +12,9 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     elseif mode == "v" or mode == "V" or mode == "" then
       vim.api.nvim_set_hl(0, "NeoTreeWinSeparator", { fg = "#ff0000", bg = "NONE" })
     end
+    local win_separator_color = "#dea0a0"
+    vim.api.nvim_set_hl(0, "WinSeparator", { fg = win_separator_color, bg = "None" })
   end,
 })
+
 return {}
