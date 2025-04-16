@@ -59,8 +59,14 @@ map("n", "<C,Z>", "<Nop>")
 --moverse entre buffers
 map("n", "<F8>", ":bnext<CR>")
 map("n", "<F7>", ":bprev<CR>")
-vim.api.nvim_set_keymap("n", "<leader>i", ":bprev<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>o", ":bnext<CR>", { noremap = true, silent = true })
+
+-- togle neoCodeium
+map("n", "<F9>", ":NeoCodeium toggle<CR>")
+-- map("n", "<F7>", ":neoCodeium <CR>")
+
+--cambiar a la tab siguente
+-- vim.api.nvim_set_keymap("n", "<leader>i", ":bprev<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>o", ":bnext<CR>", { noremap = true, silent = true })
 
 -- reload lazyvim and update config
 map("n", "<F5>", ":source $MYVIMRC<CR>")
@@ -108,8 +114,9 @@ vim.keymap.set("n", "<leader>ñ", function()
   end
 end, { desc = "Seleccionar ventana" })
 
--- encerrar una palabra u oracion entre comillas
--- vim.keymap.set("v", '"', 'S"', { noremap = true, silent = true })
--- vim.keymap.set("v", "'", "S'", { noremap = true, silent = true })
-vim.keymap.set("v", '"', [[c"<C-r>""<Esc>]], { noremap = true, silent = true })
-vim.keymap.set("v", "'", [[c'<C-r>"'<Esc>]], { noremap = true, silent = true })
+-- Deshabilitar la tecla 'q' para grabak macros
+vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
+vim.keymap.set("v", "q", "<Nop>", { noremap = true, silent = true })
+
+--deshabilitar control m
+vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })
