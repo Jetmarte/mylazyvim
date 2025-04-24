@@ -1,5 +1,10 @@
 local Config = {}
 
+function Config.setColorFunction(functionColor, returnColor)
+  vim.api.nvim_set_hl(0, "@keyword.function", { fg = functionColor, bold = true })
+  vim.api.nvim_set_hl(0, "@keyword.return", { fg = returnColor, bold = true })
+end
+
 --[[
 configurar el color de fondo de la ventana al obtener y perder el foco
 ]]
@@ -119,6 +124,7 @@ local function ConfigDayFox()
   Config.ColorSelectedText("#d3c7bb")
   Config.CursorColor("#000000", "#ff6600", "#000000", "#ff6600")
   Config.RowColorCursor("#e0e0e0", "#ff6600")
+  Config.setColorFunction("#ff6600", "#ff6600")
 end
 
 local function ConfingEverForest()
