@@ -90,6 +90,15 @@ function Config.BackgroundColor(bgColor)
   vim.api.nvim_set_hl(0, "Insert", { bg = bgColor, fg = "NONE" }) -- Cambia solo la selección
 end
 
+function Config.setColorMenu(bgColor)
+  -- local colors = require("blue.palettes").get_palette() -- si usas Catppuccin
+  -- Puedes definir tu color manualmente si quieres, por ejemplo: "#1e1e2e"
+  vim.api.nvim_set_hl(0, "Pmenu", { bg = bgColor }) -- fondo del menú
+  -- vim.api.nvim_set_hl(0, "PmenuSel", { bg = colors.surface1 }) -- ítem seleccionado
+  -- vim.api.nvim_set_hl(0, "PmenuSbar", { bg = colors.surface0 }) -- scrollbar
+  -- vim.api.nvim_set_hl(0, "PmenuThumb", { bg = colors.overlay0 }) -- scrollbar thumb
+end
+
 -- =========================================================================================
 -- ========================= Funciones de configuracion ====================================
 -- configuracion de solarized-osaka
@@ -118,10 +127,6 @@ end
 -- configuracion de dayfox
 local function ConfigDayFox()
   Config.CommentColor("#c7abab")
-  Config.BackgroundColor("#f6f8fa")
-  Config.BackgroudnColorToFocus("#f6f8fa", "#e0e0e0")
-  Config.BackgroundColorWindowToFocus("#f6f8fa", "#e0e0e0")
-  Config.ColorSelectedText("#d3c7bb")
   Config.CursorColor("#000000", "#ff6600", "#000000", "#ff6600")
   Config.RowColorCursor("#e0e0e0", "#ff6600")
   Config.setColorFunction("#ff6600", "#ff6600")
@@ -141,6 +146,10 @@ local function ConfingCatppuccinLatte()
   Config.ColorSelectedText("#d3c7bb")
   Config.CursorColor("#000000", "#ff6600", "#000000", "#ff6600")
   Config.RowColorCursor("#e0e0e0", "#ff6600")
+end
+
+local function ConfingBlue()
+  --Config.CommentColor("#c7abab")
 end
 
 -- =============================================================
@@ -166,6 +175,9 @@ local function ConfigTheme(themeName)
     end,
     ["catppuccin-latte"] = function()
       ConfingCatppuccinLatte()
+    end,
+    ["blue"] = function()
+      ConfingBlue()
     end,
   }
 
