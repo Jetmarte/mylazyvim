@@ -9,5 +9,7 @@ vim.cmd("colorscheme solarized-osaka")
 --vim.cmd("colorscheme dayfox")
 --vim.cmd("colorscheme everforest")
 --vim.cmd("colorscheme catppuccin-latte")
+--vim.cmd("colorscheme blue")
+--vim.cmd("colorscheme lackluster")
 ---------------------------------------
 ConfigMyColor()
