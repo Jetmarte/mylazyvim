@@ -105,7 +105,7 @@ end
 local function configSolarizedOsaka()
   Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
   Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
-  Config.ColorSelectedText("#3b0d08")
+  Config.ColorSelectedText("#4d3e0b")
   Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
 end
 
