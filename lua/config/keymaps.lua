@@ -11,7 +11,7 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Llaves en el codigo
-map("i", "ññ", "{}<Esc>i")
+map("i", "ññ", "{ }<Esc>i")
 map("i", "ÑÑ", "<Esc>A{<CR>}<c-o><s-o>")
 
 -- Insertar corchetes

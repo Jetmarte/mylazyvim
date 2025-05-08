@@ -1,4 +1,15 @@
 return {
+  -- example lazy.nvim install setup
+  {
+    "slugbyte/lackluster.nvim",
+    lazy = false,
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme("lackluster")
+      -- vim.cmd.colorscheme("lackluster-hack") -- my favorite
+      -- vim.cmd.colorscheme("lackluster-mint")
+    end,
+  },
   {
     "catppuccin/nvim",
     lazy = true,
@@ -202,7 +213,7 @@ return {
   },
   {
     "craftzdog/solarized-osaka.nvim",
-    lazy = true,
+    lazy = false,
     priority = 1000,
     opts = function()
       return {
@@ -261,6 +272,10 @@ return {
         end,
       }
     end,
+    -- config = function(_, opts)
+    --   require("solarized-osaka").setup(opts)
+    --   --vim.cmd("colorscheme solarized-osaka")
+    -- end,
   },
   {
     "Mofiqul/vscode.nvim",
