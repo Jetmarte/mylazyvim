@@ -1,35 +1,35 @@
 local Config = {}
 
 function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
-  local focused_bg = "#1e1e2e" -- Fondo activo
-  local unfocused_bg = "#2a2a3a" -- Fondo inactivo
+  local focused_bg = getFocusColor -- Color cuando tiene foco
+  local unfocused_bg = lostFocusColor -- Color cuando no tiene foco
 
-  -- Cambia el fondo del grupo de resaltado NeoTreeNormal
+  -- Cambia el fondo del grupo de resaltado NeoTreeNormal y NeoTreeNormalNC
   local function set_neotree_background(bg)
     vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = bg })
+    vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = bg })
   end
 
-  -- Detecta si el buffer actual es de Neo-tree
+  -- Detecta si el buffer actual es de tipo neo-tree
   local function is_neotree_buf()
-    local bufname = vim.api.nvim_buf_get_name(0)
-    return bufname:match("neo%-tree")
+    return vim.bo.filetype == "neo-tree"
   end
 
-  -- Aplica el color activo cuando Neo-tree gana foco o se muestra
-  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter", "User" }, {
-    pattern = { "NeoTreeBufferEnter" },
+  -- Cuando Neo-tree gana foco
+  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = function()
-      if is_neotree_buf() or vim.v.event.match == "NeoTreeBufferEnter" then
+      if is_neotree_buf() then
         set_neotree_background(focused_bg)
       end
     end,
   })
 
-  -- Aplica el color inactivo cuando Neo-tree pierde foco o se oculta
-  vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave", "BufWinLeave", "User" }, {
-    pattern = { "NeoTreeBufferLeave" },
+  -- Cuando Neo-tree pierde foco
+  vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     callback = function()
-      set_neotree_background(unfocused_bg)
+      if is_neotree_buf() then
+        set_neotree_background(unfocused_bg)
+      end
     end,
   })
 end
@@ -137,9 +137,9 @@ end
 -- ========================= Funciones de configuracion ====================================
 -- configuracion de solarized-osaka
 local function configSolarizedOsaka()
+  Config.setNeotreeBgColor("#001419", "#1e1e2e")
   Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
   Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
-  Config.setNeotreeBgColor("#001419", "#1e1e2e")
   Config.ColorSelectedText("#4d3e0b")
   Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
 end
