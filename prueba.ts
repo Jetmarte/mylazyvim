@@ -1,3 +1,0 @@
-function nomre() {
-  return "hola";
-}

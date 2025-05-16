@@ -6,7 +6,7 @@ local i = ls.insert_node
 return {
   -- Define un snippet para React (JSX/TSX)
   ls.add_snippets("typescriptreact", {
-    s("nextCompFunction", {
+    s("rfcx", {
       t({ "", "", "export default function " }),
       i(1, "ComponentName"),
       t(" () {"),
@@ -19,7 +19,7 @@ return {
   }),
   -- Define un snippet para React (JSX/TSX)
   ls.add_snippets("typescriptreact", {
-    s("nextcompArrow", {
+    s("rafcx", {
       t("import React from 'react';"),
       t({ "", "", "const " }),
       i(1, "ComponentName"),

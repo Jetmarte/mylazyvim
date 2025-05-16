@@ -59,10 +59,17 @@ map("n", "<C,Z>", "<Nop>")
 --moverse entre buffers
 map("n", "<F8>", ":bnext<CR>")
 map("n", "<F7>", ":bprev<CR>")
+-- vim.api.nvim_set_keymap("n", "<C-A-i>", ":bprev<CR>", { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<C-A-o>", ":bnext<CR>", { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("n", "<A-i>", ":bprev<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<A-o>", ":bnext<CR>", { noremap = true, silent = true })
+
+--BufferLIne pick
+vim.api.nvim_set_keymap("n", "<A-u>", ":BufferLinePick<CR>", { noremap = true, silent = true })
 
 -- togle neoCodeium
 map("n", "<F9>", ":NeoCodeium toggle<CR>")
--- map("n", "<F7>", ":neoCodeium <CR>")
 
 --cambiar a la tab siguente
 -- vim.api.nvim_set_keymap("n", "<leader>i", ":bprev<CR>", { noremap = true, silent = true })
@@ -102,11 +109,12 @@ vim.api.nvim_set_keymap("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { n
 -- map("n", "<C-a>", "gg<S-v>G")
 vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
 
--- remane variable
+-- remane variable e
 vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
 
+--window pickeer
 vim.keymap.set("n", "<leader>ñ", function()
   local picked_window_id = require("window-picker").pick_window()
   if picked_window_id then
@@ -120,3 +128,15 @@ vim.keymap.set("v", "q", "<Nop>", { noremap = true, silent = true })
 
 --deshabilitar control m
 vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })
+
+-- Keybindings para moverse entre splits y paneles
+local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "<C-h>", "<cmd>lua require('tmux').move_left()<cr>", opts)
+vim.keymap.set("n", "<C-j>", "<cmd>lua require('tmux').move_bottom()<cr>", opts)
+vim.keymap.set("n", "<C-k>", "<cmd>lua require('tmux').move_top()<cr>", opts)
+vim.keymap.set("n", "<C-l>", "<cmd>lua require('tmux').move_right()<cr>", opts)
+
+--pegar desde el prtapapeles
+-- Sobrescribe `p` y `P` para que usen el portapapeles del sistema
+vim.keymap.set("n", "p", '"+p', { desc = "Pegar desde portapapeles del sistema" })
+vim.keymap.set("n", "P", '"+P', { desc = "Pegar antes del cursor desde portapapeles" })
