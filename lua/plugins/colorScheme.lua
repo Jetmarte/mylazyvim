@@ -294,6 +294,7 @@ return {
           types = { "italic" },
           keyword = { "italic" },
           comment = { "italic" },
+          spell = {},
         },
         overrides = {},
         color_overrides = {},
