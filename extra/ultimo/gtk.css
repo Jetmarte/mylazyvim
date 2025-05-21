@@ -1,0 +1,28 @@
+@define-color backdrop_color #9eb8ae;
+@define-color standout_color #ff6700;
+@define-color very_standout_color #FFFF00;
+/* Cambiado a código hexadecimal */
+
+/* Borde alrededor de ventanas */
+decoration {
+  border: 1px solid @very_standout_color;
+  background: @very_standout_color;
+}
+
+decoration:backdrop {
+  border: 1px solid @backdrop_color;
+  background: @backdrop_color;
+}
+
+/* Colores de la barra de título/headerbar */
+headerbar {
+  background: @standout_color;
+  color: black;
+}
+
+headerbar:backdrop {
+  background: @backdrop_color;
+  color: #44443b;
+}
+
+/* route ~/.config/gtk-3.0/gtk.css */

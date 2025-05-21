@@ -1,6 +1,7 @@
 return {
   "lewis6991/gitsigns.nvim",
   enabled = true,
+  event = "BufReadPre", -- evita cargarlo durante eventos rápidos
   require("gitsigns").setup({
     signs = {
       add = { text = "┃" },

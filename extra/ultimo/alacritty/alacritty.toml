@@ -1,0 +1,28 @@
+
+# Configuración básica de Alacritty
+
+[font]
+normal = { family = "FiraCode Nerd Font Mono", style = "Medium" } # Cambia la fuente si prefieres otra
+# normal = { family = "JetBrains Mono", style = "Medium" } # Cambia la fuente si prefieres otra
+bold = { family = "FiraCode Nerd Font Mono", style = "Bold" }
+# bold = { family = "Jetbrains Mono", style = "Bold" }
+italic = { family = "Ubuntu Mono ", style = "Italic" }
+bold_italic = { family = "Ubuntu Mono", style = "Bold Italic" }
+size = 11.0                                                     # Tamaño de la fuente
+offset = { x = 0, y = 4 }                                       #cmabiar el ancho y alto
+glyph_offset = { x = 0, y = 0 }
+[colors]
+# primary = { background = "#1e1e2e", foreground = "#cdd6f4" } # Fondo y texto principal
+primary = { background = "#001419", foreground = "#cdd6f4" } # Fondo y texto principal
+cursor = { text = "#1e1e2e", cursor = "#cdd6f4" }            # Color del cursor
+
+[window]
+opacity = 1.0                # Transparencia (1.0 = sin transparencia)
+padding = { x = 10, y = 10 } # Espaciado interno
+
+
+[terminal]
+
+[terminal.shell]
+#program = "/bin/zsh" # Usa Zsh como shell (cámbialo a "/bin/bash" si usas Bash)
+program = "/usr/bin/tmux"
