@@ -152,11 +152,12 @@ end
 
 -- configuracion de github_light
 local function GithubLightDefault()
+  Config.setNeotreeBgColor("#f6f8fa", "#ced8e2")
   Config.CommentColor("#c7abab")
   Config.BackgroudnColorToFocus("#f6f8fa", "#ced8e2")
   Config.BackgroundColorWindowToFocus("#f6f8fa", "#ced8e2")
   Config.ColorSelectedText("#69fad1")
-  -- CursorColor("#000000", "#ff6600")
+  Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
 end
 
 -- configuracion de dayfox
@@ -239,7 +240,7 @@ function ConfigMyColor()
   -- cargar configuracion personal al inicio
   local theme_name = vim.g.colors_name or "unknown"
   vim.g.current_theme = theme_name
-  print("==> " .. vim.g.current_theme)
+  -- print("==> " .. vim.g.current_theme)
   ConfigTheme(theme_name)
   -- det ectar si se cambia el tema
   vim.api.nvim_create_autocmd("ColorScheme", {
