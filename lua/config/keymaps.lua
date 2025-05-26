@@ -116,7 +116,6 @@ end, { expr = true })
 
 --window pickeer
 vim.keymap.set("n", "<leader>ñ", function()
-  local picked_window_id = require("window-picker").pick_window()
   if picked_window_id then
     vim.api.nvim_set_current_win(picked_window_id)
   end
@@ -127,6 +126,7 @@ vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("v", "q", "<Nop>", { noremap = true, silent = true })
 
 --deshabilitar control m
+local picked_window_id = require("window-picker").pick_window()
 vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })
 
 -- Keybindings para moverse entre splits y paneles

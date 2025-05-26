@@ -6,6 +6,8 @@ local i = ls.insert_node
 return {
   -- =======> console.log()
   s("csl", { t("console.log("), i(1, "msg"), t(")") }),
+  -- =======> console.log()
+  s("holamundo", { t("saludos mundo") }),
   -- ========>()=>{}
   s("ña", {
     t("("),
