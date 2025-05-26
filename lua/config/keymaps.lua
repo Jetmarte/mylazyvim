@@ -114,12 +114,16 @@ vim.keymap.set("n", "<leader>rn", function()
   return ":IncRename " .. vim.fn.expand("<cword>")
 end, { expr = true })
 
---window pickeer
 vim.keymap.set("n", "<leader>ñ", function()
-  if picked_window_id then
-    vim.api.nvim_set_current_win(picked_window_id)
+  local picked = require("window-picker").pick_window({
+    hint = "floating-big-letter",
+  })
+  if picked and vim.api.nvim_win_is_valid(picked) then
+    vim.api.nvim_set_current_win(picked)
+  else
+    vim.notify("No se seleccionó ninguna ventana", vim.log.levels.WARN)
   end
-end, { desc = "Seleccionar ventana" })
+end, { desc = "Elegir ventana con Window Picker" })
 
 -- Deshabilitar la tecla 'q' para grabak macros
 vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
