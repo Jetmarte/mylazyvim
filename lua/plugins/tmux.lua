@@ -1,4 +1,5 @@
 return {
+  --integracion con el multiplexor de ventanas tmux
   "aserowy/tmux.nvim",
   config = function()
     return require("tmux").setup({

@@ -1,3 +1,4 @@
+--El plugin folke/noice.nvim es un mejorador de la interfaz de usuario para Neovim, diseñado para reemplazar o mejorar los mensajes del sistema, el modo de comandos, y más.
 return {
   {
     "folke/noice.nvim",
@@ -30,6 +31,7 @@ return {
     },
   },
   {
+    --Muestra una etiqueta en la parte superior dereca sobre el archivo
     "b0o/incline.nvim",
     dependencies = { "craftzdog/solarized-osaka.nvim" },
     event = "BufReadPre",

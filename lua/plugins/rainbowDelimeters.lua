@@ -1,4 +1,5 @@
 return {
+  -- cambia de colores los parentesis, corchetes y llaves y los colorea par pares
   "HiPhish/rainbow-delimiters.nvim",
   config = function()
     -- local rainbow_delimiters = require("rainbow-delimiters")

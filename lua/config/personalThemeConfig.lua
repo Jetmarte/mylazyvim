@@ -189,10 +189,9 @@ local function ConfingBlue()
 end
 
 local function ConfigEverGarden()
-  --Config evergrarden
-  -- Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
-  -- Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
-  -- Config.setNeotreeBgColor("#001419", "#1e1e2e")
+  Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
+  Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
+  Config.setNeotreeBgColor("#001419", "#1e1e2e")
   -- Config.ColorSelectedText("#4d3e0b")
   -- Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
 end

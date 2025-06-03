@@ -1,3 +1,4 @@
+--Permite elegir visualmente una ventana (split) cuando estás realizando una acción que implica mover algo de una ventana a otra.
 return {
   {
     "s1n7ax/nvim-window-picker",

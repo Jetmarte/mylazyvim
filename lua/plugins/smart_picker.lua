@@ -1,3 +1,4 @@
+--permite elegir carpetas de el arbol de directorios neo-tree
 local function smart_picker(state)
   local inputs = require("neo-tree.ui.inputs")
   local renderer = require("neo-tree.ui.renderer")

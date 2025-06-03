@@ -1,6 +1,9 @@
 return {
   {
+    --muestra los nombres de los buffers en una linea como en vscode
     "akinsho/bufferline.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+    enabled = true,
     config = function()
       require("bufferline").setup({
         options = {

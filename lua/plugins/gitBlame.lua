@@ -1,4 +1,5 @@
 return {
+  --muestra quien es el editor de un archivo segun git
   "lewis6991/gitsigns.nvim",
   enabled = true,
   event = "BufReadPre",

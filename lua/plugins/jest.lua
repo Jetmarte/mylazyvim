@@ -1,5 +1,6 @@
 return {
   {
+    --pruebas unitarias para nextjs o reactjs
     "mattkubej/jest.nvim",
     name = "jest",
     config = function()
