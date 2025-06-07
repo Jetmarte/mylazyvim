@@ -1,4 +1,5 @@
 return {
+  --es un abarra de desplazamiento (scrollbar) a la derecha como en vscode
   "petertriho/nvim-scrollbar",
   event = "BufReadPost",
   config = function()

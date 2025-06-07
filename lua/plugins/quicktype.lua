@@ -1,5 +1,5 @@
---herramienta para tipar automaticamente
 return {
+  --herramienta para tipar automaticamente
   {
     "midoBB/nvim-quicktype",
     cmd = "QuickType",

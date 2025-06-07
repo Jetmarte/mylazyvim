@@ -2,6 +2,7 @@ return {
   -- add this to the file where you setup your other plugins:
   {
     "monkoose/neocodeium",
+    enabled = true,
     event = "VeryLazy",
     config = function()
       local neocodeium = require("neocodeium")
@@ -11,6 +12,7 @@ return {
       vim.keymap.set("i", "<A-m>", neocodeium.accept)
       vim.keymap.set("i", "<A-l>", neocodeium.accept_line)
       vim.keymap.set("i", "<A-w>", neocodeium.accept_word)
+
       vim.keymap.set("i", "<A-n", function()
         require("neocodeium").cycle_or_complete(1)
       end)

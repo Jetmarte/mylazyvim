@@ -1,4 +1,5 @@
 return {
+  --integracion con el multiplexor de ventanas tmux
   "aserowy/tmux.nvim",
   config = function()
     return require("tmux").setup({
@@ -50,7 +51,7 @@ return {
         enable_default_keybindings = true,
 
         -- prevents unzoom tmux when navigating beyond vim border
-        persist_zoom = false,
+        persist_zoom = true,
       },
       resize = {
         -- enables default keybindings (A-hjkl) for normal mode
@@ -64,10 +65,10 @@ return {
       },
       swap = {
         -- cycles to opposite pane while navigating into the border
-        cycle_navigation = false,
+        cycle_navigation = true,
 
         -- enables default keybindings (C-A-hjkl) for normal mode
-        enable_default_keybindings = true,
+        enable_default_keybindings = false,
       },
     })
   end,

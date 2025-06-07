@@ -1,4 +1,5 @@
 return {
+  -- permite renombrar las variables
   {
     "smjonas/inc-rename.nvim",
     config = function()

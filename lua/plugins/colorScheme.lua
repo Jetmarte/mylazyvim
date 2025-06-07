@@ -1,3 +1,4 @@
+-- configuracion de los temas de colores para el codigo
 return {
   -- example lazy.nvim install setup
   {
@@ -257,14 +258,10 @@ return {
         end,
       }
     end,
-    -- config = function(_, opts)
-    --   require("solarized-osaka").setup(opts)
-    --   --vim.cmd("colorscheme solarized-osaka")
-    -- end,
   },
-  {
-    "Mofiqul/vscode.nvim",
-  },
+  -- {
+  --   "Mofiqul/vscode.nvim",
+  -- },
   {
     "everviolet/nvim",
     name = "evergarden",

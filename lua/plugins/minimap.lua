@@ -1,4 +1,5 @@
 return {
+  --muestra un minimapa en la derecha tipo vscode
   "echasnovski/mini.map",
   version = "*",
   config = function()

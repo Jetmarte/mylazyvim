@@ -1,6 +1,6 @@
 return {
   {
-
+    -- Formatear con prettier
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {

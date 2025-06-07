@@ -1,5 +1,6 @@
 return {
   {
+    --muestra los colores rgb en pantalla
     "NvChad/nvim-colorizer.lua",
     enabled = true,
     config = function()
