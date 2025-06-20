@@ -4,21 +4,17 @@ require("config.colorVerticalBar")
 require("config.personalThemeConfig")
 
 -- ********* color themes  use <leader>uC ***********
---vim.cmd("colorscheme solarized-osaka")
+vim.cmd("colorscheme solarized-osaka")
 --vim.cmd("colorscheme evergarden")
 --vim.cmd("colorscheme gruvbox")
 -- vim.cmd("colorscheme github_light_default")
 --vim.cmd("colorscheme github_dark_default")
 --vim.cmd("colorscheme dayfox")
 --vim.cmd("colorscheme everforest")
-vim.cmd("colorscheme catppuccin")
+--vim.cmd("colorscheme catppuccin")
 -- vim.cmd("colorscheme blue")
 --vim.cmd("colorscheme lackluster")
 --vim.cmd("colorscheme tokyonight")
 --vim.cmd("colorscheme onedark_dark")
 ---------------------------------------
--- ConfigMyColor()
-
---para bufferline
-vim.opt.termguicolors = true
-require("bufferline").setup({})
+ConfigMyColor()
