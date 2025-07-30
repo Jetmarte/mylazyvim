@@ -6,7 +6,7 @@ require("config.personalThemeConfig")
 -- ********* color themes  use <leader>uC ***********
 vim.cmd("colorscheme solarized-osaka")
 --vim.cmd("colorscheme evergarden")
---vim.cmd("colorscheme gruvbox")
+-- vim.cmd("colorscheme gruvbox")
 -- vim.cmd("colorscheme github_light_default")
 --vim.cmd("colorscheme github_dark_default")
 --vim.cmd("colorscheme dayfox")

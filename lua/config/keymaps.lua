@@ -14,6 +14,9 @@ end
 map("i", "ññ", "{ }<Esc>i")
 map("i", "ÑÑ", "<Esc>A{<CR>}<c-o><s-o>")
 
+-- delete con control-k
+map("i", "<C-k>", "<Del>")
+
 -- Insertar corchetes
 map("i", "ñl", "[]<Esc>i")
 map("i", "ÑL", "[<CR>]<c-o><s-o>")
@@ -57,8 +60,8 @@ map("n", "L", "<Nop>")
 map("n", "<C,Z>", "<Nop>")
 
 --moverse entre buffers
-map("n", "<F8>", ":bnext<CR>")
-map("n", "<F7>", ":bprev<CR>")
+-- map("n", "<F8>", ":bnext<CR>")
+-- map("n", "<F7>", ":bprev<CR>")
 -- vim.api.nvim_set_keymap("n", "<C-A-i>", ":bprev<CR>", { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap("n", "<C-A-o>", ":bnext<CR>", { noremap = true, silent = true })
 
@@ -144,3 +147,7 @@ vim.keymap.set("n", "<C-l>", "<cmd>lua require('tmux').move_right()<cr>", opts)
 -- Sobrescribe `p` y `P` para que usen el portapapeles del sistema
 vim.keymap.set("n", "p", '"+p', { desc = "Pegar desde portapapeles del sistema" })
 vim.keymap.set("n", "P", '"+P', { desc = "Pegar antes del cursor desde portapapeles" })
+
+--mover los buffers a otra posicion
+vim.keymap.set("n", "<F8>", "<cmd>BufferLineMoveNext<CR>", { desc = "Mover buffer a la derecha" })
+vim.keymap.set("n", "<F7>", "<cmd>BufferLineMovePrev<CR>", { desc = "Mover buffer a la izquierda" })
