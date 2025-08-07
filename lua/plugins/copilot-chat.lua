@@ -96,8 +96,8 @@ return {
         prompt = "Please generate tests for my code.",
       },
       {
-        title = "Hello",
-        prompt = "Write a hello world program.",
+        title = "Explicacion",
+        prompt = "Explica el codigo de manera didactica y precisa.",
       },
     }
     opts.prompts = vim.list_extend(opts.prompts or {}, custom_prompts)

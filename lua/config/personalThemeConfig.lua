@@ -1,21 +1,34 @@
+require("mycode.myConfigThemeColors")
+
 local Config = {}
 
 function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
   local focused_bg = getFocusColor -- Color cuando tiene foco
   local unfocused_bg = lostFocusColor -- Color cuando no tiene foco
 
-  -- Cambia el fondo del grupo de resaltado NeoTreeNormal y NeoTreeNormalNC
   local function set_neotree_background(bg)
-    vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = bg })
-    vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = bg })
+    local hl_groups = {
+      "NeoTreeNormal",
+      "NeoTreeNormalNC",
+      "NeoTreeEndOfBuffer",
+      "NeoTreeWinSeparator",
+      "NeoTreeVertSplit",
+      "Normal", -- Puede afectar otras ventanas, usar con precaución
+      "NormalNC",
+      "SignColumn",
+      "StatusLine",
+      "StatusLineNC",
+    }
+
+    for _, group in ipairs(hl_groups) do
+      vim.api.nvim_set_hl(0, group, { bg = bg })
+    end
   end
 
-  -- Detecta si el buffer actual es de tipo neo-tree
   local function is_neotree_buf()
     return vim.bo.filetype == "neo-tree"
   end
 
-  -- Cuando Neo-tree gana foco
   vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = function()
       if is_neotree_buf() then
@@ -24,7 +37,6 @@ function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
     end,
   })
 
-  -- Cuando Neo-tree pierde foco
   vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
     callback = function()
       if is_neotree_buf() then
@@ -34,15 +46,10 @@ function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
   })
 end
 
-function Config.setColorFunction(functionColor, returnColor)
-  vim.api.nvim_set_hl(0, "@keyword.function", { fg = functionColor, bold = true })
-  vim.api.nvim_set_hl(0, "@keyword.return", { fg = returnColor, bold = true })
-end
-
 --[[
 configurar el color de fondo de la ventana al obtener y perder el foco
 ]]
-function Config.BackgroudnColorToFocus(getFocusColor, lostFocusColor)
+function Config.windowBackgroundColorToFocus(getFocusColor, lostFocusColor)
   local group = vim.api.nvim_create_augroup("FocusEvents", { clear = true })
   vim.api.nvim_create_autocmd("FocusLost", {
     group = group,
@@ -138,7 +145,7 @@ end
 -- configuracion de solarized-osaka
 local function configSolarizedOsaka()
   Config.setNeotreeBgColor("#001419", "#1e1e2e")
-  Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
+  Config.windowBackgroundColorToFocus("#001419", "#1e1e2e")
   Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
   Config.ColorSelectedText("#4d3e0b")
   Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
@@ -146,7 +153,7 @@ end
 
 --   configuracion de gruvbox
 local function configGruvbox()
-  Config.BackgroudnColorToFocus("#1d2021", "#103027")
+  Config.windowBackgroundColorToFocus("#1d2021", "#103027")
   Config.BackgroundColorWindowToFocus("#1d2021", "#103027")
 end
 
@@ -154,7 +161,7 @@ end
 local function GithubLightDefault()
   Config.setNeotreeBgColor("#f6f8fa", "#ced8e2")
   Config.CommentColor("#c7abab")
-  Config.BackgroudnColorToFocus("#f6f8fa", "#ced8e2")
+  Config.windowBackgroundColorToFocus("#f6f8fa", "#ced8e2")
   Config.BackgroundColorWindowToFocus("#f6f8fa", "#ced8e2")
   Config.ColorSelectedText("#69fad1")
   Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
@@ -168,16 +175,19 @@ local function ConfigDayFox()
   Config.setColorFunction("#ff6600", "#ff6600")
 end
 
+-- config everforst
 local function ConfingEverForest()
-  Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
-  Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
-  Config.ColorSelectedText("#3b0d08")
-  -- CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
+  Config.windowBackgroundColorToFocus(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
+  Config.BackgroundColorWindowToFocus(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
+  Config.setNeotreeBgColor(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
+  Config.CursorColor(ColorsEverForest.bg_dim, ColorsEverForest.red, ColorsEverForest.aqua, ColorsEverForest.red)
+  Config.RowColorCursor(ColorsEverForest.bg2, ColorsEverForest.grey0)
+  Config.ColorSelectedText(ColorsEverForest.bg3)
 end
 
 local function ConfingCatppuccinLatte()
   Config.CommentColor("#c7abab")
-  Config.BackgroudnColorToFocus("#ffffff", "#e0e0e0") --lost focus
+  Config.windowBackgroundColorToFocus("#ffffff", "#e0e0e0") --lost focus
   Config.BackgroundColorWindowToFocus("#ffffff", "#e0e0e0") --windows lost focus
   Config.ColorSelectedText("#d3c7bb")
   Config.CursorColor("#000000", "#ff6600", "#000000", "#ff6600")
@@ -189,7 +199,7 @@ local function ConfingBlue()
 end
 
 local function ConfigEverGarden()
-  Config.BackgroudnColorToFocus("#001419", "#1e1e2e")
+  Config.windowBackgroundColorToFocus("#001419", "#1e1e2e")
   Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
   Config.setNeotreeBgColor("#001419", "#1e1e2e")
   -- Config.ColorSelectedText("#4d3e0b")
