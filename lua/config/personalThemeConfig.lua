@@ -177,12 +177,12 @@ end
 
 -- config everforst
 local function ConfingEverForest()
+  Config.setNeotreeBgColor(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
   Config.windowBackgroundColorToFocus(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
   Config.BackgroundColorWindowToFocus(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
-  Config.setNeotreeBgColor(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
+  Config.ColorSelectedText(ColorsEverForest.bg3)
   Config.CursorColor(ColorsEverForest.bg_dim, ColorsEverForest.red, ColorsEverForest.aqua, ColorsEverForest.red)
   Config.RowColorCursor(ColorsEverForest.bg2, ColorsEverForest.grey0)
-  Config.ColorSelectedText(ColorsEverForest.bg3)
 end
 
 local function ConfingCatppuccinLatte()
