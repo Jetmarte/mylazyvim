@@ -144,11 +144,17 @@ end
 -- ========================= Funciones de configuracion ====================================
 -- configuracion de solarized-osaka
 local function configSolarizedOsaka()
-  Config.setNeotreeBgColor("#001419", "#1e1e2e")
-  Config.windowBackgroundColorToFocus("#001419", "#1e1e2e")
-  Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
-  Config.ColorSelectedText("#4d3e0b")
-  Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
+  Config.setNeotreeBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
+  Config.windowBackgroundColorToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
+  Config.BackgroundColorWindowToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
+  Config.ColorSelectedText(ColorsSolarizedOsaka.Base02)
+  Config.CursorColor(
+    ColorsSolarizedOsaka.Base2,
+    ColorsSolarizedOsaka.Orange,
+    ColorsSolarizedOsaka.Base2,
+    ColorsSolarizedOsaka.Orange
+  )
+  Config.RowColorCursor(ColorsSolarizedOsaka.Row, ColorsSolarizedOsaka.Orange)
 end
 
 --   configuracion de gruvbox
@@ -182,7 +188,7 @@ local function ConfingEverForest()
   Config.BackgroundColorWindowToFocus(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
   Config.ColorSelectedText(ColorsEverForest.bg3)
   Config.CursorColor(ColorsEverForest.bg_dim, ColorsEverForest.red, ColorsEverForest.aqua, ColorsEverForest.red)
-  Config.RowColorCursor(ColorsEverForest.bg2, ColorsEverForest.grey0)
+  Config.RowColorCursor(ColorsEverForest.bg3, ColorsEverForest.grey0)
 end
 
 local function ConfingCatppuccinLatte()
