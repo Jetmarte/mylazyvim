@@ -227,6 +227,12 @@ return {
         end,
         -- Cambiar colores específicos
         on_highlights = function(hl, c)
+          hl["@function"] = { fg = "#d4c608" }
+          hl.Function = { fg = "#d4c608" }
+          --======================
+          hl["@keyword.return"] = { fg = "#d33682" } -- aquí pones el color que quieras
+          hl["@keyword.typescriptreact"] = { fg = "#d33682" }
+          --============================
           local prompt = "#2d3149"
           hl.TelescopeNormal = {
             bg = c.bg_dark,
