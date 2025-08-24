@@ -59,3 +59,59 @@ ColorsSolarizedOsaka = {
   Cyan = "#2aa198",
   Green = "#859900",
 }
+
+BlueColors = {
+  bg = "#000050",
+  bg_2 = "#000039",
+}
+-- github_colors.lua
+ColorsGithub = {
+  -- Base
+  bg = "#FFFFFF", -- Fondo principal
+  bg_dark = "#0D1117", -- Fondo oscuro (GitHub Dark)
+  fg = "#24292E", -- Texto principal
+  fg_light = "#6E7781", -- Texto secundario
+
+  -- Grises
+  gray0 = "#F6F8FA",
+  gray1 = "#E1E4E8",
+  gray2 = "#D0D7DE",
+  gray3 = "#8B949E",
+  gray4 = "#6E7681",
+  gray5 = "#484F58",
+
+  -- Accents
+  blue = "#0969DA",
+  blue_light = "#539BF5",
+  blue_dark = "#0A3069",
+
+  green = "#1A7F37",
+  green_light = "#2DA44E",
+  green_dark = "#116329",
+
+  red = "#D73A49",
+  red_light = "#FF7B72",
+  red_dark = "#A40E26",
+
+  orange = "#F0883E",
+  orange_light = "#FFA657",
+  orange_dark = "#BC4C00",
+
+  purple = "#8250DF",
+  purple_light = "#A371F7",
+  purple_dark = "#5E3BAE",
+
+  yellow = "#F2CC60",
+  yellow_light = "#E3B341",
+  yellow_dark = "#9A6700",
+
+  pink = "#FF80C8",
+  pink_light = "#FFA0D2",
+  pink_dark = "#E85AAD",
+
+  -- Specials
+  cyan = "#79C0FF",
+  teal = "#56D4DD",
+  black = "#010409",
+  white = "#FFFFFF",
+}

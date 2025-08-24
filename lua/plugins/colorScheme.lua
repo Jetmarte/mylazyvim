@@ -15,10 +15,8 @@ return {
     "catppuccin/nvim",
     lazy = true,
     name = "catppuccin",
-    require("catppuccin").setup({
-      flavour = "mocha", -- latte, frappe, macchiato, mocha
-    }),
     opts = {
+      flavour = "mocha", -- latte, frappe, macchiato, mocha
       integrations = {
         aerial = true,
         alpha = true,
@@ -67,6 +65,7 @@ return {
   },
   {
     "projekt0n/github-nvim-theme",
+    priority = 1000,
   },
   {
     "ellisonleao/gruvbox.nvim",
@@ -362,4 +361,83 @@ return {
     },
   },
   { "elvessousa/sobrio" },
+  {
+    "askfiy/visual_studio_code",
+    priority = 100,
+    config = function()
+      vim.cmd([[colorscheme visual_studio_code]])
+      require("visual_studio_code").setup({
+        -- `dark` or `light`
+        mode = "dark",
+        -- Whether to load all color schemes
+        preset = true,
+        -- Whether to enable background transparency
+        transparent = false,
+        -- Whether to apply the adapted plugin
+        expands = {
+          hop = true,
+          dbui = true,
+          lazy = true,
+          aerial = true,
+          null_ls = true,
+          nvim_cmp = true,
+          gitsigns = true,
+          which_key = true,
+          nvim_tree = true,
+          lspconfig = true,
+          telescope = true,
+          bufferline = true,
+          nvim_navic = true,
+          nvim_notify = true,
+          vim_illuminate = true,
+          nvim_treesitter = true,
+          nvim_ts_rainbow = true,
+          nvim_scrollview = true,
+          nvim_ts_rainbow2 = true,
+          indent_blankline = true,
+          vim_visual_multi = true,
+        },
+        hooks = {
+          before = function(conf, colors, utils) end,
+          after = function(conf, colors, utils) end,
+        },
+      })
+    end,
+  },
+  {
+    "roobert/palette.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require("palette").setup({
+        palettes = {
+          main = "dust_dusk",
+        },
+
+        italics = true,
+        transparent_background = false,
+
+        custom_palettes = {
+          main = {
+            -- dusk theme taken from roobert/dust.nvim
+            dust_dusk = {
+              color0 = "#121527",
+              color1 = "#1A1E39",
+              color2 = "#232A4D",
+              color3 = "#3E4D89",
+              color4 = "#687BBA",
+              color5 = "#A4B1D6",
+              color6 = "#bdbfc9",
+              color7 = "#DFE5F1",
+              color8 = "#e9e9ed",
+            },
+          },
+          accent = {},
+          state = {},
+        },
+      })
+
+      vim.cmd([[colorscheme palette]])
+    end,
+  },
 }
