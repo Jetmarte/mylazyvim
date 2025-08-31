@@ -58,6 +58,7 @@ ColorsSolarizedOsaka = {
   Blue = "#268bd2",
   Cyan = "#2aa198",
   Green = "#859900",
+  Green2 = "#2cbd7a",
 }
 
 BlueColors = {

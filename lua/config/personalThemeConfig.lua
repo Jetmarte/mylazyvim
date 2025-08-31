@@ -1,7 +1,42 @@
+--[[
+personalThemeConfig.lua
+
+This module provides functions to customize Neovim UI colors dynamically based on the active colorscheme.
+It includes configuration for background colors, gutter, cursor, comments, selection, and integration with plugins like Neo-tree.
+Each function is designed to be called with color arguments, and some set up autocmds to react to focus or colorscheme changes.
+
+Usage:
+  local Config = require("config.personalThemeConfig")
+  Config.ConfigMyColor() -- to initialize theme-based configuration
+
+Functions:
+  - setNeotreeBgColor: Set Neo-tree background color on focus/unfocus.
+  - windowBackgroundColorToFocus: Change window background on focus events.
+  - BackgroundColorWindowToFocus: Change background color on window enter/leave.
+  - ColorSelectedText: Set color for selected text (Visual mode).
+  - CommentColor: Set color for comments.
+  - RowColorCursor: Set color for cursor line and number.
+  - CursorColor: Set cursor color and handle insert mode transitions.
+  - BackgroundColor: Set general background color.
+  - setColorMenu: Set popup menu background color.
+  - setGutterBgColor: Change gutter background color per window focus.
+  - ConfigTheme: Apply theme-specific configuration.
+  - ConfigMyColor: Auto-apply configuration based on current colorscheme.
+
+Theme configuration functions:
+  - configSolarizedOsaka, configGruvbox, GithubLightDefault, ConfigDayFox,
+    ConfingEverForest, ConfingCatppuccinLatte, ConfingBlue, ConfigEverGarden,
+    ConfigGithubLightColorblind, ConfigSobrioLight, ConfigPalette
+
+--]]
+
 require("mycode.myConfigThemeColors")
 
 local Config = {}
 
+--- Set Neo-tree background color based on window focus.
+-- @param getFocusColor Color when focused
+-- @param lostFocusColor Color when unfocused
 function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
   local focused_bg = getFocusColor -- Color cuando tiene foco
   local unfocused_bg = lostFocusColor -- Color cuando no tiene foco
@@ -46,9 +81,9 @@ function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
   })
 end
 
---[[
-configurar el color de fondo de la ventana al obtener y perder el foco
-]]
+--- Change window background color on focus gain/loss.
+-- @param getFocusColor Color when focused
+-- @param lostFocusColor Color when unfocused
 function Config.windowBackgroundColorToFocus(getFocusColor, lostFocusColor)
   local group = vim.api.nvim_create_augroup("FocusEvents", { clear = true })
   vim.api.nvim_create_autocmd("FocusLost", {
@@ -68,9 +103,9 @@ function Config.windowBackgroundColorToFocus(getFocusColor, lostFocusColor)
   })
 end
 
---[[
---cambiar el color de fondo de la ventana al perder el foco
---]]
+--- Change background color of window on enter/leave events.
+-- @param getFocusColor Color for active window
+-- @param lostFocusColor Color for inactive windows
 function Config.BackgroundColorWindowToFocus(getFocusColor, lostFocusColor)
   vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
     callback = function()
@@ -80,57 +115,58 @@ function Config.BackgroundColorWindowToFocus(getFocusColor, lostFocusColor)
   })
 end
 
---[[ 
--- cambiar el color de la palabra seleccionada
---]]
+--- Set color for selected text (Visual mode).
+-- @param bgColor Background color for selection
 function Config.ColorSelectedText(bgColor)
   vim.api.nvim_set_hl(0, "Visual", { bg = bgColor, fg = "NONE" })
 end
 
---[[ 
--- cambiar el color de los comentarios
---]]
+--- Set color for comments.
+-- @param color Foreground color for comments
 function Config.CommentColor(color)
   vim.api.nvim_set_hl(0, "Comment", { fg = color, italic = true })
 end
 
---[[ 
--- cambiar el color del numero de la linea del cursor
---]]
+--- Set color for cursor line and line number.
+-- @param colorRow Background color for cursor line
+-- @param colorNumber Foreground color for cursor line number
 function Config.RowColorCursor(colorRow, colorNumber)
   vim.api.nvim_set_hl(0, "CursorLine", { bg = colorRow })
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colorNumber, bold = true })
 end
 
---[[ 
---cambiar el color del cursor
---]]
-function Config.CursorColor(foreground, background, iforeground, ibackground)
-  vim.opt.guicursor = "n-v-i-c:block-Cursor,i-ci-ve:ver25-Cursor,r-cr:hor20-Cursor,sm:block-Cursor"
+--- Set cursor color and handle insert mode transitions.
+-- @param foreground Cursor foreground color
+-- @param background Cursor background color
+-- @param insertInBg Cursor background in insert mode
+-- @param insertOutBg Cursor background outside insert mode
+function Config.CursorColor(foreground, background, insertInBg, insertOutBg)
+  vim.opt.guicursor = "n-v-c:block-Cursor,i-ci-ve:ver50-Cursor,r-cr:hor20-Cursor,sm:block-Cursor"
   vim.api.nvim_set_hl(0, "Cursor", { fg = foreground, bg = background })
   -- -- Cambia el color de fondo del cursor en la línea activa solo en modo inserción
   vim.api.nvim_create_autocmd("InsertEnter", {
     callback = function()
-      vim.api.nvim_set_hl(0, "Cursor", { bg = iforeground })
+      vim.api.nvim_set_hl(0, "Cursor", { bg = insertInBg })
     end,
   })
   -- Restaura el color de la línea activa cuando salgas del modo inserción
   vim.api.nvim_create_autocmd("InsertLeave", {
     callback = function()
-      vim.api.nvim_set_hl(0, "Cursor", { bg = ibackground })
+      vim.api.nvim_set_hl(0, "Cursor", { bg = insertOutBg })
     end,
   })
 end
 
---[[ 
--- cambiar el color de fondo
---]]
+--- Set general background color for Normal, Visual, and Insert modes.
+-- @param bgColor Background color
 function Config.BackgroundColor(bgColor)
   vim.api.nvim_set_hl(0, "Normal", { bg = bgColor }) -- Cambia el fondo a un color específico
   vim.api.nvim_set_hl(0, "Visual", { bg = bgColor, fg = "NONE" }) -- Cambia solo la selección
   vim.api.nvim_set_hl(0, "Insert", { bg = bgColor, fg = "NONE" }) -- Cambia solo la selección
 end
 
+--- Set popup menu background color.
+-- @param bgColor Background color for Pmenu
 function Config.setColorMenu(bgColor)
   -- local colors = require("blue.palettes").get_palette() -- si usas Catppuccin
   -- Puedes definir tu color manualmente si quieres, por ejemplo: "#1e1e2e"
@@ -140,7 +176,9 @@ function Config.setColorMenu(bgColor)
   -- vim.api.nvim_set_hl(0, "PmenuThumb", { bg = colors.overlay0 }) -- scrollbar thumb
 end
 
--- Cambia SOLO el fondo de la barra de números/signos por ventana al ganar/perder foco
+--- Change gutter background color per window focus.
+-- @param focused_bg Background color when focused
+-- @param unfocused_bg Background color when unfocused
 function Config.setGutterBgColor(focused_bg, unfocused_bg)
   local targets = { "LineNr", "CursorLineNr", "FoldColumn", "SignColumn" }
   local prefix = "GutterSwap"
@@ -199,9 +237,6 @@ function Config.setGutterBgColor(focused_bg, unfocused_bg)
   -- Augroup para no duplicar autocmds si llamas a la función más de una vez
   local aug = vim.api.nvim_create_augroup("GutterBgSwap", { clear = true })
 
-  -- Aplica en la ventana actual ya mismo
-  apply_for(0, true)
-
   -- Cuando una ventana gana foco → fondo "focused"
   vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
     group = aug,
@@ -230,31 +265,32 @@ function Config.setGutterBgColor(focused_bg, unfocused_bg)
 end
 
 -- =========================================================================================
--- ========================= Funciones de configuracion ====================================
--- configuracion de solarized-osaka
+-- ========================= Theme configuration functions =================================
+-- Each function below applies a set of color customizations for a specific theme.
+
+--- Solarized Osaka theme configuration
 local function configSolarizedOsaka()
   Config.setNeotreeBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
   Config.windowBackgroundColorToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
   Config.BackgroundColorWindowToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
-  -- Config.setGutterBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
   Config.setGutterBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
   Config.ColorSelectedText(ColorsSolarizedOsaka.Base02)
   Config.CursorColor(
-    ColorsSolarizedOsaka.Base2,
-    ColorsSolarizedOsaka.Orange,
-    ColorsSolarizedOsaka.Base2,
-    ColorsSolarizedOsaka.Orange
+    ColorsSolarizedOsaka.Base4,
+    ColorsSolarizedOsaka.Base3,
+    ColorsSolarizedOsaka.Base3,
+    ColorsSolarizedOsaka.Base3
   )
   Config.RowColorCursor(ColorsSolarizedOsaka.Row, ColorsSolarizedOsaka.Orange)
 end
 
---   configuracion de gruvbox
+--- Gruvbox theme configuration
 local function configGruvbox()
   Config.windowBackgroundColorToFocus("#1d2021", "#103027")
   Config.BackgroundColorWindowToFocus("#1d2021", "#103027")
 end
 
--- configuracion de github_light
+--- Github Light Default theme configuration
 local function GithubLightDefault()
   Config.setNeotreeBgColor("#f6f8fa", "#ced8e2")
   Config.CommentColor("#c7abab")
@@ -264,7 +300,7 @@ local function GithubLightDefault()
   Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
 end
 
--- configuracion de dayfox
+--- Dayfox theme configuration (currently commented out)
 local function ConfigDayFox()
   -- Config.CommentColor("#c7abab")
   -- Config.CursorColor("#000000", "#ff6600", "#000000", "#ff6600")
@@ -272,7 +308,7 @@ local function ConfigDayFox()
   -- Config.setColorFunction("#ff6600", "#ff6600")
 end
 
--- config everforst
+--- Everforest theme configuration
 local function ConfingEverForest()
   Config.setNeotreeBgColor(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
   Config.windowBackgroundColorToFocus(ColorsEverForest.bg_dim, ColorsEverForest.bg2)
@@ -282,6 +318,7 @@ local function ConfingEverForest()
   Config.RowColorCursor(ColorsEverForest.bg3, ColorsEverForest.grey0)
 end
 
+--- Catppuccin Latte theme configuration
 local function ConfingCatppuccinLatte()
   Config.CommentColor("#c7abab")
   Config.windowBackgroundColorToFocus("#ffffff", "#e0e0e0") --lost focus
@@ -291,12 +328,14 @@ local function ConfingCatppuccinLatte()
   Config.RowColorCursor("#e0e0e0", "#ff6600")
 end
 
+--- Blue theme configuration
 local function ConfingBlue()
   Config.setNeotreeBgColor(BlueColors.bg, BlueColors.bg_2)
   -- Config.windowBackgroundColorToFocus(BlueColors.bg, BlueColors.bg_2)
   --Config.BackgroundColorWindowToFocus(BlueColors.bg, BlueColors.bg_2)
 end
 
+--- Evergarden theme configuration
 local function ConfigEverGarden()
   Config.windowBackgroundColorToFocus("#001419", "#1e1e2e")
   Config.BackgroundColorWindowToFocus("#001419", "#1e1e2e")
@@ -305,6 +344,7 @@ local function ConfigEverGarden()
   -- Config.CursorColor("#f6f8fa", "#ff6600", "#f6f8fa", "#ff6600")
 end
 
+--- Github Light Colorblind theme configuration
 local function ConfigGithubLightColorblind()
   Config.setNeotreeBgColor(ColorsGithub.bg, ColorsGithub.gray2)
   Config.windowBackgroundColorToFocus(ColorsGithub.bg, ColorsGithub.gray2)
@@ -314,8 +354,10 @@ local function ConfigGithubLightColorblind()
   Config.RowColorCursor(ColorsGithub.gray1, ColorsGithub.red_light)
 end
 
+--- Sobrio Light theme configuration (empty)
 local function ConfigSobrioLight() end
 
+--- Palette theme configuration
 local function ConfigPalette()
   Config.setNeotreeBgColor("#0c0e1a", ColorsGithub.gray2)
   Config.windowBackgroundColorToFocus("#0c0e1a", ColorsGithub.gray2)
@@ -324,8 +366,12 @@ local function ConfigPalette()
   -- Config.CursorColor(ColorsGithub.bg_dark, ColorsGithub.red_light, ColorsGithub.bg_dark, ColorsEverForest.orange_light)
   -- Config.RowColorCursor(ColorsGithub.gray1, ColorsGithub.red_light)
 end
+
 -- =============================================================
 --  configurar tema personalizado
+
+--- Apply theme-specific configuration by name.
+-- @param themeName Name of the theme to configure
 local function ConfigTheme(themeName)
   local opcion = themeName
 
@@ -372,6 +418,7 @@ local function ConfigTheme(themeName)
   end
 end
 
+--- Initialize and auto-apply theme configuration based on current colorscheme.
 function ConfigMyColor()
   -- cargar configuración personal al inicio
   local theme_name = vim.g.colors_name or "unknown"

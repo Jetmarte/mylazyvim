@@ -4,14 +4,31 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     enabled = true,
     config = function()
-      local colors = {
-        bg = "#1a1f2b",
-        fg = "#5c6370",
-        active_bg = "#005248",
-        active_fg = "#fcac34",
-        error_bg = "#8b0000",
-        error_fg = "#ffffff",
-      }
+      -- función que devuelve paleta según modo de fondo
+      local function get_colors()
+        if vim.o.background == "light" then
+          return {
+            bg = "#f2f2f2",
+            fg = "#444444",
+            active_bg = "#c7e1ff",
+            active_fg = "#005f5f",
+            error_bg = "#ffcccc",
+            error_fg = "#8b0000",
+          }
+        else
+          return {
+            bg = "#1a1f2b",
+            fg = "#5c6370",
+            active_bg = "#005248",
+            active_fg = "#fcac34",
+            error_bg = "#8b0000",
+            error_fg = "#ffffff",
+          }
+        end
+      end
+
+      local colors = get_colors()
+
       -- Función que actualiza todos los highlights relevantes del buffer seleccionado
       local function update_bufferline_highlight()
         local bufnr = vim.api.nvim_get_current_buf()
@@ -20,7 +37,6 @@ return {
         local bg_color = (#diagnostics > 0) and colors.error_bg or colors.active_bg
         local fg_color = colors.active_fg
 
-        -- Todos los grupos relacionados al buffer seleccionado
         local highlight_groups = {
           { name = "BufferLineBufferSelected", fg = fg_color, bg = bg_color },
           { name = "BufferLineSeparatorSelected", fg = bg_color, bg = bg_color },
@@ -44,12 +60,18 @@ return {
         end
       end
 
-      -- Autocomando para actualizar cuando cambias de buffer o se actualizan los errores
+      -- Autocomando para actualizar cuando cambias de buffer, errores o esquema de color
       vim.api.nvim_create_autocmd({ "BufEnter", "DiagnosticChanged", "BufWritePost" }, {
         callback = update_bufferline_highlight,
       })
 
-      -- Configuración principal de bufferline
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          colors = get_colors()
+          update_bufferline_highlight()
+        end,
+      })
+
       require("bufferline").setup({
         options = {
           mode = "buffers",
