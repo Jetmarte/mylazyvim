@@ -4,8 +4,9 @@ require("config.colorVerticalBar")
 require("config.personalThemeConfig")
 
 -- ********* color themes  use <leader>uC ***********
-vim.cmd("colorscheme solarized-osaka")
---vim.cmd("colorscheme catppuccin-latte")
+--vim.cmd("colorscheme solarized-osaka")
+vim.cmd("colorscheme github_light_colorblind")
+--============================================
 --vim.cmd("colorscheme visual_studio_code")
 --vim.cmd("colorscheme dayfox")
 --vim.cmd("colorscheme palette")

@@ -1,3 +1,4 @@
+-- debug code like vscode
 return {
   "mfussenegger/nvim-dap",
   recommended = true,

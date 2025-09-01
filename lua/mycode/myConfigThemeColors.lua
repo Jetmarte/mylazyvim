@@ -66,7 +66,7 @@ BlueColors = {
   bg_2 = "#000039",
 }
 -- github_colors.lua
-ColorsGithub = {
+GithubColors = {
   -- Base
   bg = "#FFFFFF", -- Fondo principal
   bg_dark = "#0D1117", -- Fondo oscuro (GitHub Dark)

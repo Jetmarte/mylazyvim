@@ -1,35 +1,3 @@
---[[
-personalThemeConfig.lua
-
-This module provides functions to customize Neovim UI colors dynamically based on the active colorscheme.
-It includes configuration for background colors, gutter, cursor, comments, selection, and integration with plugins like Neo-tree.
-Each function is designed to be called with color arguments, and some set up autocmds to react to focus or colorscheme changes.
-
-Usage:
-  local Config = require("config.personalThemeConfig")
-  Config.ConfigMyColor() -- to initialize theme-based configuration
-
-Functions:
-  - setNeotreeBgColor: Set Neo-tree background color on focus/unfocus.
-  - windowBackgroundColorToFocus: Change window background on focus events.
-  - BackgroundColorWindowToFocus: Change background color on window enter/leave.
-  - ColorSelectedText: Set color for selected text (Visual mode).
-  - CommentColor: Set color for comments.
-  - RowColorCursor: Set color for cursor line and number.
-  - CursorColor: Set cursor color and handle insert mode transitions.
-  - BackgroundColor: Set general background color.
-  - setColorMenu: Set popup menu background color.
-  - setGutterBgColor: Change gutter background color per window focus.
-  - ConfigTheme: Apply theme-specific configuration.
-  - ConfigMyColor: Auto-apply configuration based on current colorscheme.
-
-Theme configuration functions:
-  - configSolarizedOsaka, configGruvbox, GithubLightDefault, ConfigDayFox,
-    ConfingEverForest, ConfingCatppuccinLatte, ConfingBlue, ConfigEverGarden,
-    ConfigGithubLightColorblind, ConfigSobrioLight, ConfigPalette
-
---]]
-
 require("mycode.myConfigThemeColors")
 
 local Config = {}
@@ -240,6 +208,7 @@ function Config.setGutterBgColor(focused_bg, unfocused_bg)
   -- Cuando una ventana gana foco → fondo "focused"
   vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter" }, {
     group = aug,
+    ---@param args {win: integer}
     callback = function(args)
       apply_for(args.win, true)
     end,
@@ -248,8 +217,27 @@ function Config.setGutterBgColor(focused_bg, unfocused_bg)
   -- Cuando una ventana pierde foco → fondo "unfocused"
   vim.api.nvim_create_autocmd("WinLeave", {
     group = aug,
+    ---@param args {win: integer}
     callback = function(args)
       apply_for(args.win, false)
+    end,
+  })
+
+  -- Cuando Neovim pierde el foco completo (ej: cambias a otra app) → todas las ventanas "unfocused"
+  vim.api.nvim_create_autocmd("FocusLost", {
+    group = aug,
+    callback = function()
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        apply_for(win, false)
+      end
+    end,
+  })
+
+  -- Cuando Neovim recupera foco → solo la ventana activa "focused"
+  vim.api.nvim_create_autocmd("FocusGained", {
+    group = aug,
+    callback = function()
+      apply_for(vim.api.nvim_get_current_win(), true)
     end,
   })
 
@@ -346,26 +334,17 @@ end
 
 --- Github Light Colorblind theme configuration
 local function ConfigGithubLightColorblind()
-  Config.setNeotreeBgColor(ColorsGithub.bg, ColorsGithub.gray2)
-  Config.windowBackgroundColorToFocus(ColorsGithub.bg, ColorsGithub.gray2)
-  Config.BackgroundColorWindowToFocus(ColorsGithub.bg, ColorsGithub.gray2)
-  Config.ColorSelectedText(ColorsGithub.cyan)
-  Config.CursorColor(ColorsGithub.bg_dark, ColorsGithub.red_light, ColorsGithub.bg_dark, ColorsEverForest.orange_light)
-  Config.RowColorCursor(ColorsGithub.gray1, ColorsGithub.red_light)
+  Config.setNeotreeBgColor(GithubColors.bg, GithubColors.gray1)
+  Config.windowBackgroundColorToFocus(GithubColors.bg, GithubColors.gray1)
+  Config.BackgroundColorWindowToFocus(GithubColors.bg, GithubColors.gray1)
+  Config.setGutterBgColor(GithubColors.bg, GithubColors.gray1)
+  Config.ColorSelectedText(GithubColors.gray2)
+  Config.CursorColor(GithubColors.fg, GithubColors.red_light, GithubColors.red, GithubColors.red_light)
+  Config.RowColorCursor(GithubColors.gray2, GithubColors.red_dark)
 end
 
 --- Sobrio Light theme configuration (empty)
 local function ConfigSobrioLight() end
-
---- Palette theme configuration
-local function ConfigPalette()
-  Config.setNeotreeBgColor("#0c0e1a", ColorsGithub.gray2)
-  Config.windowBackgroundColorToFocus("#0c0e1a", ColorsGithub.gray2)
-  Config.BackgroundColorWindowToFocus("#0c0e1a", ColorsGithub.gray2)
-  -- Config.ColorSelectedText(ColorsGithub.cyan)
-  -- Config.CursorColor(ColorsGithub.bg_dark, ColorsGithub.red_light, ColorsGithub.bg_dark, ColorsEverForest.orange_light)
-  -- Config.RowColorCursor(ColorsGithub.gray1, ColorsGithub.red_light)
-end
 
 -- =============================================================
 --  configurar tema personalizado
@@ -405,9 +384,6 @@ local function ConfigTheme(themeName)
     end,
     ["sobrio_light"] = function()
       ConfigSobrioLight()
-    end,
-    ["palette"] = function()
-      ConfigPalette()
     end,
   }
 
