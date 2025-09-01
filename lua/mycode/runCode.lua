@@ -2,7 +2,7 @@
 local function show_floating_output(cmd, title)
   local buf = vim.api.nvim_create_buf(false, true)
   local width = math.floor(vim.o.columns * 0.8)
-  local height = math.floor(vim.o.lines * 0.6)
+  local height = math.floor(vim.o.lines * 0.8) -- más alto
   local row = math.floor((vim.o.lines - height) / 2)
   local col = math.floor((vim.o.columns - width) / 2)
 
@@ -44,26 +44,18 @@ local function show_floating_output(cmd, title)
   })
 end
 
--- 🚀 Ejecutar archivo JS con Node.js
-function runNode()
+-- 🚀 Ejecutar archivo actual con Node.js o Deno según la extensión
+function runFile()
   vim.keymap.set("n", "<F5>", function()
     local file = vim.fn.expand("%:p")
-    if vim.fn.expand("%:e") ~= "js" then
-      vim.notify("Este comando solo funciona con archivos .js", vim.log.levels.WARN)
-      return
-    end
-    show_floating_output({ "node", file }, "Node.js Output")
-  end, { desc = "Run current JS file with Node.js (floating output)" })
-end
+    local ext = vim.fn.expand("%:e")
 
--- 🚀 Ejecutar archivo TS con Deno
-function runDeno()
-  vim.keymap.set("n", "<F4>", function()
-    local file = vim.fn.expand("%:p")
-    if vim.fn.expand("%:e") ~= "ts" then
-      vim.notify("Este comando solo funciona con archivos .ts", vim.log.levels.WARN)
-      return
+    if ext == "js" then
+      show_floating_output({ "node", file }, "Node.js Output")
+    elseif ext == "ts" then
+      show_floating_output({ "deno", "run", file }, "Deno Output")
+    else
+      vim.notify("Este comando solo funciona con archivos .js o .ts", vim.log.levels.WARN)
     end
-    show_floating_output({ "deno", "run", file }, "Deno Output")
-  end, { desc = "Run current TS file with Deno (floating output)" })
+  end, { desc = "Run current JS/TS file (floating output)" })
 end

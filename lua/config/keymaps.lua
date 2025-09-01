@@ -80,7 +80,7 @@ map("n", "<F9>", ":NeoCodeium toggle<CR>")
 -- vim.api.nvim_set_keymap("n", "<leader>o", ":bnext<CR>", { noremap = true, silent = true })
 
 -- reload lazyvim and update config
-map("n", "<F5>", ":source $MYVIMRC<CR>")
+map("n", "<F4>", ":source $MYVIMRC<CR>")
 
 --mover lineas
 map("n", "<A-j>", ":m .+1<CR>==") -- mover línea hacia arriba(n)
@@ -185,7 +185,6 @@ vim.keymap.set("n", "<F6>", function()
 end, { desc = "DAP: Conditional Breakpoint" })
 
 --=======correr archivo js con nodejs=================
-runNode()
+runFile()
 --============correr archivo ts con deno===============
-runDeno()
 --===============================================
