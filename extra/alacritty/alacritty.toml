@@ -1,24 +1,91 @@
-
-# Configuración básica de Alacritty
+# ================================
+# Configuración de Alacritty
+# ================================
 
 [font]
-normal = { family = "FiraCode Nerd Font Mono", style = "Medium" } # Cambia la fuente si prefieres otra
-bold = { family = "FiraCode Nerd Font Mono", style = "Bold" }
-italic = { family = "Ubuntu Mono ", style = "Italic" }
-bold_italic = { family = "Ubuntu Mono", style = "Bold Italic" }
-size = 11.0                                                       # Tamaño de la fuente
-offset = { x = 0, y = 2 }                                         #cmabiar el ancho y alto
+# normal = { family = "Cascadia Code PL", style = "Regular" }
+# bold = { family = "Cascadia Code PL", style = "Bold" }
+# italic = { family = "Cascadia Code PL", style = "Italic" }
+# bold_italic = { family = "Cascadia Code PL", style = "Bold Italic" }
+#
+# normal = { family = "monospace", style = "Regular" }
+# bold = { family = "monospace", style = "Bold" }
+# italic = { family = "monospace", style = "Italic" }
+# bold_italic = { family = "monospace", style = "Bold Italic" }
+#
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+bold = { family = "JetBrainsMono Nerd Font", style = "Bold" }
+italic = { family = "JetBrainsMono Nerd Font", style = "Italic" }
+bold_italic = { family = "JetBrainsMono Nerd Font", style = "Bold Italic" }
+#
+size = 11.0                     # Un poco más grande que 11 para legibilidad
+offset = { x = 0, y = 0 }       # Ajuste vertical fino
+glyph_offset = { x = 0, y = 0 }
 
-[colors]
-primary = { background = "#1e1e2e", foreground = "#cdd6f4" } # Fondo y texto principal
-cursor = { text = "#1e1e2e", cursor = "#cdd6f4" }            # Color del cursor
+# ================================
+# Colores
+# ================================
+[colors.primary]
+# Catppuccin base (puedes mantener el import también al final)
+background = "#001419"
+foreground = "#cdd6f4"
 
+[colors.cursor]
+text = "#001419"
+cursor = "#cdd6f4"
+
+# Retro opcional (descomenta uno para probar)
+# Verde fósforo
+# background = "#000000"
+# foreground = "#33FF33"
+# cursor = { text = "#000000", cursor = "#33FF33" }
+
+# Ámbar fósforo
+# background = "#000000"
+# foreground = "#FFB000"
+# cursor = { text = "#000000", cursor = "#FFB000" }
+
+# ================================
+# Ventana
+# ================================
 [window]
-opacity = 0.8                # Transparencia (1.0 = sin transparencia)
-padding = { x = 10, y = 10 } # Espaciado interno
+opacity = 0.95               # Un toque de transparencia
+padding = { x = 10, y = 10 } # Margen interno
+blur = true                  # Si tu compositor soporta (ej. picom)
 
-[terminal]
-
+# ================================
+# Terminal
+# ================================
 [terminal.shell]
-#program = "/bin/zsh" # Usa Zsh como shell (cámbialo a "/bin/bash" si usas Bash)
 program = "/usr/bin/tmux"
+
+# ================================
+# Scrollback
+# ================================
+[scrolling]
+history = 10000
+multiplier = 3
+
+# ================================
+# Atajos de teclado
+# ================================
+[[keyboard.bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Control|Shift"
+action = "SpawnNewInstance"
+
+# ================================
+# Tema externo
+# ================================
+[general]
+import = ["~/.config/alacritty/catppuccin/catppuccin-frappe.toml"]

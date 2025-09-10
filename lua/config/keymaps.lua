@@ -134,7 +134,6 @@ vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
 vim.keymap.set("v", "q", "<Nop>", { noremap = true, silent = true })
 
 --deshabilitar control m
-local picked_window_id = require("window-picker").pick_window()
 vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })
 
 -- Keybindings para moverse entre splits y paneles
@@ -187,4 +186,4 @@ end, { desc = "DAP: Conditional Breakpoint" })
 --=======correr archivo js con nodejs=================
 runFile()
 --============correr archivo ts con deno===============
---===============================================
+-- Atajo para abrir símbolos en Neo-tree
