@@ -29,8 +29,22 @@ local function EverGarden()
           keyword = { "italic" },
           comment = { "italic" },
           spell = {},
+          diagnostics = { "italic" },
+          todo = { "italic" },
+          treesitter_context = { "italic" },
+          treesitter_context_top = { "italic" },
+          treesitter_context_bottom = { "italic" },
+          treesitter_context_side = { "italic" },
         },
-        overrides = {},
+        overrides = {
+          ["@keyword.return"] = { fg = "#ea5206", bold = true }, -- const en color base (fg)
+          ["@keyword.const"] = { fg = "#D3C6AA", bold = true }, -- const en color base (fg)
+          ["@variable"] = { fg = "#7FBBB3" }, -- variables locales → azul
+          ["@variable.builtin"] = { fg = "#E67E80", italic = true }, -- document, window → rojo
+          ["@property"] = { fg = "#DBBC7F" }, -- querySelector → amarillo
+          ["@function.method"] = { fg = "#E69875" }, -- métodos de objeto → naranja
+          ["@string"] = { fg = "#A7C080" }, -- strings → verde
+        },
         color_overrides = {},
         {
           integrations = {

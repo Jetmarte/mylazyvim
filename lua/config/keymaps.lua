@@ -186,4 +186,8 @@ end, { desc = "DAP: Conditional Breakpoint" })
 --=======correr archivo js con nodejs=================
 runFile()
 --============correr archivo ts con deno===============
--- Atajo para abrir símbolos en Neo-tree
+
+-- atajo para abrir neocodeium chat
+vim.keymap.set("n", "<leader>cn", function()
+  vim.cmd("NeoCodeium chat")
+end, { desc = "Abrir NeoCodeium Chat" })

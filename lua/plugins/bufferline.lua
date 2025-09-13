@@ -18,6 +18,9 @@ return {
       show_close_icon = false,
       show_buffer_close_icons = false,
       separator_style = "slant",
+      numbers = function(opts)
+        return string.format("%s.", opts.ordinal)
+      end,
 
       -- Mostrar íconos según tipo de diagnóstico
       diagnostics_indicator = function(count, level, diagnostics_dict, context)
