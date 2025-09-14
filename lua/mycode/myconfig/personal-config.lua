@@ -1,4 +1,4 @@
-require("mycode.myConfigThemeColors")
+require("mycode.style.colors")
 
 Config = {}
 

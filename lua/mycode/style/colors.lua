@@ -1,4 +1,4 @@
-ColorsEverForest = {
+EverForest = {
   -- Backgrounds
   bg_dim = "#232A2E",
   bg0 = "#2D353B",
@@ -61,10 +61,6 @@ ColorsSolarizedOsaka = {
   Green2 = "#2cbd7a",
 }
 
-BlueColors = {
-  bg = "#000050",
-  bg_2 = "#000039",
-}
 -- github_colors.lua
 GithubColors = {
   -- Base
@@ -115,30 +111,4 @@ GithubColors = {
   teal = "#56D4DD",
   black = "#010409",
   white = "#FFFFFF",
-}
-
-Darkblue_colors = {
-  -- Fondo y texto
-  bg = "#000040", -- azul muy oscuro (casi negro retro CRT)
-  bg_alt = "#000024", -- variante para paneles/line numbers
-  fg = "#d0d0d0", -- texto principal gris claro
-  fg_alt = "#8f9bad", -- texto atenuado
-
-  -- Colores de acento retro (fosforescentes)
-  cyan = "#00ffff", -- cian brillante
-  green = "#00ff9f", -- verde neón
-  magenta = "#ff00aa", -- magenta fosforescente
-  yellow = "#ffe600", -- amarillo retro
-  red = "#ff3c3c", -- rojo alerta
-  blue = "#4fb0ff", -- azul brillante
-
-  -- Extras para resaltar
-  orange = "#ff7e29", -- retro naranja
-  purple = "#a070ff", -- violeta CRT
-
-  -- Estados
-  error = "#ff2e63", -- errores
-  warning = "#ffb347", -- advertencias
-  info = "#29f0ff", -- info
-  hint = "#66ffb2", -- hints
 }
