@@ -1,14 +1,16 @@
 -- plugins/bufferline.lua
 local colors = {
-  bg = "#1a1f2b", -- Fondo base
-  fg = "#5c6370", -- Texto por defecto
-  active_bg = "#232a2e", -- Fondo del tab activo
-  active_fg = "#fcac34", -- Texto del tab activo
-  inactive_bg = "#1f2529", -- Fondo de tabs inactivos
+  _bg = "#1a1f2b", -- Fondo base general
+  visible_bg = "#232a2e", -- Fondo de tabs visibles (no activos)
+  selected_bg = "#463228", -- Fondo del tab activo
+  _fg = "#5c6370", -- Texto por defecto
+  visible_fg = "#5c6370", -- Texto de tabs visibles (no activos)
+  selected_fg = "#d0d0d0", -- Texto del tab activo
   error_fg = "#e05f65", -- Rojo para errores
   warn_fg = "#e0af68", -- Amarillo para warnings
   info_fg = "#5fb3b3", -- Azul para información
   hint_fg = "#a7c080", -- Verde para hints
+  diagnostic_fg = "#e0af68", -- Amarillo para diagnósticos
 }
 
 return {
@@ -37,48 +39,66 @@ return {
         return s
       end,
     },
+
     highlights = {
-      -- Tabs inactivos
+      -- Tabs en segundo plano
       buffer = {
-        bg = colors.inactive_bg,
-        fg = colors.fg,
+        bg = colors._bg,
+        fg = colors.active_fg,
       },
       -- Tabs visibles (pero no activos)
       buffer_visible = {
-        bg = colors.inactive_bg,
-        fg = colors.fg,
+        fg = colors.active_fg,
+        bg = colors.visible_bg,
       },
       -- Tab seleccionado (activo)
       buffer_selected = {
-        bg = colors.active_bg,
+        bg = colors.selected_bg,
+        fg = colors.selected_fg,
+        bold = true,
+        italic = true,
+      },
+
+      -- numbers
+      numbers = {
+        bg = colors._bg,
+        fg = colors.active_fg,
+      },
+      numbers_visible = {
+        fg = colors.active_fg,
+        bg = colors.visible_bg,
+      },
+      numbers_selected = {
+        bg = colors.selected_bg,
         fg = colors.active_fg,
         bold = true,
-        italic = false,
+        italic = true,
       },
+
       -- Errores
-      error = { fg = colors.error_fg },
-      error_visible = { fg = colors.error_fg },
-      error_selected = { fg = colors.error_fg, bold = true },
+      error = { fg = colors.error_fg, bg = colors._bg }, -- bg color de fondo de texto cuando no se tiene el foco
+      error_visible = { fg = colors.error_fg, bg = colors.visible_bg }, --bg color fondo cuando la ventana esta visible pero pierde el foco
+      error_selected = { fg = colors.error_fg, bold = true, bg = colors.selected_bg }, --bg color cuando se tiene el foco
 
       -- Warnings
-      warning = { fg = colors.warn_fg },
-      warning_visible = { fg = colors.warn_fg },
-      warning_selected = { fg = colors.warn_fg, bold = true },
+      warning = { fg = colors.warn_fg, bg = colors._bg },
+      warning_visible = { fg = colors.warn_fg, bg = colors.visible_bg },
+      warning_selected = { fg = colors.warn_fg, bold = true, bg = colors.selected_bg },
 
       -- Info
-      info = { fg = colors.info_fg },
-      info_visible = { fg = colors.info_fg },
-      info_selected = { fg = colors.info_fg, bold = true },
+      info = { fg = colors.info_fg, bg = colors._bg },
+      info_visible = { fg = colors.info_fg, bg = colors.visible_bg },
+      info_selected = { fg = colors.info_fg, bold = true, bg = colors.selected_bg },
 
       -- Hints
-      hint = { fg = colors.hint_fg },
-      hint_visible = { fg = colors.hint_fg },
-      hint_selected = { fg = colors.hint_fg, bold = true },
+      hint = { fg = colors.hint_fg, bg = colors._bg },
+      hint_visible = { fg = colors.hint_fg, bg = colors.visible_bg },
+      hint_selected = { fg = colors.hint_fg, bold = true, bg = colors.selected_bg },
 
       -- Diagnósticos (heredan colores según tipo)
-      diagnostic = { fg = colors.fg },
-      diagnostic_visible = { fg = colors.fg },
-      diagnostic_selected = { fg = colors.active_fg, bold = true },
+      diagnostic = { fg = colors.diagnostic_fg, bg = colors._bg },
+      diagnostic_visible = { fg = colors.diagnostic_fg, bg = colors.visible_bg },
+      diagnostic_selected = { fg = colors.diagnostic_fg, bold = true, bg = colors.selected_bg },
     },
   },
 }

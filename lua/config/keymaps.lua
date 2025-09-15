@@ -1,15 +1,26 @@
 require("mycode.execute.runCode")
+require("mycode.myconfig.keymaps.necodeium-chat")
+require("mycode.myconfig.keymaps.debugger")
+require("mycode.myconfig.keymaps.window-picker")
+require("mycode.myconfig.keymaps.numeric-tabs")
+require("mycode.myconfig.keymaps.tmux-move")
+require("mycode.myconfig.keymaps.rename-variable")
+-- require("mycode.myconfig.keymaps.Map-main")
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true, silent = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+-- local function map(mode, lhs, rhs, opts)
+--   local options = { noremap = true, silent = true }
+--   if opts then
+--     options = vim.tbl_extend("force", options, opts)
+--   end
+--   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+-- end
+local map = require("mycode.myconfig.keymaps.Map-main").map
+
+-- ()=>{}
+-- map("i", "fff", "()=>{}<Esc>hhhhi")
 
 -- Llaves en el codigo
 map("i", "ññ", "{ }<Esc>i")
@@ -24,10 +35,6 @@ map("i", "ÑL", "[<CR>]<c-o><s-o>")
 
 --Console.log()
 map("i", "csl", "console.log()<Esc>i")
-
--- ()=>{}
--- map("i", "fff", "()=>{}<Esc>hhhhi")
-
 --Nueva linea en insert mode
 map("i", "<C-o>", "<Esc>o")
 map("i", "<A-o>", "<CR><Esc>O")
@@ -97,37 +104,9 @@ vim.api.nvim_set_keymap("n", "<C-A-j>", "yyp", { noremap = true, silent = true }
 vim.api.nvim_set_keymap("n", "<leader>mr", ":RenderMarkdown<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>mf", ":RenderMarkdownRefresh<CR>", { noremap = true, silent = true })
 
--- Cambia a buffer 1, 2, 3, etc.
-vim.api.nvim_set_keymap("n", "<leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>4", "<Cmd>BufferLineGoToBuffer 4<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>5", "<Cmd>BufferLineGoToBuffer 5<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
--- Y así sucesivamente...
-
 -- select all
 -- map("n", "<C-a>", "gg<S-v>G")
 vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
-
--- remane variable e
-vim.keymap.set("n", "<leader>rn", function()
-  return ":IncRename " .. vim.fn.expand("<cword>")
-end, { expr = true })
-
-vim.keymap.set("n", "<leader>ñ", function()
-  local picked = require("window-picker").pick_window({
-    hint = "floating-big-letter",
-  })
-  if picked and vim.api.nvim_win_is_valid(picked) then
-    vim.api.nvim_set_current_win(picked)
-  else
-    vim.notify("No se seleccionó ninguna ventana", vim.log.levels.WARN)
-  end
-end, { desc = "Elegir ventana con Window Picker" })
 
 -- Deshabilitar la tecla 'q' para grabak macros
 vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
@@ -136,58 +115,27 @@ vim.keymap.set("v", "q", "<Nop>", { noremap = true, silent = true })
 --deshabilitar control m
 vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })
 
--- Keybindings para moverse entre splits y paneles
-local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<C-h>", "<cmd>lua require('tmux').move_left()<cr>", opts)
-vim.keymap.set("n", "<C-j>", "<cmd>lua require('tmux').move_bottom()<cr>", opts)
-vim.keymap.set("n", "<C-k>", "<cmd>lua require('tmux').move_top()<cr>", opts)
-vim.keymap.set("n", "<C-l>", "<cmd>lua require('tmux').move_right()<cr>", opts)
-
 --pegar desde el prtapapeles
 -- Sobrescribe `p` y `P` para que usen el portapapeles del sistema
 vim.keymap.set("n", "p", '"+p', { desc = "Pegar desde portapapeles del sistema" })
 vim.keymap.set("n", "P", '"+P', { desc = "Pegar antes del cursor desde portapapeles" })
 
---mover los buffers a otra posicion
--- vim.keymap.set("n", "<F8>", "<cmd>BufferLineMoveNext<CR>", { desc = "Mover buffer a la derecha" })
--- vim.keymap.set("n", "<F7>", "<cmd>BufferLineMovePrev<CR>", { desc = "Mover buffer a la izquierda" })
+--renombrar variable
+RenameVariable()
+--moverse entre paneles y combinar con tmux
+TmuxMove()
 
--- config debug dap
--- Ejecuta/continua el programa (si está detenido, sigue desde donde quedó)
-vim.keymap.set("n", "<F8>", function()
-  require("dap").continue()
-end, { desc = "DAP: Run/Continue" })
+--window Picker
+WindowPicker()
 
--- Avanza a la siguiente línea sin entrar en funciones
-vim.keymap.set("n", "<F9>", function()
-  require("dap").step_over()
-end, { desc = "DAP: Step Over" })
+--numbers in numeric-tabs
+NumericTabs()
 
--- Entra dentro de la función llamada en la línea actual
-vim.keymap.set("n", "<F10>", function()
-  require("dap").step_into()
-end, { desc = "DAP: Step Into" })
+-- debug code
+Debugger()
 
--- Sale de la función actual y vuelve al contexto de llamada
-vim.keymap.set("n", "<F11>", function()
-  require("dap").step_out()
-end, { desc = "DAP: Step Out" })
-
--- Coloca o quita un breakpoint en la línea actual
-vim.keymap.set("n", "<F7>", function()
-  require("dap").toggle_breakpoint()
-end, { desc = "DAP: Toggle Breakpoint" })
-
--- Crea un breakpoint condicional (pidiendo una condición al usuario)
-vim.keymap.set("n", "<F6>", function()
-  require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
-end, { desc = "DAP: Conditional Breakpoint" })
-
---=======correr archivo js con nodejs=================
+-- run files js and js with deno and node
 runFile()
---============correr archivo ts con deno===============
 
--- atajo para abrir neocodeium chat
-vim.keymap.set("n", "<leader>cn", function()
-  vim.cmd("NeoCodeium chat")
-end, { desc = "Abrir NeoCodeium Chat" })
+-- open neocodeium chat
+NeocodeIumChat()

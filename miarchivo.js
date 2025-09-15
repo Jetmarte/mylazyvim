@@ -15,4 +15,9 @@ console.log(resultado);
 
 function saludar() {
   console.log("hola");
+  asd;
+  k;
+}
+{
+  [];
 }
