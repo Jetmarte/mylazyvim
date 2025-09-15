@@ -5,22 +5,15 @@ require("mycode.myconfig.keymaps.window-picker")
 require("mycode.myconfig.keymaps.numeric-tabs")
 require("mycode.myconfig.keymaps.tmux-move")
 require("mycode.myconfig.keymaps.rename-variable")
+require("mycode.myconfig.keymaps.tabs-move")
+require("mycode.myconfig.keymaps.markdown")
+require("mycode.myconfig.keymaps.bufferline-picker")
 -- require("mycode.myconfig.keymaps.Map-main")
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- local function map(mode, lhs, rhs, opts)
---   local options = { noremap = true, silent = true }
---   if opts then
---     options = vim.tbl_extend("force", options, opts)
---   end
---   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
--- end
 local map = require("mycode.myconfig.keymaps.Map-main").map
-
--- ()=>{}
--- map("i", "fff", "()=>{}<Esc>hhhhi")
 
 -- Llaves en el codigo
 map("i", "ññ", "{ }<Esc>i")
@@ -67,18 +60,6 @@ map("n", "I", "<Nop>")
 map("n", "L", "<Nop>")
 map("n", "<C,Z>", "<Nop>")
 
---moverse entre buffers
--- map("n", "<F8>", ":bnext<CR>")
--- map("n", "<F7>", ":bprev<CR>")
--- vim.api.nvim_set_keymap("n", "<C-A-i>", ":bprev<CR>", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "<C-A-o>", ":bnext<CR>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap("n", "<A-i>", ":bprev<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<A-o>", ":bnext<CR>", { noremap = true, silent = true })
-
---BufferLIne pick
-vim.api.nvim_set_keymap("n", "<A-u>", ":BufferLinePick<CR>", { noremap = true, silent = true })
-
 -- togle neoCodeium
 map("n", "<F9>", ":NeoCodeium toggle<CR>")
 
@@ -95,18 +76,8 @@ map("n", "<A-k>", ":m .-2<CR>==") -- mover línea hacia abajo(n)
 map("v", "<A-j>", ":m '>+1<CR>gv=gv") -- mover línea hacia arriba(v)
 map("v", "<A-k>", ":m '<-2<CR>gv=gv") -- mover línea hacia abajo(v)
 
---copiar la linea hacia abajo
-vim.api.nvim_set_keymap("n", "<C-A-j>", "yyp", { noremap = true, silent = true })
-
--- map("n", "<leader>ñ", '<cmd>lua require("window-picker").pick_window()<CR>', { noremap = true, silent = true })
-
---markdown--
-vim.api.nvim_set_keymap("n", "<leader>mr", ":RenderMarkdown<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>mf", ":RenderMarkdownRefresh<CR>", { noremap = true, silent = true })
-
--- select all
--- map("n", "<C-a>", "gg<S-v>G")
-vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
+--select all
+vim.keymap.set("n", "<C-a>", "<cmd>normal! ggVG<CR>", { noremap = true, silent = true })
 
 -- Deshabilitar la tecla 'q' para grabak macros
 vim.keymap.set("n", "q", "<Nop>", { noremap = true, silent = true })
@@ -119,6 +90,15 @@ vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })
 -- Sobrescribe `p` y `P` para que usen el portapapeles del sistema
 vim.keymap.set("n", "p", '"+p', { desc = "Pegar desde portapapeles del sistema" })
 vim.keymap.set("n", "P", '"+P', { desc = "Pegar antes del cursor desde portapapeles" })
+
+--bufferline Picker
+BufferLinePicker()
+
+--markdown
+Markdown()
+
+--moverse entre tabs de buffers
+TabsMove()
 
 --renombrar variable
 RenameVariable()
