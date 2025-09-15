@@ -6,7 +6,6 @@ let telefono = "1234567890";
 for (let i = 0; i < 10; i++) {
   console.log(i);
 }
-
 function suma(a, b) {
   return a + b;
 }
