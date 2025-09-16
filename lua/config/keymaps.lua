@@ -63,10 +63,6 @@ map("n", "<C,Z>", "<Nop>")
 -- togle neoCodeium
 map("n", "<F9>", ":NeoCodeium toggle<CR>")
 
---cambiar a la tab siguente
--- vim.api.nvim_set_keymap("n", "<leader>i", ":bprev<CR>", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "<leader>o", ":bnext<CR>", { noremap = true, silent = true })
-
 -- reload lazyvim and update config
 map("n", "<F4>", ":source $MYVIMRC<CR>")
 

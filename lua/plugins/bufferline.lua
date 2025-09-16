@@ -2,7 +2,7 @@
 local colors = {
   _bg = "#1a1f2b", -- Fondo base general
   visible_bg = "#232a2e", -- Fondo de tabs visibles (no activos)
-  selected_bg = "#463228", -- Fondo del tab activo
+  selected_bg = "#083e4c", -- Fondo del tab activo
   _fg = "#5c6370", -- Texto por defecto
   visible_fg = "#5c6370", -- Texto de tabs visibles (no activos)
   selected_fg = "#d0d0d0", -- Texto del tab activo
@@ -24,6 +24,7 @@ return {
       show_close_icon = false,
       show_buffer_close_icons = false,
       separator_style = "thick",
+      always_show_bufferline = true,
       numbers = function(opts)
         return string.format("%s.", opts.ordinal)
       end,
@@ -95,10 +96,30 @@ return {
       hint_visible = { fg = colors.hint_fg, bg = colors.visible_bg },
       hint_selected = { fg = colors.hint_fg, bold = true, bg = colors.selected_bg },
 
-      -- Diagnósticos (heredan colores según tipo)
-      diagnostic = { fg = colors.diagnostic_fg, bg = colors._bg },
-      diagnostic_visible = { fg = colors.diagnostic_fg, bg = colors.visible_bg },
-      diagnostic_selected = { fg = colors.diagnostic_fg, bold = true, bg = colors.selected_bg },
+      -- -- Diagnósticos (heredan colores según tipo)
+      -- diagnostic = { fg = colors.diagnostic_fg, bg = colors._bg },
+      -- diagnostic_visible = { fg = colors.diagnostic_fg, bg = colors.visible_bg },
+      -- diagnostic_selected = { fg = colors.diagnostic_fg, bold = true, bg = colors.selected_bg },
+      --
+      -- Íconos de errores
+      error_diagnostic = { fg = colors.error_fg, bg = "#3a1f2b" }, -- fondo distinto
+      error_diagnostic_visible = { fg = colors.error_fg, bg = "#3a2e2e" },
+      error_diagnostic_selected = { fg = colors.error_fg, bg = colors.selected_bg, bold = true },
+
+      -- Íconos de warnings
+      warning_diagnostic = { fg = colors.warn_fg, bg = "#3a2e1a" },
+      warning_diagnostic_visible = { fg = colors.warn_fg, bg = "#4a3a2a" },
+      warning_diagnostic_selected = { fg = colors.warn_fg, bg = colors.selected_bg, bold = true },
+
+      -- Íconos de info
+      info_diagnostic = { fg = colors.info_fg, bg = "#1a2e3a" },
+      info_diagnostic_visible = { fg = colors.info_fg, bg = "#2a3a4a" },
+      info_diagnostic_selected = { fg = colors.info_fg, bg = colors.selected_bg, bold = true },
+
+      -- Íconos de hints
+      hint_diagnostic = { fg = colors.hint_fg, bg = "#1e3a1a" },
+      hint_diagnostic_visible = { fg = colors.hint_fg, bg = "#2a4a2a" },
+      hint_diagnostic_selected = { fg = colors.hint_fg, bg = colors.selected_bg, bold = true },
     },
   },
 }

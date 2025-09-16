@@ -11,7 +11,6 @@ function suma(a, b) {
 }
 
 const resultado = suma(10, 20);
-console.log(resultado);
 
 function saludar() {
   console.log("hola");
@@ -21,3 +20,9 @@ function saludar() {
 {
   [];
 }
+
+const qqss = "equis";
+qqss = "otro";
+console.log(qqss);
+
+let parametro;

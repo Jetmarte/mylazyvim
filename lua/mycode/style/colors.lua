@@ -1,6 +1,6 @@
 EverForest = {
   -- Backgrounds
-  bg_dim = "#232A2E",
+  bg_dim = "#171d1f",
   bg0 = "#2D353B",
   bg1 = "#343F44",
   bg2 = "#3D484D",

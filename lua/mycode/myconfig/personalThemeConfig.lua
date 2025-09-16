@@ -21,7 +21,8 @@ local function EverGarden()
   Config.setNeotreeBgColor(EverForest.bg_dim, EverForest.bg0)
   Config.windowBackgroundColorToFocus(EverForest.bg_dim, EverForest.bg0)
   Config.BackgroundColorWindowToFocus(EverForest.bg_dim, EverForest.bg0)
-  Config.RowColorCursor(EverForest.bg_green, EverForest.yellow)
+  Config.RowColorCursor(EverForest.bg_blue, EverForest.yellow)
+  Config.ColorSelectedText(EverForest.bg_yellow)
   Config.CursorColor("#000000", "#ff6600", "#ff6600", "#ff6600")
 end
 
