@@ -102,22 +102,22 @@ return {
       -- diagnostic_selected = { fg = colors.diagnostic_fg, bold = true, bg = colors.selected_bg },
       --
       -- Íconos de errores
-      error_diagnostic = { fg = colors.error_fg, bg = "#3a1f2b" }, -- fondo distinto
+      error_diagnostic = { fg = colors.error_fg, bg = colors._bg }, -- fondo distinto
       error_diagnostic_visible = { fg = colors.error_fg, bg = "#3a2e2e" },
       error_diagnostic_selected = { fg = colors.error_fg, bg = colors.selected_bg, bold = true },
 
       -- Íconos de warnings
-      warning_diagnostic = { fg = colors.warn_fg, bg = "#3a2e1a" },
+      warning_diagnostic = { fg = colors.warn_fg, bg = colors._bg },
       warning_diagnostic_visible = { fg = colors.warn_fg, bg = "#4a3a2a" },
       warning_diagnostic_selected = { fg = colors.warn_fg, bg = colors.selected_bg, bold = true },
 
       -- Íconos de info
-      info_diagnostic = { fg = colors.info_fg, bg = "#1a2e3a" },
+      info_diagnostic = { fg = colors.info_fg, bg = colors._bg },
       info_diagnostic_visible = { fg = colors.info_fg, bg = "#2a3a4a" },
       info_diagnostic_selected = { fg = colors.info_fg, bg = colors.selected_bg, bold = true },
 
       -- Íconos de hints
-      hint_diagnostic = { fg = colors.hint_fg, bg = "#1e3a1a" },
+      hint_diagnostic = { fg = colors.hint_fg, bg = colors._bg },
       hint_diagnostic_visible = { fg = colors.hint_fg, bg = "#2a4a2a" },
       hint_diagnostic_selected = { fg = colors.hint_fg, bg = colors.selected_bg, bold = true },
     },

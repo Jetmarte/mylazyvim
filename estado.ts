@@ -5,5 +5,5 @@ for (let i = 0; i < 10; i++) {
   console.log("esto esta listo");
 }
 
-// asdf;
-// let parametro_dos;
+asdf;
+let parametro_dos;
