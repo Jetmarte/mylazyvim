@@ -1,5 +1,4 @@
 require("config.lazy")
-require("config.postLoadConfig")
 require("config.colorVerticalBar")
 require("mycode.myconfig.personalThemeConfig")
 

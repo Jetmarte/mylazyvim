@@ -1,4 +1,5 @@
 -- 📦 Función auxiliar para mostrar salida en ventana flotante (solo se cierra con "q")
+--  ejecutar archivos js y ts
 local function show_floating_output(cmd, title)
   local buf = vim.api.nvim_create_buf(false, true)
   local width = math.floor(vim.o.columns * 0.8)

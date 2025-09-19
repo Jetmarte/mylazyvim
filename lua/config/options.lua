@@ -110,7 +110,8 @@ opt.wrap = true -- Disable line wrap
 -- Fold settings for Neovim 0.10+
 if vim.fn.has("nvim-0.10") == 1 then
   opt.smoothscroll = true
-  opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+  -- Usar treesitter foldexpr de LazyVim
+  opt.foldexpr = "v:lua.LazyVim.treesitter.foldexpr()"
   opt.foldmethod = "expr"
   opt.foldtext = ""
 else
@@ -118,9 +119,10 @@ else
   opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
 
--- Color menu completions dynamically based on the current color scheme
-local bg = vim.api.nvim_get_hl_by_name("Normal", true).background
-local fg = vim.api.nvim_get_hl_by_name("Normal", true).foreground
+-- Nuevo método (Neovim 0.9+)
+local hl = vim.api.nvim_get_hl(0, { name = "Normal" })
+local bg = hl.bg
+local fg = hl.fg
 
 vim.api.nvim_set_hl(0, "Pmenu", { bg = bg, fg = fg })
 vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#575268", fg = "#D9E0EE" })

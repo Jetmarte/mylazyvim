@@ -1,9 +1,21 @@
-console.log("mungus");
+class Persona {
+  name: string;
+  age: number;
 
-for (let i = 0; i < 10; i++) {
-  console.log(i);
-  console.log("esto esta listo");
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  getName() {
+    return this.name;
+  }
+  getAge() {
+    return this.age;
+  }
 }
 
-asdf;
-let parametro_dos;
+const p = new Persona("julian", 20);
+
+console.log(p.getName());
+console.log(p.getAge());
