@@ -25,9 +25,10 @@ return {
       show_buffer_close_icons = false,
       separator_style = "thick",
       always_show_bufferline = true,
-      numbers = function(opts)
-        return string.format("%s.", opts.ordinal)
-      end,
+      -- mostrar numeros en las tabas
+      -- numbers = function(opts)
+      --   return string.format("%s.", opts.ordinal)
+      -- end,
 
       -- Mostrar íconos y colores según tipo de diagnóstico
       diagnostics_indicator = function(_, _, diagnostics_dict, _)
