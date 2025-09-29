@@ -23,7 +23,11 @@ local function Gruvbox()
         inverse = true, -- invert background for search, diffs, statuslines and errors
         contrast = "hard", -- can be "hard", "soft" or empty string
         palette_overrides = {},
-        overrides = {},
+        overrides = {
+          -- ["@keyword.return"] = { fg = "#fe8019", bold = true }, -- return en naranja
+          ["@keyword.return"] = { fg = "#b366af", bold = true }, -- return en naranja
+          -- ["@keyword.function"] = { fg = "#b366af", bold = true }, -- return en naranja
+        },
         dim_inactive = false,
         transparent_mode = false,
       })
