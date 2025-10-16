@@ -2,7 +2,8 @@
 local colors = {
   _bg = "#1a1f2b", -- Fondo base general
   visible_bg = "#232a2e", -- Fondo de tabs visibles (no activos)
-  selected_bg = "#083e4c", -- Fondo del tab activo
+  -- selected_bg = "#083e4c", -- Fondo del tab activo
+  selected_bg = "#a14000", -- Fondo del tab activo
   _fg = "#5c6370", -- Texto por defecto
   visible_fg = "#5c6370", -- Texto de tabs visibles (no activos)
   selected_fg = "#d0d0d0", -- Texto del tab activo
