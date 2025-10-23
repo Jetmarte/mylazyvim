@@ -1,6 +1,7 @@
 return {
   --muestra un minimapa en la derecha tipo vscode
-  "echasnovski/mini.map",
+  -- "echasnovski/mini.map",
+  "nvim-mini/mini.map",
   version = "*",
   config = function()
     local map = require("mini.map")

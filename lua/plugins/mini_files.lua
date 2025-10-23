@@ -1,7 +1,8 @@
 --manejador de archivos mas moderno
 
 return {
-  "echasnovski/mini.files",
+  -- "echasnovski/mini.files",
+  "nvim-mini/mini.files",
   enabled = false,
   opts = {
     windows = {
