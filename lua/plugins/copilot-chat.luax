@@ -1,0 +1,12 @@
+return {
+  "CopilotC-Nvim/CopilotChat.nvim",
+  opts = {
+    -- Esto permite que Copilot lea archivos del proyecto
+    context = "workspace",
+    allow_file_loading = true,
+    allow_command_execution = true,
+    system_prompt = require("CopilotChat.config").system_prompt
+      .. "\n"
+      .. "You have access to all files in the workspace.",
+  },
+}

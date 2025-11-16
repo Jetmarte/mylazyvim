@@ -1,34 +1,4 @@
-class Persona {
-  name: string;
-  age: number;
-  email: string;
-
-  constructor(name: string, age: number, email: string) {
-    this.name = name;
-    this.age = age;
-    this.email = email;
-  }
-
-  getName() {
-    return this.name;
-  }
-
-  getAge() {
-    return this.age;
-  }
-
-  setName(name: string) {
-    this.name = name;
-  }
-
-  getEmail() {
-    return this.email;
-  }
-
-  setEmail(email: string) {
-    this.email = email;
-  }
-}
+import { Persona } from "./Persona";
 
 const persona = new Persona("julian", 20, "obcollazos@gmail.com");
 
@@ -41,3 +11,6 @@ console.log(persona.getName());
 persona.setEmail("francisco@gmail");
 
 console.log(persona.getEmail());
+const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+console.log(numeros.map((num) => num * 2));
