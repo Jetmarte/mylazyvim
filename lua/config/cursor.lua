@@ -3,11 +3,6 @@ local M = {}
 
 -- Función principal que inicializa el comportamiento del cursor
 -- params: tabla con colores opcionales
--- {
---   caps_on = { cursor = "#ff4d4d", line = "#ff4d4d", fg = "#ffffff" },
---   caps_off = { cursor = "#7be05b", line = "#073642", fg = "#000000" },
---   interval = 800 -- tiempo del timer en ms
--- }
 function M.setup(opts)
   opts = opts or {}
   local caps_on = opts.caps_on or { cursor = "#ff4d4d", line = "#ff4d4d", fg = "#ffffff" }

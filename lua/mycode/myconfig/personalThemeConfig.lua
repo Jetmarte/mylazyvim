@@ -23,18 +23,10 @@ local function EverGarden()
   Config.BackgroundColorWindowToFocus(EverForest.bg_dim, EverForest.bg0)
   Config.RowColorCursor(EverForest.bg_blue, EverForest.yellow)
   Config.ColorSelectedText(EverForest.bg_yellow)
-  Config.CursorColor("#000000", "#ff6600", "#ff6600", "#ff6600")
-end
-
-local function GruvBox()
-  Config.setNeotreeBgColor("#000000", "#1d2021")
-  Config.windowBackgroundColorToFocus("#000000", "#1d2021")
-  Config.BackgroundColorWindowToFocus("#000000", "#1d2021")
-  --config gruvbox
+  Config.CursorColor(EverForest.bg0, "#ff6600", "#ff6600", "#ff6600")
 end
 
 local function Catppuccin()
-  --hola
   Config.setNeotreeBgColor("#000000", "#1d2021")
   Config.windowBackgroundColorToFocus("#000000", "#1d2021")
   Config.BackgroundColorWindowToFocus("#000000", "#1d2021")
@@ -62,9 +54,6 @@ local function ConfigTheme(themeName)
     end,
     ["evergarden"] = function()
       EverGarden()
-    end,
-    ["gruvbox"] = function()
-      GruvBox()
     end,
     ["catppuccin-mocha"] = function()
       Catppuccin()
