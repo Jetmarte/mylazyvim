@@ -1,35 +1,22 @@
 export class Persona {
-  name: string;
-  age: number;
-  email: string;
+  constructor(
+    public name: string,
+    public age: number,
+    private _email: string,
+  ) {}
 
-  constructor(name: string, age: number, email: string) {
-    this.name = name;
-    this.age = age;
-    this.email = email;
+  get email(): string {
+    return this._email;
   }
 
-  getName() {
-    return this.name;
+  set email(value: string) {
+    if (!value.includes("@")) {
+      throw new Error("Email inválido");
+    }
+    this._email = value;
   }
 
-  getAge() {
-    return this.age;
-  }
-
-  setName(name: string) {
-    this.name = name;
-  }
-
-  /**
-   * Retorna el email de una Persona
-   * @returns {string} email
-   */
-  getEmail(): string {
-    return this.email;
-  }
-
-  setEmail(email: string) {
-    this.email = email;
+  greet(): string {
+    return `Hola, soy ${this.name} y tengo ${this.age} años`;
   }
 }

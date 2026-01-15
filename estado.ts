@@ -1,13 +1,28 @@
-import { Persona } from "./Persona";
+interface Pokemon {
+  name: string;
+  id: number;
+  sprites: {
+    front_default: string;
+  };
+}
 
-const persona = new Persona("julian", 20, "obcollazos@gmail.com");
+export {};
 
-console.log(persona.getName());
+const getPokemon = async (name: string): Promise<Pokemon | null> => {
+  try {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}`,
+    );
+    if (!response.ok) return null;
+    return await response.json();
+  } catch {
+    return null;
+  }
+};
 
-persona.setName("francisco");
-console.log(persona.getName());
+const pokemon = await getPokemon("bulbasaur");
 
-ersona.setEmail("francisco@gmail");
-
-console.log(persona.getEmail());
-const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9 10];
+if (pokemon) {
+  console.log(`Pokemon: ${pokemon.name} (#${pokemon.id})`);
+  console.log(`Sprite: ${pokemon.sprites.front_default}`);
+}
