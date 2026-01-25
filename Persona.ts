@@ -20,3 +20,13 @@ export class Persona {
     return `Hola, soy ${this.name} y tengo ${this.age} años`;
   }
 }
+
+(() => {})();
+
+// TODO: que hacer
+// HACK: waring this color
+// WARN: peligro
+// PERF: performace optimice
+// NOTE: informacion
+// TEST:  paso del testing failed
+// FIX: corregir esto

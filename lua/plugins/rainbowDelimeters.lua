@@ -6,7 +6,7 @@ return {
     vim.g.rainbow_delimiters = {
       strategy = {
         [""] = "rainbow-delimiters.strategy.global",
-        vim = "rainbow.delimiters.strategy.local",
+        vim = "rainbow-delimiters.strategy.local",
       },
       query = {
         [""] = "rainbow-delimiters",

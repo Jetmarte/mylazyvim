@@ -9,12 +9,10 @@ require("config.cursor").setup({
 })
 -- ********* color themes  use <leader>uC ***********
 vim.cmd("colorscheme solarized-osaka")
--- vim.cmd("colorscheme evergarden")
+--vim.cmd("colorscheme evergarden")
 -- vim.cmd("colorscheme catppuccin")
 -- vim.cmd("colorscheme catppuccin-latte")
---vim.cmd("colorscheme evergarden")
---vim.cmd("colorscheme gruvbox")
 --vim.cmd("colorscheme evergarden-summer")
--- vim.cmd("colorscheme tokionight")
+--vim.cmd("colorscheme tokionight")
 --------------------------------------
 ConfigMyColor()

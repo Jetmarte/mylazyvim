@@ -26,3 +26,7 @@ if (pokemon) {
   console.log(`Pokemon: ${pokemon.name} (#${pokemon.id})`);
   console.log(`Sprite: ${pokemon.sprites.front_default}`);
 }
+
+console.log("findata");
+const nombre = "pepe";
+console.log(nombre);

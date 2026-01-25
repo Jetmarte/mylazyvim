@@ -28,6 +28,8 @@ map("i", "ÑL", "[<CR>]<c-o><s-o>")
 
 --Console.log()
 map("i", "csl", "console.log()<Esc>i")
+--Funcion autoinvocada
+map("i", "auto", "(()=>{ })()<Esc>hhhhi")
 --Nueva linea en insert mode
 map("i", "<C-o>", "<Esc>o")
 map("i", "<A-o>", "<CR><Esc>O")
@@ -86,6 +88,9 @@ vim.keymap.set("n", "<C-m>", "<Nop>", { noremap = true, silent = true })
 -- Sobrescribe `p` y `P` para que usen el portapapeles del sistema
 vim.keymap.set("n", "p", '"+p', { desc = "Pegar desde portapapeles del sistema" })
 vim.keymap.set("n", "P", '"+P', { desc = "Pegar antes del cursor desde portapapeles" })
+
+-- buscar y remplazar con RibSubstitute
+vim.keymap.set("n", "<leader>rs", ":RipSubstitute<CR>", { desc = "Rip Substitute" })
 
 --bufferline Picker
 BufferLinePicker()

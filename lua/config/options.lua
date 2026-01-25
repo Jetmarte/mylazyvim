@@ -142,3 +142,6 @@ vim.g.user_emmet_settings = {
     extends = "tsx",
   },
 }
+
+--hacer que nunca se restaure el sidebar , incluso manualmente
+vim.g.neotree_remove_legacy_commands = 1
