@@ -14,6 +14,10 @@ vim.g.bigfile_size = 1024 * 1024 * 1.5 -- 1.5 MB
 vim.g.trouble_lualine = true
 vim.g.markdown_recommended_style = 0
 
+-- ~/.config/nvim/lua/config/options.lua
+-- evitar que se guarden los buffers en la sesión
+vim.opt.sessionoptions:remove("buffers")
+
 -- LazyVim root dir detection
 -- Each entry can be:
 -- * the name of a detector function like `lsp` or `cwd`

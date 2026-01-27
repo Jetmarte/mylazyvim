@@ -11,3 +11,16 @@ vim.api.nvim_create_autocmd("BufNew", {
     end
   end,
 })
+
+-- ~/.config/nvim/lua/config/autocmds.lua
+vim.api.nvim_create_autocmd("User", {
+  pattern = "PersistenceLoadPost",
+  callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      local name = vim.api.nvim_buf_get_name(buf)
+      if name == "" or name == "/nvim" then
+        vim.api.nvim_buf_delete(buf, { force = true })
+      end
+    end
+  end,
+})
