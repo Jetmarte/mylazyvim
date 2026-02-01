@@ -44,6 +44,11 @@ local function EverGarden()
           ["@property"] = { fg = "#DBBC7F" }, -- querySelector → amarillo
           ["@function.method"] = { fg = "#E69875" }, -- métodos de objeto → naranja
           ["@string"] = { fg = "#A7C080" }, -- strings → verde
+          -- aqui modificamos el color del menu de autocompletado
+          ["Pmenu"] = { bg = "#1f2329", fg = "#D3C6AA" }, -- fondo del menú
+          ["PmenuSel"] = { bg = "#83C092", fg = "#1f2329", bold = true }, -- selección visible
+          ["PmenuSbar"] = { bg = "#2b3038" },
+          ["PmenuThumb"] = { bg = "#83C092" },
         },
         color_overrides = {},
         {

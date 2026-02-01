@@ -28,8 +28,10 @@ map("i", "ÑL", "[<CR>]<c-o><s-o>")
 
 --Console.log()
 map("i", "csl", "console.log()<Esc>i")
+
 --Funcion autoinvocada
-map("i", "auto", "(()=>{ })()<Esc>hhhhi")
+--map("i", "fc", "(()=>{ })()<Esc>hhhhi")
+--
 --Nueva linea en insert mode
 map("i", "<C-o>", "<Esc>o")
 map("i", "<A-o>", "<CR><Esc>O")
@@ -92,6 +94,12 @@ vim.keymap.set("n", "P", '"+P', { desc = "Pegar antes del cursor desde portapape
 -- buscar y remplazar con RibSubstitute
 vim.keymap.set("n", "<leader>rs", ":RipSubstitute<CR>", { desc = "Rip Substitute" })
 
+--translate
+vim.keymap.set("n", "<leader>th", function()
+  vim.cmd("TranslateW")
+end)
+
+-- =====================================================
 --bufferline Picker
 BufferLinePicker()
 
