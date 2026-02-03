@@ -5,9 +5,7 @@ interface Pokemon {
     front_default: string;
   };
 }
-
 export {};
-
 const getPokemon = async (name: string): Promise<Pokemon | null> => {
   try {
     const response = await fetch(

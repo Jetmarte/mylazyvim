@@ -13,18 +13,12 @@ return {
       mappings = {
         ["Y"] = function(state)
           local node = state.tree:get_node()
-          local filepath = node.path
+          local path = node:get_id()
+          local cwd = vim.loop.cwd()
+          local rel = vim.fn.fnamemodify(path, ":.")
 
-          -- Obtener root del proyecto (LazyVim)
-          local root = require("lazyvim.util").root.get()
-
-          -- Convertir a ruta relativa
-          local relpath = filepath:gsub("^" .. root .. "/", "")
-
-          -- Copiar al portapapeles del sistema
-          vim.fn.setreg("+", relpath)
-
-          print("Copied relative path: " .. relpath)
+          vim.fn.setreg("+", rel)
+          vim.notify("Ruta copiada: " .. rel)
         end,
       },
     },
