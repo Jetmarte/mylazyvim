@@ -11,8 +11,43 @@ return {
         view_history = "split",
       },
 
-      -- 🔥 RUTAS CORRECTAS (clave del fix)
       routes = {
+        -- ❌ ocultar mensajes tipo: "init.lua" 18L, 670B
+        {
+          filter = {
+            event = "msg_show",
+            find = "%d+L, %d+B",
+          },
+          opts = { skip = true },
+        },
+
+        -- ❌ ocultar: archivo escrito
+        {
+          filter = {
+            event = "msg_show",
+            find = "written",
+          },
+          opts = { skip = true },
+        },
+
+        -- ❌ ocultar: cambios de líneas
+        {
+          filter = {
+            event = "msg_show",
+            find = "lines",
+          },
+          opts = { skip = true },
+        },
+
+        -- ❌ ocultar: cambios genéricos
+        {
+          filter = {
+            event = "msg_show",
+            find = "changes",
+          },
+          opts = { skip = true },
+        },
+
         -- mensajes MUY largos → split
         {
           filter = {
@@ -22,7 +57,7 @@ return {
           view = "split",
         },
 
-        -- mensajes normales → wrap real
+        -- mensajes normales → notify con wrap real
         {
           filter = { event = "msg_show" },
           view = "notify",
@@ -33,7 +68,10 @@ return {
 
         -- cmd output largo → split
         {
-          filter = { event = "msg_show", kind = "cmd_output" },
+          filter = {
+            event = "msg_show",
+            kind = "cmd_output",
+          },
           view = "split",
         },
       },
@@ -70,13 +108,14 @@ return {
   {
     "rcarriga/nvim-notify",
     opts = {
-      timeout = 10000,
+      timeout = 6000,
       stages = "fade_in_slide_out",
 
-      -- 🔥 EL FIX REAL
-      max_width = math.huge, -- sin límite = NO truncar
-      max_height = math.huge, -- sin límite
-      render = "wrapped-default", -- wrap real multilínea
+      -- ✅ wrap real + sin truncar
+      max_width = math.huge,
+      max_height = math.huge,
+      render = "wrapped-default",
+
       background_colour = "#000000",
     },
   },
@@ -88,15 +127,24 @@ return {
     priority = 1200,
     config = function()
       local colors = require("solarized-osaka.colors").setup()
+
       require("incline").setup({
         highlight = {
           groups = {
-            InclineNormal = { guibg = colors.green300, guifg = colors.base04 },
-            inclineNormalNC = { guifg = colors.green300, guibg = colors.base03 },
+            InclineNormal = {
+              guibg = colors.green300,
+              guifg = colors.base04,
+            },
+            InclineNormalNC = {
+              guifg = colors.green300,
+              guibg = colors.base03,
+            },
           },
         },
+
         window = { margin = { vertical = 0, horizontal = 1 } },
         hide = { cursorline = true },
+
         render = function(props)
           local fullpath = vim.api.nvim_buf_get_name(props.buf)
           local filename = vim.fn.fnamemodify(fullpath, ":t")
@@ -107,7 +155,12 @@ return {
           end
 
           local icon, color = require("nvim-web-devicons").get_icon_color(filename)
-          return { { icon, guifg = color }, { " " }, { dirname .. "/" .. filename } }
+
+          return {
+            { icon, guifg = color },
+            { " " },
+            { dirname .. "/" .. filename },
+          }
         end,
       })
     end,
