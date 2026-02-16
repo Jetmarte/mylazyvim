@@ -34,6 +34,6 @@ return {
     require("aerial").setup(opts)
 
     -- Atajo para abrir/cerrar outline
-    vim.keymap.set("n", "<leader>o", "<cmd>AerialToggle!<CR>", { desc = "Toggle symbols outline" })
+    vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>", { desc = "Toggle symbols outline" })
   end,
 }

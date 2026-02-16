@@ -86,6 +86,6 @@ return {
     keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>", { desc = "Vista previa de definición" })
     keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>", { desc = "Ir a definición" })
     keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", { desc = "Acción de código" })
-    keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { desc = "Ver outline (símbolos)" })
+    keymap("n", "<leader>a", "<cmd>Lspsaga outline<CR>", { desc = "Ver outline (símbolos)" })
   end,
 }
