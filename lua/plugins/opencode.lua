@@ -46,10 +46,18 @@ return {
             width = 0.35,
             enter = false, -- Mantener foco en el editor
             wo = {
-              winbar = "", -- Sin winbar
+              winbar = "",        -- Sin winbar
+              number = false,     -- Sin números de línea
+              relativenumber = false,
+              signcolumn = "no",  -- Sin columna de signos
+              statuscolumn = "",  -- Sin status column
+              foldcolumn = "0",   -- Sin columna de folds
+              winfixwidth = true, -- Mantener ancho fijo al redimensionar
+              wrap = false,       -- Sin wrap (evita artefactos)
             },
             bo = {
               filetype = "opencode_terminal",
+              scrollback = 10000,
             },
           },
         },
@@ -384,6 +392,33 @@ return {
     -- =====================================================
     -- AUTOCOMANDOS
     -- =====================================================
+
+    -- Forzar redraw de la terminal opencode al redimensionar Neovim
+    vim.api.nvim_create_autocmd("VimResized", {
+      callback = function()
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          if vim.bo[buf].filetype == "opencode_terminal" then
+            -- Enviar señal de resize al proceso de terminal
+            vim.api.nvim_win_call(win, function()
+              vim.cmd("mode")
+            end)
+          end
+        end
+      end,
+      desc = "Redraw opencode terminal on resize",
+    })
+
+    -- Refrescar terminal al recuperar foco
+    vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
+      callback = function()
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.bo[buf].filetype == "opencode_terminal" then
+          vim.cmd("mode")
+        end
+      end,
+      desc = "Refresh opencode terminal on focus",
+    })
 
     -- Autocomando para manejar eventos de opencode
     vim.api.nvim_create_autocmd("User", {
