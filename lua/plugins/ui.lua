@@ -111,9 +111,9 @@ return {
       timeout = 6000,
       stages = "fade_in_slide_out",
 
-      -- ✅ wrap real + sin truncar
-      max_width = math.huge,
-      max_height = math.huge,
+      max_width = function()
+        return math.floor(vim.o.columns * 0.5)
+      end,
       render = "wrapped-default",
 
       background_colour = "#000000",
@@ -122,11 +122,20 @@ return {
 
   {
     "b0o/incline.nvim",
-    dependencies = { "craftzdog/solarized-osaka.nvim" },
     event = "BufReadPre",
     priority = 1200,
     config = function()
-      local colors = require("solarized-osaka.colors").setup()
+      local ok, osaka_colors = pcall(require, "solarized-osaka.colors")
+      local colors
+      if ok then
+        colors = osaka_colors.setup()
+      else
+        colors = {
+          green300 = "#859900",
+          base04 = "#002b36",
+          base03 = "#073642",
+        }
+      end
 
       require("incline").setup({
         highlight = {

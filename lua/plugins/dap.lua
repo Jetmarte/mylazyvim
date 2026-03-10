@@ -33,7 +33,7 @@ return {
       desc = "Continue",
     },
     {
-      "F8",
+      "<F8>",
       function()
         require("dap").continue()
       end,

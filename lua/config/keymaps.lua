@@ -43,8 +43,8 @@ map("i", ";;", "<Esc>A;")
 map("i", "º", "<Esc>")
 map("v", "º", "<Esc>")
 
-map("i", "<Esc><Esc>", "<Esc>:q!<CR>")
-map("n", "<Esc><Esc>", ":q!<CR>")
+map("i", "<Esc><Esc>", "<Esc>:confirm q<CR>")
+map("n", "<Esc><Esc>", ":confirm q<CR>")
 
 -- Salvar archivo
 map("n", "<C-s>", ":w<CR>")
@@ -62,7 +62,7 @@ map("n", "J", "<Nop>")
 map("n", "K", "<Nop>")
 map("n", "I", "<Nop>")
 map("n", "L", "<Nop>")
-map("n", "<C,Z>", "<Nop>")
+map("n", "<C-z>", "<Nop>")
 
 -- togle neoCodeium
 map("n", "<F9>", ":NeoCodeium toggle<CR>")

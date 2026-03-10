@@ -60,13 +60,14 @@ function M.setup(opts)
   })
 
   -- timer para revisar periódicamente
-  if vim.loop and vim.loop.new_timer and not M._timer then
-    local ok, t = pcall(vim.loop.new_timer)
+  local uv = vim.uv or vim.loop
+  if uv and uv.new_timer and not M._timer then
+    local ok, t = pcall(uv.new_timer)
     if ok and t then
       M._timer = t
       M._timer:start(
         0,
-        interval,
+        2000,
         vim.schedule_wrap(function()
           pcall(M.update_cursor)
         end)

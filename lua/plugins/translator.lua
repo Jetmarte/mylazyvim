@@ -23,7 +23,7 @@ return {
     local function close_translator_windows()
       for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
-        local ft = vim.api.nvim_buf_get_option(buf, "filetype")
+        local ft = vim.bo[buf].filetype
         if ft == "translator" then
           pcall(vim.api.nvim_win_close, win, true)
         end

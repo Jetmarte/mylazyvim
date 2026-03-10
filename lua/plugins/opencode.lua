@@ -1,5 +1,26 @@
 return {
   "NickvanDyke/opencode.nvim",
+  cmd = "Opencode",
+  keys = {
+    { "<leader>oa", desc = "Ask opencode about this", mode = { "n", "x" } },
+    { "<leader>os", desc = "Select opencode action", mode = { "n", "x" } },
+    { "<leader>ot", desc = "Toggle opencode", mode = { "n", "t" } },
+    { "<leader>oS", desc = "Start opencode" },
+    { "<leader>oQ", desc = "Stop opencode" },
+    { "<leader>o<CR>", desc = "Select opencode session" },
+    { "go", desc = "Add range to opencode", mode = { "n", "x" } },
+    { "goo", desc = "Add line to opencode" },
+    { "<leader>ob", desc = "Ask about buffer", mode = { "n", "x" } },
+    { "<leader>od", desc = "Ask about diagnostics", mode = { "n", "x" } },
+    { "<leader>og", desc = "Ask about git diff", mode = { "n", "x" } },
+    { "<leader>oc", desc = "Execute opencode command" },
+    { "<leader>op", desc = "Prompt opencode (no submit)", mode = { "n", "x" } },
+    { "<leader>or", desc = "Review code", mode = { "n", "x" } },
+    { "<leader>oe", desc = "Explain code", mode = { "n", "x" } },
+    { "<leader>oT", desc = "Add tests", mode = { "n", "x" } },
+    { "<leader>of", desc = "Fix code", mode = { "n", "x" } },
+    { "<leader>oR", desc = "Refactor code", mode = { "n", "x" } },
+  },
   dependencies = {
     -- Recommended for `ask()` and `select()`.
     -- Required for `snacks` provider.

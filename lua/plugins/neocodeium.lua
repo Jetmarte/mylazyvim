@@ -13,7 +13,7 @@ return {
       vim.keymap.set("i", "<A-l>", neocodeium.accept_line)
       vim.keymap.set("i", "<A-w>", neocodeium.accept_word)
 
-      vim.keymap.set("i", "<A-n", function()
+      vim.keymap.set("i", "<A-n>", function()
         require("neocodeium").cycle_or_complete(1)
       end)
       vim.keymap.set("i", "<A-b>", function()

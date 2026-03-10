@@ -16,8 +16,6 @@ function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
       "NeoTreeEndOfBuffer",
       "NeoTreeWinSeparator",
       "NeoTreeVertSplit",
-      "Normal", -- Puede afectar otras ventanas, usar con precaución
-      "NormalNC",
       "SignColumn",
       "StatusLine",
       "StatusLineNC",
@@ -67,18 +65,6 @@ function Config.windowBackgroundColorToFocus(getFocusColor, lostFocusColor)
     callback = function()
       vim.api.nvim_set_hl(0, "Normal", { bg = getFocusColor })
       vim.api.nvim_set_hl(0, "NormalNC", { bg = getFocusColor })
-    end,
-  })
-end
-
---- Change background color of window on enter/leave events.
--- @param getFocusColor Color for active window
--- @param lostFocusColor Color for inactive windows
-function Config.BackgroundColorWindowToFocus(getFocusColor, lostFocusColor)
-  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-    callback = function()
-      vim.cmd("highlight Normal guibg=" .. getFocusColor) -- Color de la ventana activa
-      vim.cmd("highlight NormalNC guibg=" .. lostFocusColor) -- Color de ventanas inactivas
     end,
   })
 end

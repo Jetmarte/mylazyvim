@@ -4,7 +4,6 @@ require("mycode.myconfig.personal-config")
 local function configSolarizedOsaka()
   Config.setNeotreeBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
   Config.windowBackgroundColorToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
-  Config.BackgroundColorWindowToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
   Config.setGutterBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
   Config.ColorSelectedText(ColorsSolarizedOsaka.Base02)
   Config.CursorColor(
@@ -20,7 +19,6 @@ end
 local function EverGarden()
   Config.setNeotreeBgColor(EverForest.bg_dim, EverForest.bg0)
   Config.windowBackgroundColorToFocus(EverForest.bg_dim, EverForest.bg0)
-  Config.BackgroundColorWindowToFocus(EverForest.bg_dim, EverForest.bg0)
   Config.RowColorCursor(EverForest.bg_blue, EverForest.yellow)
   Config.ColorSelectedText(EverForest.bg_yellow)
   Config.CursorColor(EverForest.bg0, "#ff6600", "#ff6600", "#ff6600")
@@ -29,14 +27,12 @@ end
 local function Catppuccin()
   Config.setNeotreeBgColor("#000000", "#1d2021")
   Config.windowBackgroundColorToFocus("#000000", "#1d2021")
-  Config.BackgroundColorWindowToFocus("#000000", "#1d2021")
 end
 
 local function CatppuccinLatte()
   --hola
   Config.setNeotreeBgColor("#eff1f5", "#e5e6eb")
   Config.windowBackgroundColorToFocus("#eff1f5", "#e5e6eb")
-  Config.BackgroundColorWindowToFocus("#eff1f5", "#e5e6eb")
   -- Config.RowColorCursor(EverForest.bg_blue, EverForest.yellow)
   Config.CursorColor("#000000", "#ff6600", "#ff6600", "#ff6600")
 end

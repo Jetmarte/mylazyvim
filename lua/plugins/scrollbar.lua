@@ -3,7 +3,21 @@ return {
   "petertriho/nvim-scrollbar",
   event = "BufReadPost",
   config = function()
-    local colors = require("tokyonight.colors").setup()
+    local ok, tokyonight_colors = pcall(require, "tokyonight.colors")
+    local colors
+    if ok then
+      colors = tokyonight_colors.setup()
+    else
+      colors = {
+        bg_highlight = "#2e3440",
+        orange = "#d08770",
+        error = "#bf616a",
+        warning = "#ebcb8b",
+        info = "#88c0d0",
+        hint = "#a3be8c",
+        purple = "#b48ead",
+      }
+    end
     require("scrollbar").setup({
       handle = {
         color = colors.bg_highlight,

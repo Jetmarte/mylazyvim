@@ -83,7 +83,7 @@ opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = false --true -- Relative line numbers
 opt.scrolloff = 4 -- Lines of context
-opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.sessionoptions = { "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
@@ -122,16 +122,6 @@ else
   opt.foldmethod = "indent"
   opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
-
--- Nuevo método (Neovim 0.9+)
-local hl = vim.api.nvim_get_hl(0, { name = "Normal" })
-local bg = hl.bg
-local fg = hl.fg
-
-vim.api.nvim_set_hl(0, "Pmenu", { bg = bg, fg = fg })
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#575268", fg = "#D9E0EE" })
-vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#3E4451" })
-vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#ABADB3" })
 
 -- Smooth cursor movement when scrolling
 opt.scrolljump = 5 -- Moves cursor with this amount of lines when scrolling
