@@ -183,6 +183,24 @@ local function SolarizedOsaka()
           hl["@punctuation.bracket"] = { fg = c.fg_dark }
           hl["@constructor"] = { fg = c.yellow }
 
+          -- ── TSX / JSX Treesitter (específicos por lenguaje) ──
+          hl["@tag.tsx"] = { fg = c.yellow }
+          hl["@tag.delimiter.tsx"] = { fg = c.orange }
+          hl["@tag.attribute.tsx"] = { fg = c.cyan }
+          hl["@constructor.tsx"] = { fg = c.yellow }
+          hl["@keyword.tsx"] = { fg = c.magenta, italic = true }
+          hl["@keyword.return.tsx"] = { fg = c.magenta, italic = true, bold = true }
+          hl["@keyword.function.tsx"] = { fg = c.magenta, italic = true }
+          hl["@variable.tsx"] = { fg = c.base0 }
+
+          hl["@tag.javascript"] = { fg = c.yellow }
+          hl["@tag.delimiter.javascript"] = { fg = c.orange }
+          hl["@tag.attribute.javascript"] = { fg = c.cyan }
+          hl["@constructor.javascript"] = { fg = c.yellow }
+          hl["@keyword.javascript"] = { fg = c.magenta, italic = true }
+          hl["@keyword.return.javascript"] = { fg = c.magenta, italic = true, bold = true }
+          hl["@variable.javascript"] = { fg = c.base0 }
+
           -- ── Diagnostics ──
           hl.DiagnosticVirtualTextError = { bg = "#0f1a1a", fg = c.red }
           hl.DiagnosticVirtualTextWarn = { bg = "#121a14", fg = c.yellow }
