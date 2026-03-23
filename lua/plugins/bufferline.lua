@@ -1,17 +1,20 @@
 -- plugins/bufferline.lua
-local colors = {
-  _bg = "#1a1f2b", -- Fondo base general
-  visible_bg = "#232a2e", -- Fondo de tabs visibles (no activos)
-  -- selected_bg = "#083e4c", -- Fondo del tab activo
-  selected_bg = "#a14000", -- Fondo del tab activo
-  _fg = "#5c6370", -- Texto por defecto
-  visible_fg = "#5c6370", -- Texto de tabs visibles (no activos)
-  selected_fg = "#d0d0d0", -- Texto del tab activo
-  error_fg = "#e05f65", -- Rojo para errores
-  warn_fg = "#e0af68", -- Amarillo para warnings
-  info_fg = "#5fb3b3", -- Azul para información
-  hint_fg = "#a7c080", -- Verde para hints
-  diagnostic_fg = "#e0af68", -- Amarillo para diagnósticos
+-- Colores alineados con Solarized Osaka
+local c = {
+  bg = "#001015", -- bg_dark del tema
+  bg_visible = "#001419", -- bg del tema
+  bg_selected = "#073642", -- Base02 - fondo oscuro distinguible para tab activo
+  fg = "#586e75", -- Base01 - texto apagado
+  fg_visible = "#657b83", -- Base00 - texto visible
+  fg_selected = "#eee8d5", -- Base2 - texto claro con alto contraste sobre fondo oscuro
+  separator = "#002028", -- sutil, no invisible
+  indicator = "#cb4b16", -- naranja para el indicador
+  modified = "#b58900", -- yellow del tema
+  close = "#839496", -- Base0 - icono cerrar discreto
+  error = "#dc322f",
+  warn = "#b58900",
+  info = "#2aa198",
+  hint = "#cb4b16",
 }
 
 return {
@@ -23,20 +26,30 @@ return {
       mode = "buffers",
       diagnostics = "nvim_lsp",
       show_close_icon = false,
-      show_buffer_close_icons = false,
+      show_buffer_close_icons = true,
+      close_icon = "󰅖",
       separator_style = "thick",
       always_show_bufferline = true,
-      -- mostrar numeros en las tabas
-      -- numbers = function(opts)
-      --   return string.format("%s.", opts.ordinal)
-      -- end,
+      indicator = { style = "icon", icon = "▎" },
+      tab_size = 20,
+      max_name_length = 25,
+      max_prefix_length = 15,
+      truncate_names = true,
+      offsets = {
+        {
+          filetype = "neo-tree",
+          text = "Explorer",
+          highlight = "Directory",
+          text_align = "center",
+          separator = true,
+        },
+      },
 
-      -- Mostrar íconos y colores según tipo de diagnóstico
       diagnostics_indicator = function(_, _, diagnostics_dict, _)
-        local icons = { error = " ", warning = " ", info = " ", hint = " " }
+        local icons = { error = " ", warning = " ", info = " ", hint = " " }
         local s = ""
         for e, n in pairs(diagnostics_dict) do
-          local sym = icons[e] or " "
+          local sym = icons[e] or " "
           s = s .. n .. sym
         end
         return s
@@ -44,84 +57,78 @@ return {
     },
 
     highlights = {
-      -- Tabs en segundo plano
-      buffer = {
-        bg = colors._bg,
-        fg = colors.active_fg,
-      },
-      -- Tabs visibles (pero no activos)
-      buffer_visible = {
-        fg = colors.active_fg,
-        bg = colors.visible_bg,
-      },
+      -- Fondo general (relleno entre tabs)
+      fill = { bg = c.bg },
+
+      -- Fondo de tabs
+      background = { bg = c.bg, fg = c.fg },
+
+      -- Tab visible (no activo)
+      buffer_visible = { fg = c.fg_visible, bg = c.bg_visible },
+
       -- Tab seleccionado (activo)
       buffer_selected = {
-        bg = colors.selected_bg,
-        fg = colors.selected_fg,
+        bg = c.bg_selected,
+        fg = c.fg_selected,
         bold = true,
-        italic = true,
+        italic = false,
       },
 
-      -- numbers
-      numbers = {
-        bg = colors._bg,
-        fg = colors.active_fg,
-      },
-      numbers_visible = {
-        fg = colors.active_fg,
-        bg = colors.visible_bg,
-      },
-      numbers_selected = {
-        bg = colors.selected_bg,
-        fg = colors.active_fg,
-        bold = true,
-        italic = true,
-      },
+      -- Indicador del tab activo
+      indicator_visible = { fg = c.bg_visible, bg = c.bg_visible },
+      indicator_selected = { fg = c.indicator, bg = c.bg_selected },
+
+      -- Separadores (slant usa fg para el triángulo, bg para el fondo)
+      separator = { fg = c.bg, bg = c.bg },
+      separator_visible = { fg = c.bg_visible, bg = c.bg },
+      separator_selected = { fg = c.bg_selected, bg = c.bg },
+
+      -- Icono de cerrar
+      close_button = { fg = c.fg, bg = c.bg },
+      close_button_visible = { fg = c.fg_visible, bg = c.bg_visible },
+      close_button_selected = { fg = c.close, bg = c.bg_selected },
+
+      -- Tabs modificados (sin guardar)
+      modified = { fg = c.modified, bg = c.bg },
+      modified_visible = { fg = c.modified, bg = c.bg_visible },
+      modified_selected = { fg = c.modified, bg = c.bg_selected },
+
+      -- Duplicados (cuando hay archivos con el mismo nombre)
+      duplicate = { fg = c.fg, bg = c.bg, italic = true },
+      duplicate_visible = { fg = c.fg_visible, bg = c.bg_visible, italic = true },
+      duplicate_selected = { fg = c.fg_selected, bg = c.bg_selected, italic = true },
 
       -- Errores
-      error = { fg = colors.error_fg, bg = colors._bg }, -- bg color de fondo de texto cuando no se tiene el foco
-      error_visible = { fg = colors.error_fg, bg = colors.visible_bg }, --bg color fondo cuando la ventana esta visible pero pierde el foco
-      error_selected = { fg = colors.error_fg, bold = true, bg = colors.selected_bg }, --bg color cuando se tiene el foco
+      error = { fg = c.error, bg = c.bg },
+      error_visible = { fg = c.error, bg = c.bg_visible },
+      error_selected = { fg = c.error, bg = c.bg_selected, bold = true },
+      error_diagnostic = { fg = c.error, bg = c.bg },
+      error_diagnostic_visible = { fg = c.error, bg = c.bg_visible },
+      error_diagnostic_selected = { fg = c.error, bg = c.bg_selected, bold = true },
 
       -- Warnings
-      warning = { fg = colors.warn_fg, bg = colors._bg },
-      warning_visible = { fg = colors.warn_fg, bg = colors.visible_bg },
-      warning_selected = { fg = colors.warn_fg, bold = true, bg = colors.selected_bg },
+      warning = { fg = c.warn, bg = c.bg },
+      warning_visible = { fg = c.warn, bg = c.bg_visible },
+      warning_selected = { fg = c.warn, bg = c.bg_selected, bold = true },
+      warning_diagnostic = { fg = c.warn, bg = c.bg },
+      warning_diagnostic_visible = { fg = c.warn, bg = c.bg_visible },
+      warning_diagnostic_selected = { fg = c.warn, bg = c.bg_selected, bold = true },
 
       -- Info
-      info = { fg = colors.info_fg, bg = colors._bg },
-      info_visible = { fg = colors.info_fg, bg = colors.visible_bg },
-      info_selected = { fg = colors.info_fg, bold = true, bg = colors.selected_bg },
+      info = { fg = c.info, bg = c.bg },
+      info_visible = { fg = c.info, bg = c.bg_visible },
+      info_selected = { fg = c.info, bg = c.bg_selected, bold = true },
+      info_diagnostic = { fg = c.info, bg = c.bg },
+      info_diagnostic_visible = { fg = c.info, bg = c.bg_visible },
+      info_diagnostic_selected = { fg = c.info, bg = c.bg_selected, bold = true },
 
       -- Hints
-      hint = { fg = colors.hint_fg, bg = colors._bg },
-      hint_visible = { fg = colors.hint_fg, bg = colors.visible_bg },
-      hint_selected = { fg = colors.hint_fg, bold = true, bg = colors.selected_bg },
-
-      -- -- Diagnósticos (heredan colores según tipo)
-      -- diagnostic = { fg = colors.diagnostic_fg, bg = colors._bg },
-      -- diagnostic_visible = { fg = colors.diagnostic_fg, bg = colors.visible_bg },
-      -- diagnostic_selected = { fg = colors.diagnostic_fg, bold = true, bg = colors.selected_bg },
-      --
-      -- Íconos de errores
-      error_diagnostic = { fg = colors.error_fg, bg = colors._bg }, -- fondo distinto
-      error_diagnostic_visible = { fg = colors.error_fg, bg = "#3a2e2e" },
-      error_diagnostic_selected = { fg = colors.error_fg, bg = colors.selected_bg, bold = true },
-
-      -- Íconos de warnings
-      warning_diagnostic = { fg = colors.warn_fg, bg = colors._bg },
-      warning_diagnostic_visible = { fg = colors.warn_fg, bg = "#4a3a2a" },
-      warning_diagnostic_selected = { fg = colors.warn_fg, bg = colors.selected_bg, bold = true },
-
-      -- Íconos de info
-      info_diagnostic = { fg = colors.info_fg, bg = colors._bg },
-      info_diagnostic_visible = { fg = colors.info_fg, bg = "#2a3a4a" },
-      info_diagnostic_selected = { fg = colors.info_fg, bg = colors.selected_bg, bold = true },
-
-      -- Íconos de hints
-      hint_diagnostic = { fg = colors.hint_fg, bg = colors._bg },
-      hint_diagnostic_visible = { fg = colors.hint_fg, bg = "#2a4a2a" },
-      hint_diagnostic_selected = { fg = colors.hint_fg, bg = colors.selected_bg, bold = true },
+      hint = { fg = c.hint, bg = c.bg },
+      hint_visible = { fg = c.hint, bg = c.bg_visible },
+      hint_selected = { fg = c.hint, bg = c.bg_selected, bold = true },
+      hint_diagnostic = { fg = c.hint, bg = c.bg },
+      hint_diagnostic_visible = { fg = c.hint, bg = c.bg_visible },
+      hint_diagnostic_selected = { fg = c.hint, bg = c.bg_selected, bold = true },
     },
   },
 }
