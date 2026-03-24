@@ -61,17 +61,20 @@ end
 
 --- Github Dark theme configuration
 local function GithubDark()
-  Config.setNeotreeBgColor(GithubColors.black, "#161b22")
-  Config.windowBackgroundColorToFocus(GithubColors.black, "#161b22")
-  Config.BackgroundColorWindowToFocus(GithubColors.black, "#161b22")
-  Config.setGutterBgColor(GithubColors.black, "#161b22")
+  Config.setNeotreeBgColor(GithubColors.black, "#0d1520")
+  Config.windowBackgroundColorToFocus(GithubColors.black, "#0d1520")
+  Config.BackgroundColorWindowToFocus(GithubColors.black, "#0d1520")
+  Config.setGutterBgColor(GithubColors.black, "#0d1520")
   Config.ColorSelectedText(GithubColors.gray5)
   Config.CursorColor(GithubColors.bg_dark, GithubColors.blue_light, GithubColors.orange, GithubColors.blue_light)
-  Config.RowColorCursor(GithubColors.gray5, GithubColors.blue_light)
+  Config.RowColorCursor("#161b22", "#539bf5")
   -- Fondo de ventanas flotantes (lazygit, popups, etc.)
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#0d1117" })
   vim.api.nvim_set_hl(0, "FloatBorder", { fg = GithubColors.blue_light, bg = "#0d1117" })
   vim.api.nvim_set_hl(0, "FloatTitle", { fg = GithubColors.blue_light, bg = "#0d1117", bold = true })
+  -- Líneas de indentación más tenues
+  vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#1b2230" })
+  vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#30363d" })
 end
 
 -- =============================================================
