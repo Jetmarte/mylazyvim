@@ -48,6 +48,32 @@ local function CatppuccinLatte()
   Config.RowColorCursor("#ccd0da", "#1e66f5")
 end
 
+--- Gruvbox theme configuration
+local function Gruvbox()
+  Config.setNeotreeBgColor(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.windowBackgroundColorToFocus(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.BackgroundColorWindowToFocus(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.setGutterBgColor(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.ColorSelectedText(GruvboxColors.bg2)
+  Config.CursorColor(GruvboxColors.bg0, GruvboxColors.fg, GruvboxColors.orange_bright, GruvboxColors.fg)
+  Config.RowColorCursor(GruvboxColors.bg1, GruvboxColors.orange_bright)
+end
+
+--- Github Dark theme configuration
+local function GithubDark()
+  Config.setNeotreeBgColor(GithubColors.black, "#161b22")
+  Config.windowBackgroundColorToFocus(GithubColors.black, "#161b22")
+  Config.BackgroundColorWindowToFocus(GithubColors.black, "#161b22")
+  Config.setGutterBgColor(GithubColors.black, "#161b22")
+  Config.ColorSelectedText(GithubColors.gray5)
+  Config.CursorColor(GithubColors.bg_dark, GithubColors.blue_light, GithubColors.orange, GithubColors.blue_light)
+  Config.RowColorCursor(GithubColors.gray5, GithubColors.blue_light)
+  -- Fondo de ventanas flotantes (lazygit, popups, etc.)
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#0d1117" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { fg = GithubColors.blue_light, bg = "#0d1117" })
+  vim.api.nvim_set_hl(0, "FloatTitle", { fg = GithubColors.blue_light, bg = "#0d1117", bold = true })
+end
+
 -- =============================================================
 --  configurar tema personalizado
 --- Apply theme-specific configuration by name.
@@ -61,6 +87,18 @@ local function ConfigTheme(themeName)
     end,
     ["evergarden"] = function()
       EverGarden()
+    end,
+    ["gruvbox"] = function()
+      Gruvbox()
+    end,
+    ["github_dark"] = function()
+      GithubDark()
+    end,
+    ["github_dark_dimmed"] = function()
+      GithubDark()
+    end,
+    ["github_dark_default"] = function()
+      GithubDark()
     end,
     -- ["catppuccin-mocha"] = function()
     --   Catppuccin()
