@@ -21,24 +21,60 @@ local function EverGarden()
   Config.setNeotreeBgColor(EverForest.bg_dim, EverForest.bg0)
   Config.windowBackgroundColorToFocus(EverForest.bg_dim, EverForest.bg0)
   Config.BackgroundColorWindowToFocus(EverForest.bg_dim, EverForest.bg0)
-  Config.RowColorCursor(EverForest.bg_blue, EverForest.yellow)
+  Config.setGutterBgColor(EverForest.bg_dim, EverForest.bg0)
   Config.ColorSelectedText(EverForest.bg_yellow)
   Config.CursorColor(EverForest.bg0, "#ff6600", "#ff6600", "#ff6600")
+  Config.RowColorCursor(EverForest.bg_blue, EverForest.yellow)
 end
 
+--- Catppuccin Mocha theme configuration
 local function Catppuccin()
   Config.setNeotreeBgColor("#000000", "#1d2021")
   Config.windowBackgroundColorToFocus("#000000", "#1d2021")
   Config.BackgroundColorWindowToFocus("#000000", "#1d2021")
+  Config.setGutterBgColor("#000000", "#1d2021")
+  Config.ColorSelectedText("#45475a")
+  Config.CursorColor("#1e1e2e", "#cdd6f4", "#fab387", "#cdd6f4")
+  Config.RowColorCursor("#313244", "#fab387")
 end
 
 local function CatppuccinLatte()
-  --hola
-  Config.setNeotreeBgColor("#eff1f5", "#e5e6eb")
-  Config.windowBackgroundColorToFocus("#eff1f5", "#e5e6eb")
-  Config.BackgroundColorWindowToFocus("#eff1f5", "#e5e6eb")
-  -- Config.RowColorCursor(EverForest.bg_blue, EverForest.yellow)
-  Config.CursorColor("#000000", "#ff6600", "#ff6600", "#ff6600")
+  Config.setNeotreeBgColor("#e6e9ef", "#dce0e8")
+  Config.windowBackgroundColorToFocus("#eff1f5", "#e6e9ef")
+  Config.BackgroundColorWindowToFocus("#eff1f5", "#e6e9ef")
+  Config.setGutterBgColor("#eff1f5", "#e6e9ef")
+  Config.ColorSelectedText("#bcc0cc")
+  Config.CursorColor("#eff1f5", "#8839ef", "#fe640b", "#8839ef")
+  Config.RowColorCursor("#ccd0da", "#1e66f5")
+end
+
+--- Gruvbox theme configuration
+local function Gruvbox()
+  Config.setNeotreeBgColor(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.windowBackgroundColorToFocus(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.BackgroundColorWindowToFocus(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.setGutterBgColor(GruvboxColors.bg_hard, GruvboxColors.bg0)
+  Config.ColorSelectedText(GruvboxColors.bg2)
+  Config.CursorColor(GruvboxColors.bg0, GruvboxColors.fg, GruvboxColors.orange_bright, GruvboxColors.fg)
+  Config.RowColorCursor(GruvboxColors.bg1, GruvboxColors.orange_bright)
+end
+
+--- Github Dark theme configuration
+local function GithubDark()
+  Config.setNeotreeBgColor(GithubColors.black, "#0d1520")
+  Config.windowBackgroundColorToFocus(GithubColors.black, "#0d1520")
+  Config.BackgroundColorWindowToFocus(GithubColors.black, "#0d1520")
+  Config.setGutterBgColor(GithubColors.black, "#0d1520")
+  Config.ColorSelectedText(GithubColors.gray5)
+  Config.CursorColor(GithubColors.bg_dark, GithubColors.blue_light, GithubColors.orange, GithubColors.blue_light)
+  Config.RowColorCursor("#161b22", "#539bf5")
+  -- Fondo de ventanas flotantes (lazygit, popups, etc.)
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#0d1117" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { fg = GithubColors.blue_light, bg = "#0d1117" })
+  vim.api.nvim_set_hl(0, "FloatTitle", { fg = GithubColors.blue_light, bg = "#0d1117", bold = true })
+  -- Líneas de indentación más tenues
+  vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#1b2230" })
+  vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#30363d" })
 end
 
 -- =============================================================
@@ -55,12 +91,24 @@ local function ConfigTheme(themeName)
     ["evergarden"] = function()
       EverGarden()
     end,
-    ["catppuccin-mocha"] = function()
-      Catppuccin()
+    ["gruvbox"] = function()
+      Gruvbox()
     end,
-    ["catppuccin-latte"] = function()
-      CatppuccinLatte()
+    ["github_dark"] = function()
+      GithubDark()
     end,
+    ["github_dark_dimmed"] = function()
+      GithubDark()
+    end,
+    ["github_dark_default"] = function()
+      GithubDark()
+    end,
+    -- ["catppuccin-mocha"] = function()
+    --   Catppuccin()
+    -- end,
+    -- ["catppuccin-latte"] = function()
+    --   CatppuccinLatte()
+    -- end,
   }
 
   if switch[opcion] then

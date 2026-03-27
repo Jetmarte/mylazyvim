@@ -1,19 +1,24 @@
-function nombre(nombre: string) {
-  const saludos = "holla";
-  console.log(saludos + nombre);
-  return saludos;
+class Persona {
+  private name: string;
+  private age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+
+  getName(): string {
+    return this.name;
+  }
+
+  setName(name: string): void {
+    this.name = name;
+  }
 }
 
-function saludo() {
-  return "hola";
-}
+const p = new Persona("John", 30);
 
-const dato = "omar";
+console.log(p.getName());
 
-const saludos = () => {
-  console.log("hola");
-};
-
-const amigo = () => {
-  return false;
-};
+p.setName("macario");
+console.log(p.getName());
