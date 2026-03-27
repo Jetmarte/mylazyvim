@@ -83,7 +83,7 @@ return {
     filesystem = {
       filtered_items = {
         visible = false,
-        hide_dotfiles = false,
+        hide_dotfiles = true,
         hide_gitignored = true,
         hide_by_name = {
           "node_modules",
