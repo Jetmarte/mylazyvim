@@ -44,7 +44,7 @@ return {
           win = {
             position = "right",
             width = 0.35,
-            enter = false, -- Mantener foco en el editor
+            enter = true, -- Entrar al panel al abrirlo para que opencode reciba foco
             wo = {
               winbar = "",        -- Sin winbar
               number = false,     -- Sin números de línea
@@ -182,15 +182,57 @@ return {
       end
     end, { desc = "Select opencode action" })
 
-    -- Toggle opencode terminal
+    -- Toggle opencode terminal (y entra en insert mode para que el campo de texto tenga foco)
     vim.keymap.set({ "n", "t" }, "<leader>ot", function()
       local success, err = pcall(function()
         opencode.toggle()
       end)
       if not success then
         vim.notify("Error en toggle: " .. tostring(err), vim.log.levels.ERROR)
+        return
       end
+      -- Tras toggle, si estamos en el terminal de opencode, entrar en insert mode
+      vim.schedule(function()
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.bo[buf].filetype == "opencode_terminal" then
+          vim.cmd("startinsert")
+        end
+      end)
     end, { desc = "Toggle opencode" })
+
+    -- Escapar del terminal de opencode y volver al buffer de nvim
+    vim.keymap.set("t", "<C-\\><C-n>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+    vim.keymap.set("t", "<Esc><Esc>", function()
+      vim.cmd("stopinsert")
+      vim.cmd("wincmd p")
+    end, { desc = "Exit opencode and focus editor" })
+
+    -- Ctrl+H: desde opencode terminal, volver al editor (ventana izquierda)
+    vim.keymap.set("t", "<C-h>", function()
+      local buf = vim.api.nvim_get_current_buf()
+      if vim.bo[buf].filetype == "opencode_terminal" then
+        vim.cmd("stopinsert")
+        vim.cmd("wincmd h")
+      else
+        -- Pasar Ctrl+H al terminal si no es opencode
+        return "<C-h>"
+      end
+    end, { desc = "Focus editor from opencode" })
+
+    -- Ctrl+L: desde el editor, ir al panel de opencode y entrar en insert mode
+    vim.keymap.set("n", "<C-l>", function()
+      -- Buscar si hay una ventana de opencode abierta
+      for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].filetype == "opencode_terminal" then
+          vim.api.nvim_set_current_win(win)
+          vim.cmd("startinsert")
+          return
+        end
+      end
+      -- Si no hay panel opencode, comportamiento normal de Ctrl+L
+      vim.cmd("wincmd l")
+    end, { desc = "Focus opencode panel" })
 
     -- Iniciar opencode
     vim.keymap.set("n", "<leader>oS", function()
@@ -409,15 +451,36 @@ return {
       desc = "Redraw opencode terminal on resize",
     })
 
-    -- Refrescar terminal al recuperar foco
-    vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "WinEnter" }, {
+    -- Al entrar a la ventana de opencode: refrescar y entrar en insert mode
+    -- para que el campo de texto de opencode reciba input inmediatamente
+    vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
       callback = function()
         local buf = vim.api.nvim_get_current_buf()
         if vim.bo[buf].filetype == "opencode_terminal" then
-          vim.cmd("mode")
+          vim.cmd("mode") -- refrescar render del terminal
+          vim.schedule(function()
+            if vim.api.nvim_get_current_buf() == buf then
+              vim.cmd("startinsert")
+            end
+          end)
         end
       end,
-      desc = "Refresh opencode terminal on focus",
+      desc = "Auto-focus opencode terminal input on enter",
+    })
+
+    -- Refrescar terminal al recuperar foco de la ventana de Neovim
+    vim.api.nvim_create_autocmd("FocusGained", {
+      callback = function()
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          if vim.bo[buf].filetype == "opencode_terminal" then
+            vim.api.nvim_win_call(win, function()
+              vim.cmd("mode")
+            end)
+          end
+        end
+      end,
+      desc = "Refresh opencode terminal on focus gained",
     })
 
     -- Autocomando para manejar eventos de opencode

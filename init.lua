@@ -2,6 +2,14 @@ require("config.lazy")
 require("config.colorVerticalBar")
 require("mycode.myconfig.personalThemeConfig")
 
+vim.o.autoread = true
+vim.o.updatetime = 1000
+
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "FileChangedShell"}, {
+  pattern = {"*"},
+  command = "checktime",
+})
+
 require("config.cursor").setup({
   caps_on = { cursor = "#ff7b72", line = "#2d1b1b", fg = "#ffffff" },
   caps_off = { cursor = "#539bf5", line = "#161b22", fg = "#0d1117" },
