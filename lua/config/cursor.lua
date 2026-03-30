@@ -34,6 +34,11 @@ function M.setup(opts)
 
   -- Actualiza cursor y highlights según estado de Caps Lock
   function M.update_cursor()
+    -- No interferir con buffers de terminal (opencode, etc.)
+    if vim.bo.buftype == "terminal" then
+      return
+    end
+
     local ok, is_on = pcall(caps_lock_on)
     if not ok then
       is_on = false
@@ -52,10 +57,30 @@ function M.setup(opts)
     end
   end
 
-  -- autocmds para actualizar en eventos
+  -- autocmds para actualizar en eventos (solo fuera de terminal)
   vim.api.nvim_create_autocmd({ "VimEnter", "InsertEnter", "InsertLeave", "ModeChanged" }, {
     callback = function()
-      pcall(M.update_cursor)
+      if vim.bo.buftype ~= "terminal" then
+        pcall(M.update_cursor)
+      end
+    end,
+  })
+
+  -- Pausar/reanudar el timer al entrar/salir de terminal
+  vim.api.nvim_create_autocmd("TermEnter", {
+    callback = function()
+      if M._timer then
+        M._timer:stop()
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd("TermLeave", {
+    callback = function()
+      if M._timer then
+        M._timer:start(0, interval, vim.schedule_wrap(function()
+          pcall(M.update_cursor)
+        end))
+      end
     end,
   })
 

@@ -5,9 +5,13 @@ require("mycode.myconfig.personalThemeConfig")
 vim.o.autoread = true
 vim.o.updatetime = 1000
 
-vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "FileChangedShell"}, {
-  pattern = {"*"},
-  command = "checktime",
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "FileChangedShell" }, {
+  pattern = { "*" },
+  callback = function()
+    if vim.bo.buftype ~= "terminal" then
+      vim.cmd("checktime")
+    end
+  end,
 })
 
 require("config.cursor").setup({

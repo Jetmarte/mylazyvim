@@ -16,63 +16,19 @@ return {
       return
     end
 
-    local config_ok, opencode_config = pcall(require, "opencode.config")
-    if not config_ok then
-      vim.notify("No se pudo cargar opencode.config", vim.log.levels.ERROR)
-      return
-    end
-
     -- =====================================================
     -- CONFIGURACIÓN PRINCIPAL
     -- =====================================================
     ---@type opencode.Opts
     vim.g.opencode_opts = {
-      -- Puerto personalizado (nil = auto-detectar)
-      port = nil,
-
-      -- Proveedor de terminal integrado
-      provider = {
-        -- Usar 'snacks' si está disponible, 'terminal' como fallback
-        enabled = "snacks",
-        
-        -- Comando base para iniciar opencode
-        cmd = "opencode --port",
-        
-        -- Configuración del proveedor snacks
-        snacks = {
-          auto_close = true, -- Cerrar terminal cuando opencode termina
-          win = {
-            position = "right",
-            width = 0.35,
-            enter = true, -- Entrar al panel al abrirlo para que opencode reciba foco
-            wo = {
-              winbar = "",        -- Sin winbar
-              number = false,     -- Sin números de línea
-              relativenumber = false,
-              signcolumn = "no",  -- Sin columna de signos
-              statuscolumn = "",  -- Sin status column
-              foldcolumn = "0",   -- Sin columna de folds
-              winfixwidth = true, -- Mantener ancho fijo al redimensionar
-              wrap = false,       -- Sin wrap (evita artefactos)
-            },
-            bo = {
-              filetype = "opencode_terminal",
-              scrollback = 10000,
-            },
-          },
-        },
-        
-        -- Configuración de terminal de Neovim (fallback)
-        terminal = {
-          split = "right",
-          width = math.floor(vim.o.columns * 0.35),
-        },
+      server = {
+        port = nil,
       },
 
       -- Configuración de eventos
       events = {
         enabled = true,
-        reload = true, -- Recargar buffers automáticamente
+        reload = true,
         permissions = {
           enabled = true,
           idle_delay_ms = 1000,
@@ -81,11 +37,8 @@ return {
 
       -- Configuración de prompts personalizados
       prompts = {
-        -- Prompts extendidos
         ask_append = { prompt = "", ask = true },
         ask_this = { prompt = "@this: ", ask = true, submit = true },
-        
-        -- Prompts de código
         review = { prompt = "Review @this for correctness, readability and best practices", submit = true },
         test = { prompt = "Add comprehensive tests for @this including edge cases", submit = true },
         explain = { prompt = "Explain @this and its context in detail", submit = true },
@@ -93,20 +46,12 @@ return {
         refactor = { prompt = "Refactor @this to improve readability and maintainability", submit = true },
         optimize = { prompt = "Optimize @this for better performance", submit = true },
         document = { prompt = "Add comprehensive documentation/comments for @this", submit = true },
-        
-        -- Prompts de debugging
         debug = { prompt = "Debug @this and explain what the issue is and how to fix it", submit = true },
         diff = { prompt = "Review the following git diff for correctness and readability: @diff", submit = true },
-        
-        -- Prompts de implementación
         implement = { prompt = "Implement @this following best practices", submit = true },
         complete = { prompt = "Complete the implementation of @this", submit = true },
-        
-        -- Prompts de análisis
         analyze = { prompt = "Analyze @this and suggest improvements", submit = true },
         simplify = { prompt = "Simplify @this while maintaining functionality", submit = true },
-        
-        -- Prompts de testing
         unittests = { prompt = "Write unit tests for @this with proper setup and teardown", submit = true },
         integration = { prompt = "Write integration tests for @this", submit = true },
       },
@@ -114,7 +59,6 @@ return {
       -- Configuración de ask (input)
       ask = {
         prompt = "Ask opencode: ",
-        blink_cmp_sources = { "opencode", "buffer" },
         snacks = {
           icon = "󰚩 ",
           win = {
@@ -143,7 +87,7 @@ return {
             ["prompt.submit"] = "Submit the current prompt",
             ["prompt.clear"] = "Clear the current prompt",
           },
-          provider = true,
+          server = true,
         },
         snacks = {
           preview = "preview",
@@ -155,8 +99,16 @@ return {
       },
     }
 
-    -- Required for `opts.events.reload`.
+    -- Recargar buffers automáticamente cuando opencode modifica archivos
     vim.o.autoread = true
+    vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+      callback = function()
+        if vim.bo.buftype ~= "terminal" then
+          vim.cmd("checktime")
+        end
+      end,
+      desc = "Auto-reload buffers modified externally",
+    })
 
     -- =====================================================
     -- KEYMAPS PRINCIPALES
@@ -182,22 +134,14 @@ return {
       end
     end, { desc = "Select opencode action" })
 
-    -- Toggle opencode terminal (y entra en insert mode para que el campo de texto tenga foco)
+    -- Toggle opencode terminal
     vim.keymap.set({ "n", "t" }, "<leader>ot", function()
       local success, err = pcall(function()
         opencode.toggle()
       end)
       if not success then
         vim.notify("Error en toggle: " .. tostring(err), vim.log.levels.ERROR)
-        return
       end
-      -- Tras toggle, si estamos en el terminal de opencode, entrar en insert mode
-      vim.schedule(function()
-        local buf = vim.api.nvim_get_current_buf()
-        if vim.bo[buf].filetype == "opencode_terminal" then
-          vim.cmd("startinsert")
-        end
-      end)
     end, { desc = "Toggle opencode" })
 
     -- Escapar del terminal de opencode y volver al buffer de nvim
@@ -209,30 +153,32 @@ return {
 
     -- Ctrl+H: desde opencode terminal, volver al editor (ventana izquierda)
     vim.keymap.set("t", "<C-h>", function()
-      local buf = vim.api.nvim_get_current_buf()
-      if vim.bo[buf].filetype == "opencode_terminal" then
-        vim.cmd("stopinsert")
-        vim.cmd("wincmd h")
-      else
-        -- Pasar Ctrl+H al terminal si no es opencode
-        return "<C-h>"
-      end
+      vim.cmd("stopinsert")
+      vim.cmd("wincmd h")
     end, { desc = "Focus editor from opencode" })
 
-    -- Ctrl+L: desde el editor, ir al panel de opencode y entrar en insert mode
+    -- Ctrl+L: desde el editor, ir al panel de opencode
     vim.keymap.set("n", "<C-l>", function()
-      -- Buscar si hay una ventana de opencode abierta
       for _, win in ipairs(vim.api.nvim_list_wins()) do
         local buf = vim.api.nvim_win_get_buf(win)
-        if vim.bo[buf].filetype == "opencode_terminal" then
+        if vim.bo[buf].buftype == "terminal" and vim.api.nvim_win_get_config(win).relative == "" then
           vim.api.nvim_set_current_win(win)
           vim.cmd("startinsert")
           return
         end
       end
-      -- Si no hay panel opencode, comportamiento normal de Ctrl+L
       vim.cmd("wincmd l")
     end, { desc = "Focus opencode panel" })
+
+    -- Auto-entrar en terminal mode al enfocar ventana de terminal
+    vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
+      callback = function()
+        if vim.bo.buftype == "terminal" then
+          vim.cmd("startinsert")
+        end
+      end,
+      desc = "Auto-enter terminal mode on focus",
+    })
 
     -- Iniciar opencode
     vim.keymap.set("n", "<leader>oS", function()
@@ -435,6 +381,17 @@ return {
     -- AUTOCOMANDOS
     -- =====================================================
 
+    -- Ocultar el buffer del terminal de opencode de la lista de buffers
+    vim.api.nvim_create_autocmd("TermOpen", {
+      callback = function(args)
+        local name = vim.api.nvim_buf_get_name(args.buf)
+        if name:match("opencode") then
+          vim.bo[args.buf].buflisted = false
+        end
+      end,
+      desc = "Hide opencode terminal from buffer list",
+    })
+
     -- Forzar redraw de la terminal opencode al redimensionar Neovim
     vim.api.nvim_create_autocmd("VimResized", {
       callback = function()
@@ -451,37 +408,6 @@ return {
       desc = "Redraw opencode terminal on resize",
     })
 
-    -- Al entrar a la ventana de opencode: refrescar y entrar en insert mode
-    -- para que el campo de texto de opencode reciba input inmediatamente
-    vim.api.nvim_create_autocmd({ "BufEnter", "WinEnter" }, {
-      callback = function()
-        local buf = vim.api.nvim_get_current_buf()
-        if vim.bo[buf].filetype == "opencode_terminal" then
-          vim.cmd("mode") -- refrescar render del terminal
-          vim.schedule(function()
-            if vim.api.nvim_get_current_buf() == buf then
-              vim.cmd("startinsert")
-            end
-          end)
-        end
-      end,
-      desc = "Auto-focus opencode terminal input on enter",
-    })
-
-    -- Refrescar terminal al recuperar foco de la ventana de Neovim
-    vim.api.nvim_create_autocmd("FocusGained", {
-      callback = function()
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-          local buf = vim.api.nvim_win_get_buf(win)
-          if vim.bo[buf].filetype == "opencode_terminal" then
-            vim.api.nvim_win_call(win, function()
-              vim.cmd("mode")
-            end)
-          end
-        end
-      end,
-      desc = "Refresh opencode terminal on focus gained",
-    })
 
     -- Autocomando para manejar eventos de opencode
     vim.api.nvim_create_autocmd("User", {
