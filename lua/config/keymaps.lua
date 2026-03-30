@@ -70,6 +70,9 @@ map("n", "<F9>", ":NeoCodeium toggle<CR>")
 -- reload lazyvim and update config
 map("n", "<F4>", ":source $MYVIMRC<CR>")
 
+-- reload buffer from disk
+map("n", "<leader>rr", ":edit!<CR>")
+
 --mover lineas
 map("n", "<A-j>", ":m .+1<CR>==") -- mover línea hacia arriba(n)
 map("n", "<A-k>", ":m .-2<CR>==") -- mover línea hacia abajo(n)
