@@ -61,11 +61,17 @@ return {
         prompt = "Ask opencode: ",
         snacks = {
           icon = "󰚩 ",
+          multiline = true,
+          expand = false,
           win = {
             title_pos = "left",
             relative = "cursor",
             row = -3,
             col = 0,
+            height = 5,
+            width = 60,
+            bo = { textwidth = 50 },
+            wo = { wrap = true, linebreak = true },
           },
         },
       },
@@ -117,7 +123,7 @@ return {
     -- Preguntar a opencode
     vim.keymap.set({ "n", "x" }, "<leader>oa", function()
       local success, err = pcall(function()
-        opencode.ask("@this: ", { submit = true })
+        opencode.ask("@this: ")
       end)
       if not success then
         vim.notify("Error en ask: " .. tostring(err), vim.log.levels.ERROR)

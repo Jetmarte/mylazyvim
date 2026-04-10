@@ -43,8 +43,6 @@ map("i", ";;", "<Esc>A;")
 map("i", "º", "<Esc>")
 map("v", "º", "<Esc>")
 
-map("i", "<Esc><Esc>", "<Esc>:q!<CR>")
-map("n", "<Esc><Esc>", ":q!<CR>")
 
 -- Salvar archivo
 map("n", "<C-s>", ":w<CR>")
