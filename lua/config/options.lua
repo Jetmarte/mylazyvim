@@ -50,6 +50,7 @@ local opt = vim.opt
 --vim.opt.winbar = "%=%m %f"
 
 opt.autowrite = true -- Enable auto write
+opt.swapfile = false -- Desactivar swap files para evitar prompts de recuperación al reabrir
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically. Requires Neovim >= 0.10.0
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard

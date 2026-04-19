@@ -11,3 +11,27 @@ vim.api.nvim_create_autocmd("BufNew", {
     end
   end,
 })
+
+-- Desactivar corrección ortográfica en markdown y texto
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text", "gitcommit" },
+  callback = function()
+    vim.opt_local.spell = false
+  end,
+})
+
+-- Auto-guardar buffers modificados al perder foco, cambiar de buffer o salir de Neovim.
+-- Garantiza que ningún cambio se pierda sin depender de swap files.
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "VimLeavePre" }, {
+  callback = function()
+    if
+      vim.bo.modified -- hay cambios sin guardar
+      and not vim.bo.readonly
+      and vim.bo.buftype == "" -- solo buffers de archivo normales
+      and vim.fn.expand("%") ~= "" -- tiene nombre de archivo
+      and vim.fn.filewritable(vim.fn.expand("%:p")) == 1 -- se puede escribir
+    then
+      vim.cmd("silent! write")
+    end
+  end,
+})

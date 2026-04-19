@@ -14,7 +14,7 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
     ft = { "markdown" },
     opts = {
-      render_modes = { "nvim", "conceal" },
+      render_modes = true,
       heading = {
         border = true, -- Bordes decorativos
         icons = true, -- Íconos junto a títulos
