@@ -1,20 +1,20 @@
 -- plugins/bufferline.lua
--- Colores alineados con Solarized Osaka
+-- Colores alineados con GitHub Dark
 local c = {
-  bg = "#001015", -- bg_dark del tema
-  bg_visible = "#001419", -- bg del tema
-  bg_selected = "#073642", -- Base02 - fondo oscuro distinguible para tab activo
-  fg = "#586e75", -- Base01 - texto apagado
-  fg_visible = "#657b83", -- Base00 - texto visible
-  fg_selected = "#eee8d5", -- Base2 - texto claro con alto contraste sobre fondo oscuro
-  separator = "#002028", -- sutil, no invisible
-  indicator = "#cb4b16", -- naranja para el indicador
-  modified = "#b58900", -- yellow del tema
-  close = "#839496", -- Base0 - icono cerrar discreto
-  error = "#dc322f",
-  warn = "#b58900",
-  info = "#2aa198",
-  hint = "#cb4b16",
+  bg = "#0d1117", -- canvas principal de github_dark
+  bg_visible = "#161b22", -- elevación 1 (tabs no activos)
+  bg_selected = "#21262d", -- elevación 2 (tab activo)
+  fg = "#6e7681", -- texto apagado
+  fg_visible = "#8b949e", -- texto secundario
+  fg_selected = "#e6edf3", -- texto principal claro
+  separator = "#0d1117",
+  indicator = "#f78166", -- naranja github
+  modified = "#d29922", -- amarillo github
+  close = "#8b949e",
+  error = "#f85149",
+  warn = "#d29922",
+  info = "#539bf5",
+  hint = "#a371f7",
 }
 
 return {

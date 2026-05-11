@@ -3,18 +3,27 @@ return {
   "petertriho/nvim-scrollbar",
   event = "BufReadPost",
   config = function()
-    local colors = require("tokyonight.colors").setup()
+    -- Paleta GitHub Dark
+    local gh = {
+      handle = "#21262d",
+      orange = "#f78166",
+      error = "#f85149",
+      warn = "#d29922",
+      info = "#539bf5",
+      hint = "#a371f7",
+      purple = "#bc8cff",
+    }
     require("scrollbar").setup({
       handle = {
-        color = colors.bg_highlight,
+        color = gh.handle,
       },
       marks = {
-        Search = { color = colors.orange },
-        Error = { color = colors.error },
-        Warn = { color = colors.warning },
-        Info = { color = colors.info },
-        Hint = { color = colors.hint },
-        Misc = { color = colors.purple },
+        Search = { color = gh.orange },
+        Error = { color = gh.error },
+        Warn = { color = gh.warn },
+        Info = { color = gh.info },
+        Hint = { color = gh.hint },
+        Misc = { color = gh.purple },
       },
     })
 

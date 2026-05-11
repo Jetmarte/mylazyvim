@@ -1,0 +1,34 @@
+
+  Tu tema activo es github_dark (init.lua:30), pero varios plugins de UI todavía usan colores cableados de otros temas:
+
+  1. bufferline.lua:3-18 — todos los colores c.bg, c.bg_visible, etc. son de Solarized Osaka (#001015, #073642, …). Sobre github_dark se ve "fuera de sitio". Reemplaza por la paleta de github (#0d1117, #161b22,
+   #21262d).
+  2. ui.lua:124-145 (incline) — hace require("solarized-osaka.colors").setup() y usa colors.green300/colors.base04. Con github_dark queda con verde pastel sobre fondo solarizado. Cambia a colores de la paleta
+  github (o léelos del tema activo con vim.api.nvim_get_hl).
+  3. scrollbar.lua:6 — require("tokyonight.colors").setup(), pero tokyonight no aparece en colorScheme.lua. Si está como dependencia transitiva funciona, pero sigue siendo el tema "incorrecto". Mejor leer del
+  tema activo o usar paleta de github.
+  4. ui.lua:119 — background_colour = "#000000" en nvim-notify. github_dark usa #0d1117; el negro puro corta contra el fondo del editor.
+  5. devicons.lua:31 — variant = "light|dark" no es válido (debe ser "light" o "dark" o quitarse). nvim-web-devicons lo ignora silenciosamente.
+  6. options.lua:132-135 — Pmenu hardcodeado a #575268 / #D9E0EE (paleta catppuccin). Inconsistente con github_dark, y se vuelve a sobreescribir al cambiar de tema (no escucha ColorScheme).
+
+  Mejoras visuales que aún no tienes
+
+  7. Statusline — no veo customización de lualine. Con laststatus = 3 (global) y github_dark tendrías mucho mejor look añadiendo modicator o un lualine theme alineado con github.
+  8. Indent guides — ya configuras SnacksIndent para github_dark, pero solo dentro de personalThemeConfig.lua:76-77. Está bien, aunque podrías subir el contraste de scope (#30363d → #3d4450) para que se vea sin
+   distraer.
+  9. Cursor "smear"/trail — tienes config/cursor.lua con un blink custom, pero podrías añadir [sphamba/smear-cursor.nvim](un trail real al moverte). Pega muy bien con github_dark.
+  10. Dashboard / Snacks — no veo customización del dashboard. Un header ASCII + atajos al estilo github (issues, pulls, recent) le daría identidad.
+  11. winbar — la tienes comentada en options.lua:50. Con incline ya cubres el filename, así que está bien dejarlo apagado, pero ojo: incline aparece arriba a la derecha, y muchos prefieren breadcrumb en winbar
+   (ej. dropbar.nvim o el winbar de LazyVim).
+  12. pumblend = 10 + winblend — tienes pumblend pero no winblend. Añadir opt.winblend = 10 da transparencia sutil a flotantes (lazygit, hover docs).
+  13. Bordes redondeados globales — no veo override de vim.o.winborder (Neovim ≥ 0.11). Con vim.o.winborder = "rounded" los flotantes quedan unificados sin tocar plugin por plugin.
+  14. Foldcolumn / statuscolumn — el statuscolumn de LazyVim está comentado (options.lua:101). Reactivarlo da signos de git/diagnostics más limpios al lado del número.
+
+  Recomendación rápida
+
+  Lo de mayor impacto y menor esfuerzo:
+  - (1) (2) (3) (4) — unificar paletas de bufferline/incline/scrollbar/notify a github_dark. Quita el "Frankenstein de temas".
+  - (5) (6) — limpiar variant inválido y mover el bloque Pmenu dentro del autocmd ColorScheme que ya tienes en personalThemeConfig.lua:129.
+  - (13) — vim.o.winborder = "rounded", una línea.
+
+  ¿Quieres que aplique alguno (te sugiero arrancar por 1–6)? Dime cuáles y los implemento.

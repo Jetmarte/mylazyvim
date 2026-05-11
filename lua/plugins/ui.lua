@@ -116,28 +116,33 @@ return {
       max_height = math.huge,
       render = "wrapped-default",
 
-      background_colour = "#000000",
+      background_colour = "#0d1117",
     },
   },
 
   {
     "b0o/incline.nvim",
-    dependencies = { "craftzdog/solarized-osaka.nvim" },
     event = "BufReadPre",
     priority = 1200,
     config = function()
-      local colors = require("solarized-osaka.colors").setup()
+      -- Paleta GitHub Dark
+      local gh = {
+        accent = "#539bf5", -- azul github
+        bg_active = "#0d1117",
+        bg_inactive = "#161b22",
+        fg_inactive = "#8b949e",
+      }
 
       require("incline").setup({
         highlight = {
           groups = {
             InclineNormal = {
-              guibg = colors.green300,
-              guifg = colors.base04,
+              guibg = gh.accent,
+              guifg = gh.bg_active,
             },
             InclineNormalNC = {
-              guifg = colors.green300,
-              guibg = colors.base03,
+              guifg = gh.fg_inactive,
+              guibg = gh.bg_inactive,
             },
           },
         },

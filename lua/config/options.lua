@@ -124,16 +124,6 @@ else
   opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
 
--- Nuevo método (Neovim 0.9+)
-local hl = vim.api.nvim_get_hl(0, { name = "Normal" })
-local bg = hl.bg
-local fg = hl.fg
-
-vim.api.nvim_set_hl(0, "Pmenu", { bg = bg, fg = fg })
-vim.api.nvim_set_hl(0, "PmenuSel", { bg = "#575268", fg = "#D9E0EE" })
-vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "#3E4451" })
-vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#ABADB3" })
-
 -- Smooth cursor movement when scrolling
 opt.scrolljump = 5 -- Moves cursor with this amount of lines when scrolling
 opt.smoothscroll = true -- Enable smooth scrolling
