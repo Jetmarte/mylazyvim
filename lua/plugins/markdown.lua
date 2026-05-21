@@ -16,10 +16,10 @@ return {
     opts = {
       render_modes = true,
       heading = {
-        border = true, -- Bordes decorativos
-        icons = true, -- Íconos junto a títulos
-        position = "inline", -- Encabezado + número en la misma línea
-        highlight = {
+        border = true,
+        position = "inline",
+        icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+        foregrounds = {
           "RenderMarkdownH1",
           "RenderMarkdownH2",
           "RenderMarkdownH3",
@@ -29,16 +29,23 @@ return {
         },
       },
       checkbox = {
-        checked = "󰄲", -- ícono de check (Nerd Font)
-        unchecked = "󰄱", -- ícono vacío
-        pending = "󰥔", -- ícono de pendiente
+        checked = { icon = "󰄲" },
+        unchecked = { icon = "󰄱" },
+        custom = {
+          pending = { raw = "[~]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
+        },
       },
       code = {
-        style = "minimal",
-        border = "rounded",
+        style = "normal",
+        border = "thick",
       },
-      bullet = { "•", "◦", "▪" },
-      quote = { icon = "❝", highlight = "RenderMarkdownQuote" },
+      bullet = {
+        icons = { "•", "◦", "▪" },
+      },
+      quote = {
+        icon = "❝",
+        highlight = { "RenderMarkdownQuote" },
+      },
     },
   },
 
