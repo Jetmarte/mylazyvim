@@ -100,6 +100,26 @@ vim.keymap.set("n", "<leader>th", function()
   vim.cmd("TranslateW")
 end)
 
+-- Cerrar ventana con <leader>wd, pero NO salir de Neovim si es la última ventana real
+-- (evita que neo-tree con close_if_last_window=true provoque la salida)
+vim.keymap.set("n", "<leader>wd", function()
+  local real = 0
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local cfg = vim.api.nvim_win_get_config(win)
+    local buf = vim.api.nvim_win_get_buf(win)
+    local ft = vim.api.nvim_get_option_value("filetype", { buf = buf })
+    -- contar solo ventanas no flotantes y que no sean neo-tree
+    if cfg.relative == "" and ft ~= "neo-tree" then
+      real = real + 1
+    end
+  end
+  if real > 1 then
+    vim.cmd("close")
+  else
+    vim.notify("No se cierra: es la última ventana", vim.log.levels.WARN)
+  end
+end, { desc = "Delete Window (no salir si es la última)" })
+
 -- =====================================================
 --bufferline Picker
 BufferLinePicker()

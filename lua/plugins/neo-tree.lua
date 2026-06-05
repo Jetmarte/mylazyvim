@@ -115,7 +115,7 @@ return {
 
     git_status = {
       window = {
-        position = "float",
+        position = "left",
       },
     },
 
