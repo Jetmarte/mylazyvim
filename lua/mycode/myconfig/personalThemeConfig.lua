@@ -110,10 +110,13 @@ end
 
 --- Github Dark theme configuration
 local function GithubDark()
-  Config.setNeotreeBgColor(GithubColors.black, "#0d1520")
-  Config.windowBackgroundColorToFocus(GithubColors.black, "#0d1520")
-  Config.BackgroundColorWindowToFocus(GithubColors.black, "#0d1520")
-  Config.setGutterBgColor(GithubColors.black, "#0d1520")
+  -- "NONE" deja el fondo transparente para que se vea la terminal por detrás.
+  -- Nota: con transparencia se pierde el efecto de "atenuar la ventana al perder
+  -- foco", porque un fondo transparente no se puede oscurecer con un color.
+  Config.setNeotreeBgColor("NONE", "NONE")
+  Config.windowBackgroundColorToFocus("NONE", "NONE")
+  Config.BackgroundColorWindowToFocus("NONE", "NONE")
+  Config.setGutterBgColor("NONE", "NONE")
   Config.ColorSelectedText(GithubColors.gray5)
   Config.CursorColor(GithubColors.bg_dark, GithubColors.blue_light, GithubColors.orange, GithubColors.blue_light)
   Config.RowColorCursor("#161b22", "#539bf5")
