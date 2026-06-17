@@ -127,6 +127,42 @@ local function GithubDark()
   -- Líneas de indentación más tenues
   vim.api.nvim_set_hl(0, "SnacksIndent", { fg = "#1b2230" })
   vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#30363d" })
+
+  -- Neo-tree: mejorar visibilidad sobre fondo transparente
+  -- (más contraste en texto, iconos, git status e indentación)
+  local nt = {
+    -- Nombres de archivos y carpetas
+    NeoTreeFileName = { fg = "#c9d1d9" },
+    NeoTreeFileNameOpened = { fg = "#e6edf3", italic = true },
+    NeoTreeDirectoryName = { fg = "#58a6ff" },
+    NeoTreeDirectoryIcon = { fg = "#58a6ff" },
+    NeoTreeRootName = { fg = "#58a6ff", bold = true },
+    NeoTreeTitleBar = { fg = "#0d1117", bg = "#58a6ff", bold = true },
+    -- Archivos ocultos/ignorados (tenues pero legibles)
+    NeoTreeDotfile = { fg = "#6e7681" },
+    NeoTreeHiddenByName = { fg = "#6e7681" },
+    -- Indentación y expanders más visibles
+    NeoTreeIndentMarker = { fg = "#444c56" },
+    NeoTreeExpander = { fg = "#768390" },
+    -- Línea seleccionada: fondo sólido sutil para ubicarse aun con transparencia
+    NeoTreeCursorLine = { bg = "#21262d" },
+    -- Símbolo de archivo modificado
+    NeoTreeModified = { fg = "#d29922" },
+    -- Git status con colores vivos
+    NeoTreeGitAdded = { fg = "#3fb950" },
+    NeoTreeGitModified = { fg = "#d29922" },
+    NeoTreeGitDeleted = { fg = "#f85149" },
+    NeoTreeGitRenamed = { fg = "#a371f7" },
+    NeoTreeGitUntracked = { fg = "#6cb6ff" },
+    NeoTreeGitStaged = { fg = "#3fb950" },
+    NeoTreeGitUnstaged = { fg = "#d29922" },
+    NeoTreeGitConflict = { fg = "#f85149", bold = true },
+    NeoTreeGitIgnored = { fg = "#545d68" },
+  }
+  for group, opts in pairs(nt) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+
   applyPmenu({
     bg = "#0d1117",
     fg = "#c9d1d9",

@@ -101,7 +101,7 @@ return {
         leave_dirs_open = true,
       },
       use_libuv_file_watcher = true,
-      group_empty_dirs = true,
+      group_empty_dirs = false,
     },
 
     buffers = {
@@ -109,7 +109,7 @@ return {
         enabled = true,
         leave_dirs_open = true,
       },
-      group_empty_dirs = true,
+      group_empty_dirs = false,
       show_unloaded = true,
     },
 
