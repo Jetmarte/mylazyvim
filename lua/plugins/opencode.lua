@@ -32,8 +32,13 @@ return {
     -- =====================================================
     ---@type opencode.Opts
     vim.g.opencode_opts = {
-      -- server: dejamos los defaults (terminal embebida en split derecho 35%).
+      -- server: usamos snacks.terminal para poder hacer toggle.
       -- Si quieres conectarte a un opencode --port externo, fija aquí el puerto.
+      server = {
+        start = function()
+          require("snacks.terminal").open(opencode_cmd, snacks_terminal_opts)
+        end,
+      },
 
       events = {
         enabled = true,
@@ -95,6 +100,14 @@ return {
 
     local opencode = require("opencode")
 
+    local opencode_cmd = "opencode --port"
+    local snacks_terminal_opts = {
+      win = {
+        position = "right",
+        enter = false,
+      },
+    }
+
     -- =====================================================
     -- KEYMAPS PRINCIPALES
     -- =====================================================
@@ -108,19 +121,15 @@ return {
     end, { desc = "Select opencode action" })
 
     vim.keymap.set({ "n", "t" }, "<leader>ot", function()
-      opencode.toggle()
+      require("snacks.terminal").toggle(opencode_cmd, snacks_terminal_opts)
     end, { desc = "Toggle opencode" })
 
     vim.keymap.set("n", "<leader>oS", function()
       opencode.start()
     end, { desc = "Start opencode" })
 
-    vim.keymap.set("n", "<leader>oQ", function()
-      opencode.stop()
-    end, { desc = "Stop opencode" })
-
     vim.keymap.set("n", "<leader>o<CR>", function()
-      opencode.select_session()
+      opencode.command("session.select")
     end, { desc = "Select opencode session" })
 
     -- =====================================================
