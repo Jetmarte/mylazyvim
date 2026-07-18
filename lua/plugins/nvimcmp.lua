@@ -39,6 +39,20 @@ return {
           end
         end, { "i", "s" }),
       })
+
+      -- Ventanas con bordes redondeados y colores coherentes con el tema
+      opts.window = vim.tbl_deep_extend("force", opts.window or {}, {
+        completion = {
+          border = "rounded",
+          winhighlight = "NormalFloat:CmpDocNormal,FloatBorder:CmpDocBorder,CursorLine:PmenuSel,Search:None",
+          col_offset = -3,
+          side_padding = 0,
+        },
+        documentation = {
+          border = "rounded",
+          winhighlight = "NormalFloat:CmpDocNormal,FloatBorder:CmpDocBorder,Search:None",
+        },
+      })
     end,
   },
 }

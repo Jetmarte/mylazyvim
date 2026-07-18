@@ -1,4 +1,5 @@
 require("mycode.myconfig.personal-config")
+local moonfly = require("mycode.style.themes.moonfly")
 
 --- Apply Pmenu (autocomplete popup) highlights coherent with the active theme.
 -- @param p table  { bg, fg, sel_bg, sel_fg, sbar, thumb }
@@ -26,11 +27,15 @@ local function configSolarizedOsaka()
   applyPmenu({
     bg = ColorsSolarizedOsaka.Base04,
     fg = ColorsSolarizedOsaka.Base0 or "#839496",
-    sel_bg = ColorsSolarizedOsaka.Base02 or "#073642",
-    sel_fg = ColorsSolarizedOsaka.Base2 or "#eee8d5",
+    sel_bg = ColorsSolarizedOsaka.Cyan or "#2aa198",
+    sel_fg = ColorsSolarizedOsaka.Base04 or "#001419",
     sbar = ColorsSolarizedOsaka.Base03 or "#002b36",
-    thumb = ColorsSolarizedOsaka.Base01 or "#586e75",
+    thumb = ColorsSolarizedOsaka.Cyan or "#2aa198",
   })
+
+  -- Ventana de documentación de cmp con bordes y fondo coherentes
+  vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = ColorsSolarizedOsaka.Base03 })
+  vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = ColorsSolarizedOsaka.Cyan, bg = ColorsSolarizedOsaka.Base03 })
 end
 
 --- EverGarden theme configuration
@@ -49,43 +54,6 @@ local function EverGarden()
     sel_fg = EverForest.fg or "#d3c6aa",
     sbar = EverForest.bg0 or "#2d353b",
     thumb = EverForest.bg_yellow or "#5c6a72",
-  })
-end
-
---- Catppuccin Mocha theme configuration
-local function Catppuccin()
-  Config.setNeotreeBgColor("#000000", "#1d2021")
-  Config.windowBackgroundColorToFocus("#000000", "#1d2021")
-  Config.BackgroundColorWindowToFocus("#000000", "#1d2021")
-  Config.setGutterBgColor("#000000", "#1d2021")
-  Config.ColorSelectedText("#45475a")
-  Config.CursorColor("#1e1e2e", "#cdd6f4", "#fab387", "#cdd6f4")
-  Config.RowColorCursor("#313244", "#fab387")
-  applyPmenu({
-    bg = "#1e1e2e",
-    fg = "#cdd6f4",
-    sel_bg = "#45475a",
-    sel_fg = "#f5e0dc",
-    sbar = "#313244",
-    thumb = "#6c7086",
-  })
-end
-
-local function CatppuccinLatte()
-  Config.setNeotreeBgColor("#e6e9ef", "#dce0e8")
-  Config.windowBackgroundColorToFocus("#eff1f5", "#e6e9ef")
-  Config.BackgroundColorWindowToFocus("#eff1f5", "#e6e9ef")
-  Config.setGutterBgColor("#eff1f5", "#e6e9ef")
-  Config.ColorSelectedText("#bcc0cc")
-  Config.CursorColor("#eff1f5", "#8839ef", "#fe640b", "#8839ef")
-  Config.RowColorCursor("#ccd0da", "#1e66f5")
-  applyPmenu({
-    bg = "#eff1f5",
-    fg = "#4c4f69",
-    sel_bg = "#bcc0cc",
-    sel_fg = "#4c4f69",
-    sbar = "#ccd0da",
-    thumb = "#9ca0b0",
   })
 end
 
@@ -199,9 +167,6 @@ local function ConfigTheme(themeName)
     ["github_dark_default"] = function()
       GithubDark()
     end,
-    -- ["catppuccin-mocha"] = function()
-    --   Catppuccin()
-    -- end,
     -- ["catppuccin-latte"] = function()
     --   CatppuccinLatte()
     -- end,

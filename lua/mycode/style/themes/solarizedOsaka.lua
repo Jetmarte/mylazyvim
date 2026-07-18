@@ -92,9 +92,16 @@ local function SolarizedOsaka()
           hl.IblScope = { fg = c.magenta }
 
           -- ── CMP ──
+          hl.Pmenu = { bg = c.bg_dark, fg = c.fg_dark }
+          hl.PmenuSel = { bg = c.cyan, fg = c.bg_dark, bold = true }
+          hl.PmenuSbar = { bg = c.bg_dark }
+          hl.PmenuThumb = { bg = c.cyan }
           hl.CmpItemMenu = { fg = c.comment, italic = true }
+          hl.CmpItemAbbr = { fg = c.fg_dark }
+          hl.CmpItemAbbrDeprecated = { fg = c.comment, strikethrough = true }
           hl.CmpItemAbbrMatch = { fg = c.cyan, bold = true }
           hl.CmpItemAbbrMatchFuzzy = { fg = c.cyan, bold = true }
+          hl.CmpItemKindDefault = { fg = c.fg_dark }
           hl.CmpItemKindFunction = { fg = c.magenta }
           hl.CmpItemKindMethod = { fg = c.magenta }
           hl.CmpItemKindVariable = { fg = c.blue }

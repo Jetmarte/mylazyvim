@@ -1,4 +1,4 @@
-require("mycode.execute.runCode")
+require("mycode.execute.runCode").setup()
 require("mycode.myconfig.keymaps.necodeium-chat")
 require("mycode.myconfig.keymaps.debugger")
 require("mycode.myconfig.keymaps.window-picker")
@@ -144,8 +144,7 @@ NumericTabs()
 -- debug code
 Debugger()
 
--- run files js and js with deno and node
-runFile()
+
 
 -- open neocodeium chat
 NeocodeIumChat()

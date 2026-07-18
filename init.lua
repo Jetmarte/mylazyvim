@@ -19,8 +19,10 @@ require("config.cursor").setup({
   caps_off = { cursor = "#539bf5", line = "#161b22", fg = "#0d1117" },
   interval = 500, -- tiempo del timer en ms
 })
+
 -- ********* color themes  use <leader>uC ***********
 vim.cmd("colorscheme solarized-osaka")
+-- vim.cmd("colorscheme miasma")
 --vim.cmd("colorscheme evergarden")
 --vim.cmd("colorscheme catppuccin")
 -- vim.cmd("colorscheme catppuccin-latte")
