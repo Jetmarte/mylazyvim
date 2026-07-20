@@ -21,7 +21,8 @@ require("config.cursor").setup({
 })
 
 -- ********* color themes  use <leader>uC ***********
-vim.cmd("colorscheme solarized-osaka")
+--vim.cmd("colorscheme solarized-osaka")
+vim.cmd("colorscheme retro-theme")
 -- vim.cmd("colorscheme miasma")
 --vim.cmd("colorscheme evergarden")
 --vim.cmd("colorscheme catppuccin")

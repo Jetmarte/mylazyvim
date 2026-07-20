@@ -76,6 +76,25 @@ local function Gruvbox()
   })
 end
 
+-- retro-theme omi
+local function RetroTheme()
+  Config.setNeotreeBgColor("#1c1e26", "#232530")
+  Config.windowBackgroundColorToFocus("#1c1e26", "#232530")
+  Config.BackgroundColorWindowToFocus("#1c1e26", "#232530")
+  Config.setGutterBgColor("#1c1e26", "#232530")
+  Config.ColorSelectedText("#336699")
+  Config.CursorColor("#1c1e26", "#ffdd33", "#ffdd33", "#ffdd33")
+  Config.RowColorCursor("#2a2c38", "#c8d0e0")
+  applyPmenu({
+    bg = "#1b1d23",
+    fg = "#c8d0e0",
+    sel_bg = "#336699",
+    sel_fg = "#c8d0e0",
+    sbar = "#232530",
+    thumb = "#3d4050",
+  })
+end
+
 --- Github Dark theme configuration
 local function GithubDark()
   -- "NONE" deja el fondo transparente para que se vea la terminal por detrás.
@@ -167,9 +186,9 @@ local function ConfigTheme(themeName)
     ["github_dark_default"] = function()
       GithubDark()
     end,
-    -- ["catppuccin-latte"] = function()
-    --   CatppuccinLatte()
-    -- end,
+    ["retro-theme"] = function()
+      RetroTheme()
+    end,
   }
 
   if switch[opcion] then
