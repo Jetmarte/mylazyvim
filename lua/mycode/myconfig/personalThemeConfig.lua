@@ -97,18 +97,27 @@ end
 
 --visual studio code
 local function VisualStudioCode()
-  -- local bg = "#1e1e1e"
-  local bg = "#2b2727"
+  -- local bg = "#2b2727"
+  local bg = "#111117"
   local bg_inactive = "#252526"
   local bg_focus = "#2d2d2d"
   local fg = "#d4d4d4"
+  local fg_dim = "#969696"
   local blue = "#007acc"
+  local blue_light = "#569cd6"
   local sel_bg = "#264f78"
   local cursor_bg = "#aeafad"
   local line_bg = "#2a2d2e"
   local comment = "#6a9955"
+  local green = "#b5cea8"
+  local orange = "#ce9178"
+  local yellow = "#dcdcaa"
+  local purple = "#c586c0"
+  local cyan = "#4ec9b0"
+  local red = "#f44747"
   local sbar = "#303030"
   local thumb = "#424242"
+  local border = "#3c3c3c"
 
   Config.setNeotreeBgColor(bg, bg_inactive)
   Config.windowBackgroundColorToFocus(bg, bg_inactive)
@@ -126,17 +135,112 @@ local function VisualStudioCode()
     thumb = thumb,
   })
 
-  vim.api.nvim_set_hl(0, "CursorLine", { bg = line_bg })
-  vim.api.nvim_set_hl(0, "Comment", { fg = comment, italic = true })
-  vim.api.nvim_set_hl(0, "LineNr", { fg = "#858585" })
-  vim.api.nvim_set_hl(0, "CursorLineNr", { fg = blue, bold = true })
-  vim.api.nvim_set_hl(0, "Search", { bg = sel_bg, fg = fg })
-  vim.api.nvim_set_hl(0, "IncSearch", { bg = blue, fg = bg })
-  vim.api.nvim_set_hl(0, "VertSplit", { fg = "#3c3c3c", bg = bg })
-  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3c3c3c", bg = bg })
-  vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg_focus })
-  vim.api.nvim_set_hl(0, "FloatBorder", { fg = blue, bg = bg_focus })
-  vim.api.nvim_set_hl(0, "FloatTitle", { fg = blue, bg = bg_focus, bold = true })
+  local syntax = {
+    Comment = { fg = comment, italic = true },
+    Constant = { fg = cyan },
+    String = { fg = orange },
+    Character = { fg = orange },
+    Number = { fg = green },
+    Boolean = { fg = blue_light },
+    Float = { fg = green },
+    Function = { fg = yellow },
+    Identifier = { fg = fg },
+    Keyword = { fg = blue_light },
+    Conditional = { fg = blue_light },
+    Repeat = { fg = blue_light },
+    Label = { fg = blue_light },
+    Operator = { fg = fg },
+    PreProc = { fg = purple },
+    Include = { fg = purple },
+    Define = { fg = purple },
+    Macro = { fg = purple },
+    Type = { fg = cyan },
+    StorageClass = { fg = blue_light },
+    Structure = { fg = cyan },
+    Typedef = { fg = cyan },
+    Special = { fg = orange },
+    SpecialChar = { fg = orange },
+    Tag = { fg = blue_light },
+    Delimiter = { fg = fg },
+    SpecialComment = { fg = comment },
+    Debug = { fg = orange },
+    Underlined = { underline = true },
+    Bold = { bold = true },
+    Italic = { italic = true },
+    Ignore = { fg = bg },
+    Error = { fg = red, bold = true },
+    Todo = { fg = bg, bg = yellow, bold = true },
+  }
+  for group, opts in pairs(syntax) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+
+  local ui = {
+    Normal = { bg = bg, fg = fg },
+    NormalFloat = { bg = bg_focus },
+    FloatBorder = { fg = blue, bg = bg_focus },
+    FloatTitle = { fg = blue, bg = bg_focus, bold = true },
+    LineNr = { fg = "#858585" },
+    CursorLineNr = { fg = blue, bold = true },
+    CursorLine = { bg = line_bg },
+    Cursor = { bg = cursor_bg, fg = bg },
+    Visual = { bg = sel_bg },
+    VisualNOS = { bg = sel_bg },
+    Search = { bg = sel_bg, fg = fg },
+    IncSearch = { bg = blue, fg = bg },
+    CurSearch = { link = "IncSearch" },
+    MatchParen = { bg = "#3d3d3d", fg = orange },
+    VertSplit = { fg = border, bg = bg },
+    WinSeparator = { fg = border, bg = bg },
+    Folded = { bg = bg_inactive, fg = fg_dim },
+    FoldColumn = { bg = bg, fg = fg_dim },
+    SignColumn = { bg = bg },
+    StatusLine = { bg = bg_inactive, fg = fg },
+    StatusLineNC = { bg = bg_inactive, fg = fg_dim },
+    TabLine = { bg = bg_inactive, fg = fg_dim },
+    TabLineFill = { bg = bg_inactive },
+    TabLineSel = { bg = bg, fg = blue, bold = true },
+    Title = { fg = blue, bold = true },
+    NonText = { fg = fg_dim },
+    SpecialKey = { fg = fg_dim },
+    Whitespace = { fg = "#3d3d3d" },
+    Conceal = { fg = comment },
+    EndOfBuffer = { fg = bg },
+    Directory = { fg = blue },
+    ErrorMsg = { fg = red, bold = true },
+    WarningMsg = { fg = orange, bold = true },
+    MoreMsg = { fg = blue },
+    ModeMsg = { fg = fg },
+    Question = { fg = blue },
+    SpellBad = { undercurl = true, sp = red },
+    SpellCap = { undercurl = true, sp = blue },
+    SpellLocal = { undercurl = true, sp = cyan },
+    SpellRare = { undercurl = true, sp = purple },
+    ColorColumn = { bg = "#2a2d2e" },
+    DiffAdd = { bg = "#1e3a2a", fg = green },
+    DiffChange = { bg = "#1e2a3a", fg = blue_light },
+    DiffDelete = { bg = "#3a1e1e", fg = red },
+    DiffText = { bg = "#264f78", fg = fg },
+    DiagnosticError = { fg = red },
+    DiagnosticWarn = { fg = orange },
+    DiagnosticInfo = { fg = blue },
+    DiagnosticHint = { fg = comment },
+    DiagnosticVirtualTextError = { bg = "#3a1e1e", fg = red },
+    DiagnosticVirtualTextWarn = { bg = "#3a2a1e", fg = orange },
+    DiagnosticVirtualTextInfo = { bg = "#1e2a3a", fg = blue },
+    DiagnosticVirtualTextHint = { bg = "#1e2a1e", fg = comment },
+    DiagnosticUnderlineError = { undercurl = true, sp = red },
+    DiagnosticUnderlineWarn = { undercurl = true, sp = orange },
+    DiagnosticUnderlineInfo = { undercurl = true, sp = blue },
+    DiagnosticUnderlineHint = { undercurl = true, sp = comment },
+    LspReferenceText = { bg = sel_bg },
+    LspReferenceRead = { bg = sel_bg },
+    LspReferenceWrite = { bg = sel_bg },
+    LspInlayHint = { bg = bg_focus, fg = fg_dim },
+  }
+  for group, opts in pairs(ui) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
 end
 
 --- Github Dark theme configuration
