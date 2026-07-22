@@ -146,6 +146,7 @@ local function VisualStudioCode()
     Function = { fg = yellow },
     Identifier = { fg = fg },
     Keyword = { fg = blue_light },
+    ["@keyword.return"] = { fg = "#f5b8d8" },
     Conditional = { fg = blue_light },
     Repeat = { fg = blue_light },
     Label = { fg = blue_light },
@@ -237,6 +238,8 @@ local function VisualStudioCode()
     LspReferenceRead = { bg = sel_bg },
     LspReferenceWrite = { bg = sel_bg },
     LspInlayHint = { bg = bg_focus, fg = fg_dim },
+    SnacksIndent = { fg = "#353550" },
+    SnacksIndentScope = { fg = "#1e5a7a" },
   }
   for group, opts in pairs(ui) do
     vim.api.nvim_set_hl(0, group, opts)
