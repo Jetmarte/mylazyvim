@@ -95,6 +95,50 @@ local function RetroTheme()
   })
 end
 
+--visual studio code
+local function VisualStudioCode()
+  -- local bg = "#1e1e1e"
+  local bg = "#2b2727"
+  local bg_inactive = "#252526"
+  local bg_focus = "#2d2d2d"
+  local fg = "#d4d4d4"
+  local blue = "#007acc"
+  local sel_bg = "#264f78"
+  local cursor_bg = "#aeafad"
+  local line_bg = "#2a2d2e"
+  local comment = "#6a9955"
+  local sbar = "#303030"
+  local thumb = "#424242"
+
+  Config.setNeotreeBgColor(bg, bg_inactive)
+  Config.windowBackgroundColorToFocus(bg, bg_inactive)
+  Config.BackgroundColorWindowToFocus(bg, bg_inactive)
+  Config.setGutterBgColor(bg, bg_inactive)
+  Config.ColorSelectedText(sel_bg)
+  Config.CursorColor(cursor_bg, blue, blue, cursor_bg)
+  Config.RowColorCursor(line_bg, blue)
+  applyPmenu({
+    bg = bg_inactive,
+    fg = fg,
+    sel_bg = blue,
+    sel_fg = bg,
+    sbar = sbar,
+    thumb = thumb,
+  })
+
+  vim.api.nvim_set_hl(0, "CursorLine", { bg = line_bg })
+  vim.api.nvim_set_hl(0, "Comment", { fg = comment, italic = true })
+  vim.api.nvim_set_hl(0, "LineNr", { fg = "#858585" })
+  vim.api.nvim_set_hl(0, "CursorLineNr", { fg = blue, bold = true })
+  vim.api.nvim_set_hl(0, "Search", { bg = sel_bg, fg = fg })
+  vim.api.nvim_set_hl(0, "IncSearch", { bg = blue, fg = bg })
+  vim.api.nvim_set_hl(0, "VertSplit", { fg = "#3c3c3c", bg = bg })
+  vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#3c3c3c", bg = bg })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = bg_focus })
+  vim.api.nvim_set_hl(0, "FloatBorder", { fg = blue, bg = bg_focus })
+  vim.api.nvim_set_hl(0, "FloatTitle", { fg = blue, bg = bg_focus, bold = true })
+end
+
 --- Github Dark theme configuration
 local function GithubDark()
   -- "NONE" deja el fondo transparente para que se vea la terminal por detrás.
@@ -188,6 +232,9 @@ local function ConfigTheme(themeName)
     end,
     ["retro-theme"] = function()
       RetroTheme()
+    end,
+    ["visual_studio_code"] = function()
+      VisualStudioCode()
     end,
   }
 

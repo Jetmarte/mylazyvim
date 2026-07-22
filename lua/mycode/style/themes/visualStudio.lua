@@ -3,7 +3,6 @@ local function VisualStudio()
     "askfiy/visual_studio_code",
     priority = 100,
     config = function()
-      vim.cmd([[colorscheme visual_studio_code]])
       require("visual_studio_code").setup({
         -- `dark` or `light`
         mode = "dark",
@@ -37,9 +36,14 @@ local function VisualStudio()
         },
         hooks = {
           before = function(conf, colors, utils) end,
-          after = function(conf, colors, utils) end,
+          after = function()
+            vim.g.colors_name = "visual_studio_code"
+            require("mycode.myconfig.personalThemeConfig")
+            ConfigMyColor()
+          end,
         },
       })
+      vim.cmd([[colorscheme visual_studio_code]])
     end,
   }
 end
