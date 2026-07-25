@@ -27,10 +27,18 @@ local function get_bufferline_highlights()
     keyword = hl("Keyword")
   end
 
-  local function brightness(hex, diff)
-    if not hex then
+  local function to_hex(color)
+    if type(color) == "number" then
+      return string.format("#%06x", color)
+    end
+    return color
+  end
+
+  local function brightness(color, diff)
+    if not color then
       return nil
     end
+    local hex = to_hex(color)
     local r = math.max(0, math.min(255, tonumber(hex:sub(2, 3), 16) + diff))
     local g = math.max(0, math.min(255, tonumber(hex:sub(4, 5), 16) + diff))
     local b = math.max(0, math.min(255, tonumber(hex:sub(6, 7), 16) + diff))
@@ -39,7 +47,7 @@ local function get_bufferline_highlights()
 
   local bg = tabline_fill.bg or normal.bg or "#000000"
   local bg_visible = tabline.bg or brightness(normal.bg, 12) or bg
-  local bg_selected = tabline_sel.bg or visual.bg or cursorline.bg or brightness(normal.bg, 55) or bg
+  local bg_selected = brightness(normal.bg, 55) or bg
   local fg = comment.fg or nontext.fg or "#787878"
   local fg_visible = normal.fg or "#cccccc"
   local fg_selected = tabline_sel.fg or brightness(normal.fg, 40) or "#ffffff"
@@ -50,7 +58,7 @@ local function get_bufferline_highlights()
     fill = { bg = bg },
     background = { bg = bg, fg = fg },
     buffer_visible = { fg = fg_visible, bg = bg_visible },
-    buffer_selected = { bg = bg_selected, fg = fg_selected, bold = true, italic = false, underline = true },
+    buffer_selected = { bg = bg_selected, fg = fg_selected, bold = true, italic = false, underline = true, sp = indicator },
     indicator_visible = { fg = bg_visible, bg = bg_visible },
     indicator_selected = { fg = indicator, bg = bg_selected, bold = true },
     separator = { fg = bg, bg = bg },
