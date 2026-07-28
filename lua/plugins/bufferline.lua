@@ -58,7 +58,7 @@ local function get_bufferline_highlights()
     fill = { bg = bg },
     background = { bg = bg, fg = fg },
     buffer_visible = { fg = fg_visible, bg = bg_visible },
-    buffer_selected = { bg = bg_selected, fg = fg_selected, bold = true, italic = false, underline = true, sp = indicator },
+    buffer_selected = { bg = bg_selected, fg = fg_selected, bold = true, italic = false, sp = indicator },
     indicator_visible = { fg = bg_visible, bg = bg_visible },
     indicator_selected = { fg = indicator, bg = bg_selected, bold = true },
     separator = { fg = bg, bg = bg },
@@ -115,7 +115,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 return {
   "akinsho/bufferline.nvim",
-  version = "*",
+  version = "~> 4.7",
+  event = "UIEnter",
   dependencies = "nvim-tree/nvim-web-devicons",
   opts = {
     options = {
@@ -127,7 +128,7 @@ return {
       separator_style = "thick",
       always_show_bufferline = true,
       indicator = { style = "icon", icon = "▎" },
-      tab_size = 20,
+      tab_size = 25,
       max_name_length = 25,
       max_prefix_length = 15,
       truncate_names = true,
