@@ -19,8 +19,6 @@ function Config.setNeotreeBgColor(getFocusColor, lostFocusColor)
       "Normal", -- Puede afectar otras ventanas, usar con precaución
       "NormalNC",
       "SignColumn",
-      "StatusLine",
-      "StatusLineNC",
     }
 
     for _, group in ipairs(hl_groups) do
@@ -99,8 +97,18 @@ end
 -- @param colorRow Background color for cursor line
 -- @param colorNumber Foreground color for cursor line number
 function Config.RowColorCursor(colorRow, colorNumber)
+  vim.opt.cursorline = true
   vim.api.nvim_set_hl(0, "CursorLine", { bg = colorRow })
   vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colorNumber, bold = true })
+  -- Reaplica el color de la línea al cambiar de colorscheme
+  local aug = vim.api.nvim_create_augroup("CursorLineTheme", { clear = true })
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    group = aug,
+    callback = function()
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = colorRow })
+      vim.api.nvim_set_hl(0, "CursorLineNr", { fg = colorNumber, bold = true })
+    end,
+  })
 end
 
 --- Set cursor color and handle insert mode transitions.

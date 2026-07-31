@@ -45,12 +45,20 @@ function M.update_cursor(caps_on, caps_off)
     -- Caps Lock activado: bloque + color de aviso
     vim.opt.guicursor = "n-v-c:block-CursorCaps,i-ci-ve:ver25-CursorInsert,r-cr:hor20"
     vim.api.nvim_set_hl(0, "CursorCaps", { bg = caps_on.cursor, fg = caps_on.fg })
+    -- Guarda el color de línea del tema la primera vez que se activa
+    if M._saved_line == nil then
+      local hl = vim.api.nvim_get_hl(0, { name = "CursorLine" })
+      M._saved_line = hl.bg
+    end
     vim.api.nvim_set_hl(0, "CursorLine", { bg = caps_on.line })
   else
     -- Caps Lock apagado: bloque normal
     vim.opt.guicursor = "n-v-c:block-CursorOff,i-ci-ve:ver25-CursorOff,r-cr:hor20"
     vim.api.nvim_set_hl(0, "CursorOff", { bg = caps_off.cursor, fg = caps_off.fg })
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = caps_off.line })
+    -- Restaura el color de línea que definió el tema (RowColorCursor)
+    if M._saved_line ~= nil then
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = M._saved_line })
+    end
   end
   -- El cursor de modo inserción siempre usa el color "off"
   vim.api.nvim_set_hl(0, "CursorInsert", { bg = caps_off.cursor, fg = caps_off.fg })
@@ -122,6 +130,13 @@ function M.setup(opts)
   setup_mode_autocmds(caps_on, caps_off)
   setup_terminal_autocmds(interval, caps_on, caps_off)
   start_timer(interval, caps_on, caps_off)
+
+  -- Al cambiar de colorscheme se olvida la línea guardada para no restaurar un color viejo
+  vim.api.nvim_create_autocmd("ColorScheme", {
+    callback = function()
+      M._saved_line = nil
+    end,
+  })
 
   -- Aplica el estado inicial nada más cargar
   pcall(M.update_cursor, caps_on, caps_off)

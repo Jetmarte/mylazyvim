@@ -10,6 +10,184 @@ local function applyPmenu(p)
   vim.api.nvim_set_hl(0, "PmenuThumb", { bg = p.thumb })
 end
 
+--- Morning theme configuration (tema claro)
+local function Morning()
+  local bg = "#ffffff"
+  local bg_inactive = "#f2f2f2"
+  local bg_focus = "#fafafa"
+  local fg = "#000000"
+  local fg_dim = "#5c5c5c"
+  local blue = "#0044dd"
+  local blue_light = "#005fd7"
+  local sel_bg = "#b3d7ff"
+  local cursor_bg = "#000000"
+  local line_bg = "#eeeeee"
+  local comment = "#5c5c5c"
+  local green = "#4e9a06"
+  local orange = "#804000"
+  local yellow = "#a06e00"
+  local purple = "#a020f0"
+  local cyan = "#009898"
+  local red = "#ff0000"
+  local sbar = "#d0d0d0"
+  local thumb = "#808080"
+  local border = "#d0d0d0"
+
+  Config.setNeotreeBgColor(bg, bg_inactive)
+  Config.windowBackgroundColorToFocus(bg, bg_inactive)
+  Config.BackgroundColorWindowToFocus(bg, bg_inactive)
+  Config.setGutterBgColor(bg, bg_inactive)
+  Config.ColorSelectedText(sel_bg)
+  Config.CursorColor(cursor_bg, blue, blue, cursor_bg)
+  Config.RowColorCursor(line_bg, orange)
+  applyPmenu({
+    bg = bg_focus,
+    fg = fg,
+    sel_bg = blue,
+    sel_fg = bg,
+    sbar = sbar,
+    thumb = thumb,
+  })
+
+  local syntax = {
+    Comment = { fg = comment, italic = true },
+    Constant = { fg = blue },
+    String = { fg = green },
+    Character = { fg = green },
+    Number = { fg = blue },
+    Boolean = { fg = blue },
+    Float = { fg = blue },
+    Function = { fg = purple },
+    Identifier = { fg = fg },
+    Keyword = { fg = orange },
+    ["@keyword.return"] = { fg = "#8b008b" },
+    Conditional = { fg = orange },
+    Repeat = { fg = orange },
+    Label = { fg = orange },
+    Operator = { fg = fg },
+    PreProc = { fg = "#5f9f00" },
+    Include = { fg = "#5f9f00" },
+    Define = { fg = "#5f9f00" },
+    Macro = { fg = "#5f9f00" },
+    Type = { fg = orange },
+    StorageClass = { fg = orange },
+    Structure = { fg = orange },
+    Typedef = { fg = orange },
+    Special = { fg = comment },
+    SpecialChar = { fg = green },
+    Tag = { fg = blue },
+    Delimiter = { fg = fg },
+    SpecialComment = { fg = comment },
+    Debug = { fg = orange },
+    Underlined = { fg = blue, underline = true },
+    Bold = { bold = true },
+    Italic = { italic = true },
+    Ignore = { fg = bg },
+    Error = { fg = red, bold = true },
+    Todo = { fg = "#0000ff", bg = "#ffff00", bold = true },
+  }
+  for group, opts in pairs(syntax) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+
+  local ui = {
+    Normal = { bg = bg, fg = fg },
+    NormalFloat = { bg = bg_focus },
+    FloatBorder = { fg = blue, bg = bg_focus },
+    FloatTitle = { fg = blue, bg = bg_focus, bold = true },
+    LineNr = { fg = fg_dim },
+    CursorLineNr = { fg = orange, bold = true },
+    CursorLine = { bg = line_bg },
+    Cursor = { bg = cursor_bg, fg = bg },
+    Visual = { bg = sel_bg },
+    VisualNOS = { bg = sel_bg },
+    Search = { bg = "#ffd700", fg = fg },
+    IncSearch = { bg = blue, fg = bg },
+    CurSearch = { link = "IncSearch" },
+    MatchParen = { bg = "#d0d0d0", fg = orange },
+    VertSplit = { fg = border, bg = bg },
+    WinSeparator = { fg = border, bg = bg },
+    Folded = { bg = bg_inactive, fg = fg_dim },
+    FoldColumn = { bg = bg, fg = fg_dim },
+    SignColumn = { bg = bg },
+    StatusLine = { bg = "#c9dcf7", fg = "#0b2e6b" },
+    StatusLineNC = { bg = "#e8eef7", fg = "#5d6b80" },
+    TabLine = { bg = "#e8eef7", fg = "#5d6b80" },
+    TabLineFill = { bg = "#e8eef7" },
+    TabLineSel = { bg = blue, fg = "#ffffff", bold = true },
+    Title = { fg = blue, bold = true },
+    NonText = { fg = fg_dim },
+    SpecialKey = { fg = fg_dim },
+    Whitespace = { fg = "#d0d0d0" },
+    Conceal = { fg = comment },
+    EndOfBuffer = { fg = bg },
+    Directory = { fg = blue },
+    ErrorMsg = { fg = red, bold = true },
+    WarningMsg = { fg = orange, bold = true },
+    MoreMsg = { fg = blue },
+    ModeMsg = { fg = fg },
+    Question = { fg = blue },
+    SpellBad = { undercurl = true, sp = red },
+    SpellCap = { undercurl = true, sp = blue },
+    SpellLocal = { undercurl = true, sp = cyan },
+    SpellRare = { undercurl = true, sp = purple },
+    ColorColumn = { bg = "#f0f0f0" },
+    DiffAdd = { bg = "#d0f0d0", fg = green },
+    DiffChange = { bg = "#e0e8ff", fg = blue_light },
+    DiffDelete = { bg = "#f8d0d0", fg = red },
+    DiffText = { bg = "#b3d7ff", fg = fg },
+    DiagnosticError = { fg = red },
+    DiagnosticWarn = { fg = "#a06e00" },
+    DiagnosticInfo = { fg = blue },
+    DiagnosticHint = { fg = comment },
+    DiagnosticVirtualTextError = { bg = "#f8d0d0", fg = red },
+    DiagnosticVirtualTextWarn = { bg = "#f5e6c8", fg = "#a06e00" },
+    DiagnosticVirtualTextInfo = { bg = "#e0e8ff", fg = blue },
+    DiagnosticVirtualTextHint = { bg = "#e8f0e8", fg = comment },
+    DiagnosticUnderlineError = { undercurl = true, sp = red },
+    DiagnosticUnderlineWarn = { undercurl = true, sp = "#a06e00" },
+    DiagnosticUnderlineInfo = { undercurl = true, sp = blue },
+    DiagnosticUnderlineHint = { undercurl = true, sp = comment },
+    LspReferenceText = { bg = sel_bg },
+    LspReferenceRead = { bg = sel_bg },
+    LspReferenceWrite = { bg = sel_bg },
+    LspInlayHint = { bg = bg_focus, fg = fg_dim },
+    SnacksIndent = { fg = "#e0e0e0" },
+    SnacksIndentScope = { fg = "#9db8d2" },
+  }
+  for group, opts in pairs(ui) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+
+  -- Neo-tree: colores vivos sobre fondo claro
+  local nt = {
+    NeoTreeFileName = { fg = "#1f2328" },
+    NeoTreeFileNameOpened = { fg = "#0b3d91", italic = true },
+    NeoTreeDirectoryName = { fg = "#0f52ba" },
+    NeoTreeDirectoryIcon = { fg = "#0f52ba" },
+    NeoTreeRootName = { fg = "#0f52ba", bold = true },
+    NeoTreeTitleBar = { fg = "#ffffff", bg = "#0f52ba", bold = true },
+    NeoTreeDotfile = { fg = "#6e7781" },
+    NeoTreeHiddenByName = { fg = "#6e7781" },
+    NeoTreeIndentMarker = { fg = "#b6c2cf" },
+    NeoTreeExpander = { fg = "#57606a" },
+    NeoTreeCursorLine = { bg = line_bg },
+    NeoTreeModified = { fg = orange },
+    NeoTreeGitAdded = { fg = "#1a7f37" },
+    NeoTreeGitModified = { fg = "#9a6700" },
+    NeoTreeGitDeleted = { fg = "#cf222e" },
+    NeoTreeGitRenamed = { fg = "#8250df" },
+    NeoTreeGitUntracked = { fg = "#0f52ba" },
+    NeoTreeGitStaged = { fg = "#1a7f37" },
+    NeoTreeGitUnstaged = { fg = "#9a6700" },
+    NeoTreeGitConflict = { fg = "#cf222e", bold = true },
+    NeoTreeGitIgnored = { fg = "#8b949e" },
+  }
+  for group, opts in pairs(nt) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+end
+
 --- Solarized Osaka theme configuration
 local function configSolarizedOsaka()
   Config.setNeotreeBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
@@ -342,6 +520,9 @@ local function ConfigTheme(themeName)
     end,
     ["visual_studio_code"] = function()
       VisualStudioCode()
+    end,
+    ["morning"] = function()
+      Morning()
     end,
   }
 
