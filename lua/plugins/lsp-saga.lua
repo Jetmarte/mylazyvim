@@ -114,6 +114,36 @@ return {
       },
     })
 
+    -- Revela un archivo en neo-tree sin robar el foco: si el árbol está
+    -- cerrado lo abre y muestra el archivo, si está abierto solo lo localiza.
+    local function reveal_in_neotree()
+      local ok, command = pcall(require, "neo-tree.command")
+      if not ok then
+        return
+      end
+      local file = vim.api.nvim_buf_get_name(0)
+      if file == "" then
+        return
+      end
+      command.execute({ action = "show", reveal_file = file, reveal = true })
+    end
+
+    -- Tras saltar a una definición (salto asíncrono), espera a que se abra
+    -- el buffer de destino y revela ese archivo en neo-tree.
+    local function reveal_after_goto()
+      local group = vim.api.nvim_create_augroup("lsp_goto_reveal", { clear = true })
+      vim.api.nvim_create_autocmd("BufEnter", {
+        group = group,
+        once = true,
+        callback = function()
+          reveal_in_neotree()
+        end,
+      })
+      vim.defer_fn(function()
+        vim.api.nvim_del_augroup_by_id(group)
+      end, 2000)
+    end
+
     -- Atajos útiles
     local keymap = vim.keymap.set
     local opts = function(desc)
@@ -122,7 +152,14 @@ return {
     keymap("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opts("Ver documentación"))
     keymap("n", "gr", "<cmd>Lspsaga finder<CR>", opts("Buscar referencias"))
     keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>", opts("Vista previa de definición"))
-    keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>", opts("Ir a definición"))
+    keymap("n", "gd", function()
+      vim.cmd("Lspsaga goto_definition")
+      reveal_after_goto()
+    end, opts("Ir a definición"))
+    keymap("n", "gi", function()
+      vim.lsp.buf.implementation()
+      reveal_after_goto()
+    end, opts("Ir a implementación"))
     keymap("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", opts("Acción de código"))
     -- keymap("n", "<leader>o", "<cmd>Lspsaga outline<CR>", opts("Lspsaga outline"))
     keymap("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", opts("Renombrar símbolo"))
