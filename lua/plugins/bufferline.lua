@@ -45,7 +45,19 @@ local function get_bufferline_highlights()
     return string.format("#%02x%02x%02x", r, g, b)
   end
 
+  local function darken(color, factor)
+    if not color then
+      return nil
+    end
+    local hex = to_hex(color)
+    local r = math.floor(tonumber(hex:sub(2, 3), 16) * factor)
+    local g = math.floor(tonumber(hex:sub(4, 5), 16) * factor)
+    local b = math.floor(tonumber(hex:sub(6, 7), 16) * factor)
+    return string.format("#%02x%02x%02x", r, g, b)
+  end
+
   local bg = tabline_fill.bg or normal.bg or "#000000"
+  local bg_dark = darken(bg, 0.6) or bg
   local bg_visible = tabline.bg or brightness(normal.bg, 12) or bg
   local bg_selected = brightness(normal.bg, 55) or bg
   local fg = comment.fg or nontext.fg or "#787878"
@@ -55,8 +67,8 @@ local function get_bufferline_highlights()
   local modified = d_warn.fg or special.fg or keyword.fg or "#e5c07b"
 
   return {
-    fill = { bg = bg },
-    background = { bg = bg, fg = fg },
+    fill = { bg = bg_dark },
+    background = { bg = bg_dark, fg = fg },
     buffer_visible = { fg = fg_visible, bg = bg_visible },
     buffer_selected = { bg = bg_selected, fg = fg_selected, bold = true, italic = false, sp = indicator },
     indicator_visible = { fg = bg_visible, bg = bg_visible },

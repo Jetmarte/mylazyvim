@@ -13,8 +13,8 @@ require("mycode.myconfig.cursorCapsLock").setup({
 })
 
 -- ********* color themes  use <leader>uC ***********
---vim.cmd("colorscheme solarized-osaka")
-vim.cmd("colorscheme visual_studio_code")
+vim.cmd("colorscheme solarized-osaka")
+--vim.cmd("colorscheme visual_studio_code")
 --vim.cmd("colorscheme morning")
 --------------------------------------
 ConfigMyColor()
