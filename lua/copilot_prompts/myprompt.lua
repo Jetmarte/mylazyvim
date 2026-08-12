@@ -29,4 +29,6 @@ Estilo css
             #CCCCCC
             Esta version mas obscura para hover o bordes
 ]],
+  Lorem = [[
+Lorem ipsum dolor sit amet consectetur adipiscing, elit aenean egestas quam dignissim molestie, at ligula netus neque dapibus. Nisl platea ultricies dictumst dictum pellentesque velit ridiculus integer lacinia, porttitor odio ante lectus commodo diam iaculis felis dapibus, et venenatis urna nullam blandit rhoncus vel malesuada. ]],
 }

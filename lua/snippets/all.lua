@@ -20,5 +20,6 @@ end
 return {
   ls.add_snippets("all", {
     s("nexorem", t(split_lines(prompts.Nexorem))),
+    s("lorem", t(split_lines(prompts.Lorem))),
   }),
 }

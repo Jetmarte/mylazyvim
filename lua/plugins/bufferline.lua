@@ -118,6 +118,39 @@ return {
   version = "~> 4.7",
   event = "UIEnter",
   dependencies = "nvim-tree/nvim-web-devicons",
+  keys = {
+    {
+      "<leader>bP",
+      function()
+        -- Cierra los buffers no fijados sin salir de Neovim.
+        -- (BufferLineGroupClose ungrouped borra TODOS, incluido el actual,
+        -- y con neo-tree abierto deja la ventana principal sin buffer -> cierra
+        -- la última ventana editable y Neovim se sale).
+        -- Protegemos el buffer actual, los que están visibles en alguna ventana
+        -- y los fijados (pinned); el resto se borra.
+        local keep = {}
+        keep[vim.api.nvim_get_current_buf()] = true
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          keep[vim.api.nvim_win_get_buf(win)] = true
+        end
+        local pinned = vim.g.BufferlinePinnedBuffers
+        if pinned and pinned ~= "" then
+          for _, name in ipairs(vim.split(pinned, ",")) do
+            local id = vim.fn.bufnr(name)
+            if id ~= -1 then
+              keep[id] = true
+            end
+          end
+        end
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if not keep[buf] and vim.bo[buf].buflisted then
+            vim.api.nvim_buf_delete(buf, { force = true })
+          end
+        end
+      end,
+      desc = "Delete Non-Pinned Buffers (sin salir de Neovim)",
+    },
+  },
   opts = {
     options = {
       mode = "buffers",
