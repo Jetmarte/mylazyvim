@@ -205,30 +205,162 @@ end
 
 --- Solarized Osaka theme configuration
 local function configSolarizedOsaka()
-  Config.setNeotreeBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
-  Config.windowBackgroundColorToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
-  Config.BackgroundColorWindowToFocus(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
-  Config.setGutterBgColor(ColorsSolarizedOsaka.Base04, ColorsSolarizedOsaka.Base03)
-  Config.ColorSelectedText(ColorsSolarizedOsaka.Base02)
-  Config.CursorColor(
-    ColorsSolarizedOsaka.Base4,
-    ColorsSolarizedOsaka.Base3,
-    ColorsSolarizedOsaka.Base3,
-    ColorsSolarizedOsaka.Base3
-  )
-  Config.RowColorCursor(ColorsSolarizedOsaka.Row, ColorsSolarizedOsaka.Orange)
+  local C = ColorsSolarizedOsaka
+
+  Config.setNeotreeBgColor(C.Base04, C.Base03)
+  Config.windowBackgroundColorToFocus(C.Base04, C.Base03)
+  Config.BackgroundColorWindowToFocus(C.Base04, C.Base03)
+  Config.setGutterBgColor(C.Base04, C.Base03)
+  Config.ColorSelectedText(C.Base02)
+  Config.CursorColor(C.Base04, C.Blue, C.Blue, C.Base03)
+  Config.RowColorCursor(C.Row, C.Orange)
   applyPmenu({
-    bg = ColorsSolarizedOsaka.Base04,
-    fg = ColorsSolarizedOsaka.Base0 or "#839496",
-    sel_bg = ColorsSolarizedOsaka.Cyan or "#2aa198",
-    sel_fg = ColorsSolarizedOsaka.Base04 or "#001419",
-    sbar = ColorsSolarizedOsaka.Base03 or "#002b36",
-    thumb = ColorsSolarizedOsaka.Cyan or "#2aa198",
+    bg = C.Base03,
+    fg = C.Base0,
+    sel_bg = C.Base02,
+    sel_fg = C.Base1,
+    sbar = C.Base04,
+    thumb = C.Base01,
   })
 
-  -- Ventana de documentación de cmp con bordes y fondo coherentes
-  vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = ColorsSolarizedOsaka.Base03 })
-  vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = ColorsSolarizedOsaka.Cyan, bg = ColorsSolarizedOsaka.Base03 })
+  local syntax = {
+    Comment = { fg = C.Base01, italic = true },
+    Constant = { fg = C.Yellow },
+    String = { fg = C.Green },
+    Character = { fg = C.Green },
+    Number = { fg = C.Yellow },
+    Boolean = { fg = C.Yellow },
+    Float = { fg = C.Yellow },
+    Function = { fg = C.Cyan },
+    Identifier = { fg = C.Base0 },
+    Keyword = { fg = C.Blue },
+    ["@keyword.return"] = { fg = C.Orange },
+    Conditional = { fg = C.Blue },
+    Repeat = { fg = C.Blue },
+    Label = { fg = C.Base1 },
+    Operator = { fg = C.Base1 },
+    PreProc = { fg = C.Orange },
+    Include = { fg = C.Orange },
+    Define = { fg = C.Orange },
+    Macro = { fg = C.Orange },
+    Type = { fg = C.Yellow },
+    StorageClass = { fg = C.Blue },
+    Structure = { fg = C.Yellow },
+    Typedef = { fg = C.Yellow },
+    Special = { fg = C.Orange },
+    SpecialChar = { fg = C.Green },
+    Tag = { fg = C.Blue },
+    Delimiter = { fg = C.Base1 },
+    SpecialComment = { fg = C.Base01 },
+    Debug = { fg = C.Red },
+    Underlined = { fg = C.Blue, underline = true },
+    Bold = { bold = true },
+    Italic = { italic = true },
+    Ignore = { fg = C.Base03 },
+    Error = { fg = C.Red, bold = true },
+    Todo = { fg = C.Yellow, bg = C.Base02, bold = true },
+  }
+  for group, opts in pairs(syntax) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+
+  local ui = {
+    Normal = { bg = C.Base03, fg = C.Base0 },
+    NormalFloat = { bg = C.Base03 },
+    FloatBorder = { fg = C.Cyan, bg = C.Base03 },
+    FloatTitle = { fg = C.Cyan, bg = C.Base03, bold = true },
+    LineNr = { fg = C.Base01 },
+    CursorLine = { bg = C.Row },
+    Cursor = { bg = C.Base04, fg = C.Base0 },
+    Visual = { bg = C.Base02 },
+    VisualNOS = { bg = C.Base02 },
+    Search = { bg = C.Base02, fg = C.Yellow },
+    IncSearch = { bg = C.Yellow, fg = C.Base03 },
+    CurSearch = { link = "IncSearch" },
+    MatchParen = { fg = C.Orange, bg = C.Base02, bold = true },
+    VertSplit = { fg = C.Base02, bg = C.Base03 },
+    WinSeparator = { fg = C.Base02, bg = C.Base03 },
+    Folded = { bg = C.Base04, fg = C.Base01 },
+    FoldColumn = { bg = C.Base03, fg = C.Base01 },
+    SignColumn = { bg = C.Base03 },
+    StatusLine = { bg = C.Base02, fg = C.Base1, bold = true },
+    StatusLineNC = { bg = C.Base04, fg = C.Base01 },
+    TabLine = { bg = C.Base04, fg = C.Base01 },
+    TabLineFill = { bg = C.Base04 },
+    TabLineSel = { bg = C.Base02, fg = C.Cyan, bold = true },
+    Title = { fg = C.Cyan, bold = true },
+    NonText = { fg = C.Base01 },
+    SpecialKey = { fg = C.Base01 },
+    Whitespace = { fg = C.Base02 },
+    Conceal = { fg = C.Base01 },
+    EndOfBuffer = { fg = C.Base03 },
+    Directory = { fg = C.Blue },
+    ErrorMsg = { fg = C.Red, bold = true },
+    WarningMsg = { fg = C.Orange, bold = true },
+    MoreMsg = { fg = C.Cyan },
+    ModeMsg = { fg = C.Base1 },
+    Question = { fg = C.Cyan },
+    SpellBad = { undercurl = true, sp = C.Red },
+    SpellCap = { undercurl = true, sp = C.Blue },
+    SpellLocal = { undercurl = true, sp = C.Cyan },
+    SpellRare = { undercurl = true, sp = C.Magenta },
+    ColorColumn = { bg = C.Base04 },
+    DiffAdd = { bg = "#073642", fg = C.Green },
+    DiffChange = { bg = "#073642", fg = C.Blue },
+    DiffDelete = { bg = "#073642", fg = C.Red },
+    DiffText = { bg = C.Base02, fg = C.Cyan },
+    DiagnosticError = { fg = C.Red },
+    DiagnosticWarn = { fg = C.Yellow },
+    DiagnosticInfo = { fg = C.Cyan },
+    DiagnosticHint = { fg = C.Base01 },
+    DiagnosticVirtualTextError = { bg = C.Base04, fg = C.Red },
+    DiagnosticVirtualTextWarn = { bg = C.Base04, fg = C.Yellow },
+    DiagnosticVirtualTextInfo = { bg = C.Base04, fg = C.Cyan },
+    DiagnosticVirtualTextHint = { bg = C.Base04, fg = C.Base01 },
+    DiagnosticUnderlineError = { undercurl = true, sp = C.Red },
+    DiagnosticUnderlineWarn = { undercurl = true, sp = C.Yellow },
+    DiagnosticUnderlineInfo = { undercurl = true, sp = C.Cyan },
+    DiagnosticUnderlineHint = { undercurl = true, sp = C.Base01 },
+    LspReferenceText = { bg = C.Base02 },
+    LspReferenceRead = { bg = C.Base02 },
+    LspReferenceWrite = { bg = C.Base02 },
+    LspInlayHint = { bg = C.Base04, fg = C.Base01 },
+    SnacksIndent = { fg = C.Base02 },
+    SnacksIndentScope = { fg = C.Cyan },
+  }
+  for group, opts in pairs(ui) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+
+  local nt = {
+    NeoTreeFileName = { fg = C.Base0 },
+    NeoTreeFileNameOpened = { fg = C.Cyan, italic = true },
+    NeoTreeDirectoryName = { fg = C.Blue },
+    NeoTreeDirectoryIcon = { fg = C.Blue },
+    NeoTreeRootName = { fg = C.Cyan, bold = true },
+    NeoTreeTitleBar = { fg = C.Base03, bg = C.Cyan, bold = true },
+    NeoTreeDotfile = { fg = C.Base01 },
+    NeoTreeHiddenByName = { fg = C.Base01 },
+    NeoTreeIndentMarker = { fg = C.Base02 },
+    NeoTreeExpander = { fg = C.Base01 },
+    NeoTreeCursorLine = { bg = C.Base04 },
+    NeoTreeModified = { fg = C.Orange },
+    NeoTreeGitAdded = { fg = C.Green },
+    NeoTreeGitModified = { fg = C.Yellow },
+    NeoTreeGitDeleted = { fg = C.Red },
+    NeoTreeGitRenamed = { fg = C.Magenta },
+    NeoTreeGitUntracked = { fg = C.Blue },
+    NeoTreeGitStaged = { fg = C.Green },
+    NeoTreeGitUnstaged = { fg = C.Yellow },
+    NeoTreeGitConflict = { fg = C.Red, bold = true },
+    NeoTreeGitIgnored = { fg = C.Base01 },
+  }
+  for group, opts in pairs(nt) do
+    vim.api.nvim_set_hl(0, group, opts)
+  end
+
+  vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = C.Base03 })
+  vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = C.Cyan, bg = C.Base03 })
 end
 
 --- EverGarden theme configuration
