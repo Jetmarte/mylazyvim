@@ -77,6 +77,7 @@ return {
         ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
         ["E"] = "expand_all_nodes",
         ["W"] = "close_all_nodes",
+        ["<A-o>"] = false,
       },
     },
 
