@@ -42,7 +42,7 @@ return {
 
       events = {
         enabled = true,
-        reload = true,
+        reload = { enabled = true },
         permissions = {
           enabled = true,
           idle_delay_ms = 1000,
