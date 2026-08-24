@@ -207,6 +207,13 @@ end
 local function configSolarizedOsaka()
   local C = ColorsSolarizedOsaka
 
+  local function set(hl)
+    for group, opts in pairs(hl) do
+      vim.api.nvim_set_hl(0, group, opts)
+    end
+  end
+
+  -- Config base
   Config.setNeotreeBgColor(C.Base04, C.Base03)
   Config.windowBackgroundColorToFocus(C.Base04, C.Base03)
   Config.BackgroundColorWindowToFocus(C.Base04, C.Base03)
@@ -223,7 +230,8 @@ local function configSolarizedOsaka()
     thumb = C.Base01,
   })
 
-  local syntax = {
+  -- ── Syntax ──────────────────────────────────────────────────
+  set({
     Comment = { fg = C.Base01, italic = true },
     Constant = { fg = C.Yellow },
     String = { fg = C.Green },
@@ -259,24 +267,116 @@ local function configSolarizedOsaka()
     Ignore = { fg = C.Base03 },
     Error = { fg = C.Red, bold = true },
     Todo = { fg = C.Yellow, bg = C.Base02, bold = true },
-  }
-  for group, opts in pairs(syntax) do
-    vim.api.nvim_set_hl(0, group, opts)
-  end
+  })
 
-  local ui = {
+  -- ── Treesitter ──────────────────────────────────────────────
+  set({
+    ["@variable"] = { fg = C.Base0 },
+    ["@variable.builtin"] = { fg = C.Orange },
+    ["@variable.parameter"] = { fg = C.Base1 },
+    ["@variable.member"] = { fg = C.Base0 },
+    ["@constant"] = { fg = C.Yellow },
+    ["@constant.builtin"] = { fg = C.Yellow },
+    ["@constant.macro"] = { fg = C.Yellow },
+    ["@module"] = { fg = C.Blue },
+    ["@module.builtin"] = { fg = C.Blue },
+    ["@string"] = { fg = C.Green },
+    ["@string.documentation"] = { fg = C.Base01 },
+    ["@string.regexp"] = { fg = C.Green },
+    ["@string.escape"] = { fg = C.Magenta },
+    ["@string.special"] = { fg = C.Cyan },
+    ["@character"] = { fg = C.Green },
+    ["@character.special"] = { fg = C.Green },
+    ["@number"] = { fg = C.Yellow },
+    ["@number.float"] = { fg = C.Yellow },
+    ["@boolean"] = { fg = C.Yellow },
+    ["@type"] = { fg = C.Yellow },
+    ["@type.builtin"] = { fg = C.Yellow, italic = true },
+    ["@type.definition"] = { fg = C.Yellow },
+    ["@type.qualifier"] = { fg = C.Blue },
+    ["@attribute"] = { fg = C.Magenta },
+    ["@property"] = { fg = C.Cyan },
+    ["@field"] = { fg = C.Cyan },
+    ["@parameter"] = { fg = C.Base1 },
+    ["@function"] = { fg = C.Cyan },
+    ["@function.builtin"] = { fg = C.Cyan, italic = true },
+    ["@function.call"] = { fg = C.Cyan },
+    ["@function.macro"] = { fg = C.Orange },
+    ["@function.method"] = { fg = C.Cyan },
+    ["@function.method.call"] = { fg = C.Cyan },
+    ["@constructor"] = { fg = C.Cyan },
+    ["@operator"] = { fg = C.Base1 },
+    ["@keyword"] = { fg = C.Blue },
+    ["@keyword.function"] = { fg = C.Blue },
+    ["@keyword.return"] = { fg = C.Orange },
+    ["@keyword.conditional"] = { fg = C.Blue },
+    ["@keyword.repeat"] = { fg = C.Blue },
+    ["@keyword.operator"] = { fg = C.Blue },
+    ["@keyword.import"] = { fg = C.Orange },
+    ["@keyword.type"] = { fg = C.Blue },
+    ["@keyword.modifier"] = { fg = C.Blue },
+    ["@keyword.coroutine"] = { fg = C.Orange },
+    ["@keyword.exception"] = { fg = C.Orange },
+    ["@keyword.directive"] = { fg = C.Orange },
+    ["@keyword.directive.define"] = { fg = C.Orange },
+    ["@label"] = { fg = C.Base1 },
+    ["@punctuation.delimiter"] = { fg = C.Base1 },
+    ["@punctuation.bracket"] = { fg = C.Base1 },
+    ["@punctuation.special"] = { fg = C.Cyan },
+    ["@comment"] = { fg = C.Base01, italic = true },
+    ["@comment.documentation"] = { fg = C.Base01, italic = true },
+    ["@comment.error"] = { fg = C.Red },
+    ["@comment.warning"] = { fg = C.Yellow },
+    ["@comment.todo"] = { fg = C.Yellow, bold = true },
+    ["@comment.note"] = { fg = C.Cyan },
+    ["@markup.strong"] = { bold = true },
+    ["@markup.italic"] = { italic = true },
+    ["@markup.strikethrough"] = { strikethrough = true },
+    ["@markup.underline"] = { underline = true },
+    ["@markup.heading"] = { fg = C.Cyan, bold = true },
+    ["@markup.heading.1"] = { fg = C.Cyan, bold = true },
+    ["markup.h1"] = { fg = C.Cyan, bold = true },
+    ["@markup.heading.2"] = { fg = C.Blue, bold = true },
+    ["markup.h2"] = { fg = C.Blue, bold = true },
+    ["@markup.heading.3"] = { fg = C.Green, bold = true },
+    ["markup.h3"] = { fg = C.Green, bold = true },
+    ["@markup.heading.4"] = { fg = C.Yellow, bold = true },
+    ["@markup.heading.5"] = { fg = C.Orange, bold = true },
+    ["@markup.heading.6"] = { fg = C.Magenta, bold = true },
+    ["@markup.link.label"] = { fg = C.Cyan },
+    ["@markup.link.url"] = { fg = C.Blue, underline = true },
+    ["@markup.raw"] = { fg = C.Base0 },
+    ["@markup.list"] = { fg = C.Cyan },
+    ["@markup.list.checked"] = { fg = C.Green },
+    ["@markup.list.unchecked"] = { fg = C.Base01 },
+    ["@diff.plus"] = { fg = C.Green },
+    ["@diff.minus"] = { fg = C.Red },
+    ["@diff.delta"] = { fg = C.Blue },
+    ["@tag"] = { fg = C.Blue },
+    ["@tag.attribute"] = { fg = C.Cyan },
+    ["@tag.delimiter"] = { fg = C.Base1 },
+    ["@type.builtin.typescript"] = { fg = C.Cyan, italic = true },
+    ["@type.builtin.tsx"] = { fg = C.Cyan, italic = true },
+    ["@variable.builtin.typescript"] = { fg = C.Orange },
+  })
+
+  -- ── UI ──────────────────────────────────────────────────────
+  set({
     Normal = { bg = C.Base03, fg = C.Base0 },
     NormalFloat = { bg = C.Base03 },
     FloatBorder = { fg = C.Cyan, bg = C.Base03 },
     FloatTitle = { fg = C.Cyan, bg = C.Base03, bold = true },
+    WinBar = { fg = C.Base01, bg = C.Base03 },
+    WinBarNC = { fg = C.Base01, bg = C.Base03 },
     LineNr = { fg = C.Base01 },
     CursorLine = { bg = C.Row },
     Cursor = { bg = C.Base04, fg = C.Base0 },
     Visual = { bg = C.Base02 },
     VisualNOS = { bg = C.Base02 },
-    Search = { bg = C.Base02, fg = C.Yellow },
+    Search = { bg = C.Yellow, fg = C.Base03 },
     IncSearch = { bg = C.Yellow, fg = C.Base03 },
     CurSearch = { link = "IncSearch" },
+    Substitute = { bg = C.Red, fg = C.Base03 },
     MatchParen = { fg = C.Orange, bg = C.Base02, bold = true },
     VertSplit = { fg = C.Base02, bg = C.Base03 },
     WinSeparator = { fg = C.Base02, bg = C.Base03 },
@@ -305,34 +405,77 @@ local function configSolarizedOsaka()
     SpellLocal = { undercurl = true, sp = C.Cyan },
     SpellRare = { undercurl = true, sp = C.Magenta },
     ColorColumn = { bg = C.Base04 },
+    Pmenu = { bg = C.Base03, fg = C.Base0 },
+    PmenuSel = { bg = C.Base02, fg = C.Base1, bold = true },
+    PmenuSbar = { bg = C.Base04 },
+    PmenuThumb = { bg = C.Base01 },
+    WildMenu = { bg = C.Yellow, fg = C.Base03, bold = true },
+    QuickFixLine = { bg = C.Base02, bold = true },
+  })
+
+  -- ── Diff ────────────────────────────────────────────────────
+  set({
     DiffAdd = { bg = "#073642", fg = C.Green },
-    DiffChange = { bg = "#073642", fg = C.Blue },
+    DiffChange = { bg = "#073642", fg = C.Yellow },
     DiffDelete = { bg = "#073642", fg = C.Red },
     DiffText = { bg = C.Base02, fg = C.Cyan },
+    diffAdded = { fg = C.Green },
+    diffRemoved = { fg = C.Red },
+    diffChanged = { fg = C.Yellow },
+    diffFile = { fg = C.Cyan },
+    diffNewFile = { fg = C.Green, bold = true },
+    diffOldFile = { fg = C.Red, bold = true },
+    diffLine = { fg = C.Blue },
+    diffIndexLine = { fg = C.Base1 },
+    diffSubname = { fg = C.Base0 },
+  })
+
+  -- ── Diagnostics ─────────────────────────────────────────────
+  set({
     DiagnosticError = { fg = C.Red },
     DiagnosticWarn = { fg = C.Yellow },
     DiagnosticInfo = { fg = C.Cyan },
-    DiagnosticHint = { fg = C.Base01 },
+    DiagnosticHint = { fg = C.Cyan },
+    DiagnosticOk = { fg = C.Green },
     DiagnosticVirtualTextError = { bg = C.Base04, fg = C.Red },
     DiagnosticVirtualTextWarn = { bg = C.Base04, fg = C.Yellow },
     DiagnosticVirtualTextInfo = { bg = C.Base04, fg = C.Cyan },
-    DiagnosticVirtualTextHint = { bg = C.Base04, fg = C.Base01 },
+    DiagnosticVirtualTextHint = { bg = C.Base04, fg = C.Cyan },
+    DiagnosticVirtualTextOk = { bg = C.Base04, fg = C.Green },
     DiagnosticUnderlineError = { undercurl = true, sp = C.Red },
     DiagnosticUnderlineWarn = { undercurl = true, sp = C.Yellow },
     DiagnosticUnderlineInfo = { undercurl = true, sp = C.Cyan },
-    DiagnosticUnderlineHint = { undercurl = true, sp = C.Base01 },
+    DiagnosticUnderlineHint = { undercurl = true, sp = C.Cyan },
+    DiagnosticUnderlineOk = { undercurl = true, sp = C.Green },
+    DiagnosticSignError = { fg = C.Red },
+    DiagnosticSignWarn = { fg = C.Yellow },
+    DiagnosticSignInfo = { fg = C.Cyan },
+    DiagnosticSignHint = { fg = C.Cyan },
+    DiagnosticSignOk = { fg = C.Green },
     LspReferenceText = { bg = C.Base02 },
     LspReferenceRead = { bg = C.Base02 },
     LspReferenceWrite = { bg = C.Base02 },
     LspInlayHint = { bg = C.Base04, fg = C.Base01 },
+    LspSignatureActiveParameter = { bg = C.Base02, fg = C.Cyan, bold = true },
+  })
+
+  -- ── Indent / Scrollbar ──────────────────────────────────────
+  set({
     SnacksIndent = { fg = C.Base02 },
     SnacksIndentScope = { fg = C.Cyan },
-  }
-  for group, opts in pairs(ui) do
-    vim.api.nvim_set_hl(0, group, opts)
-  end
+    ScrollbarHandle = { bg = C.Base02 },
+    ScrollbarThumb = { bg = C.Base01 },
+    ScrollbarCorner = { bg = C.Base03 },
+    ScrollbarSearch = { fg = C.Yellow },
+    ScrollbarError = { fg = C.Red },
+    ScrollbarWarn = { fg = C.Yellow },
+    ScrollbarInfo = { fg = C.Cyan },
+    ScrollbarHint = { fg = C.Cyan },
+    ScrollbarMisc = { fg = C.Base01 },
+  })
 
-  local nt = {
+  -- ── Neo-tree ────────────────────────────────────────────────
+  set({
     NeoTreeFileName = { fg = C.Base0 },
     NeoTreeFileNameOpened = { fg = C.Cyan, italic = true },
     NeoTreeDirectoryName = { fg = C.Blue },
@@ -354,13 +497,344 @@ local function configSolarizedOsaka()
     NeoTreeGitUnstaged = { fg = C.Yellow },
     NeoTreeGitConflict = { fg = C.Red, bold = true },
     NeoTreeGitIgnored = { fg = C.Base01 },
-  }
-  for group, opts in pairs(nt) do
-    vim.api.nvim_set_hl(0, group, opts)
-  end
+    NeoTreeFloatTitle = { fg = C.Base03, bg = C.Cyan, bold = true },
+    NeoTreeFloatBorder = { fg = C.Cyan, bg = C.Base03 },
+  })
 
-  vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = C.Base03 })
-  vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = C.Cyan, bg = C.Base03 })
+  -- ── Bufferline ──────────────────────────────────────────────
+  set({
+    BufferLineFill = { bg = C.Base04 },
+    BufferLineBackground = { bg = C.Base04, fg = C.Base01 },
+    BufferLineBuffer = { bg = C.Base04, fg = C.Base01 },
+    BufferLineBufferVisible = { bg = C.Base04, fg = C.Base01 },
+    BufferLineBufferSelected = { bg = C.Base03, fg = C.Base0, bold = true },
+    BufferLineTab = { bg = C.Base04, fg = C.Base01 },
+    BufferLineTabSelected = { bg = C.Base03, fg = C.Cyan, bold = true },
+    BufferLineTabSeparator = { bg = C.Base04, fg = C.Base04 },
+    BufferLineTabSeparatorSelected = { bg = C.Base03, fg = C.Base03 },
+    BufferLineCloseButton = { bg = C.Base04, fg = C.Base01 },
+    BufferLineCloseButtonVisible = { bg = C.Base04, fg = C.Base01 },
+    BufferLineCloseButtonSelected = { bg = C.Base03, fg = C.Red },
+    BufferLineModified = { bg = C.Base04, fg = C.Yellow },
+    BufferLineModifiedVisible = { bg = C.Base04, fg = C.Yellow },
+    BufferLineModifiedSelected = { bg = C.Base03, fg = C.Yellow },
+    BufferLineDuplicate = { bg = C.Base04, fg = C.Base01 },
+    BufferLineDuplicateVisible = { bg = C.Base04, fg = C.Base01 },
+    BufferLineDuplicateSelected = { bg = C.Base03, fg = C.Base0 },
+    BufferLineIndicatorSelected = { bg = C.Base03, fg = C.Cyan },
+    BufferLineSeparator = { bg = C.Base04, fg = C.Base04 },
+    BufferLineSeparatorVisible = { bg = C.Base04, fg = C.Base04 },
+    BufferLineSeparatorSelected = { bg = C.Base03, fg = C.Base03 },
+    BufferLineOffsetSeparator = { bg = C.Base04, fg = C.Base04 },
+    BufferLineGroupSeparator = { bg = C.Base04, fg = C.Base02 },
+    BufferLineGroupLabel = { bg = C.Base02, fg = C.Base0 },
+  })
+
+  -- ── Which-key ───────────────────────────────────────────────
+  set({
+    WhichKey = { fg = C.Cyan },
+    WhichKeyGroup = { fg = C.Blue },
+    WhichKeyDesc = { fg = C.Base0 },
+    WhichKeySeparator = { fg = C.Base01 },
+    WhichKeyFloat = { bg = C.Base03 },
+    WhichKeyBorder = { fg = C.Base02, bg = C.Base03 },
+    WhichKeyValue = { fg = C.Base01 },
+  })
+
+  -- ── GitSigns ────────────────────────────────────────────────
+  set({
+    GitSignsAdd = { fg = C.Green },
+    GitSignsChange = { fg = C.Yellow },
+    GitSignsDelete = { fg = C.Red },
+    GitSignsTopDelete = { fg = C.Red },
+    GitSignsChangeDelete = { fg = C.Orange },
+    GitSignsUntracked = { fg = C.Blue },
+    GitSignsAddNr = { fg = C.Green },
+    GitSignsChangeNr = { fg = C.Yellow },
+    GitSignsDeleteNr = { fg = C.Red },
+    GitSignsAddLn = { bg = "#073642" },
+    GitSignsChangeLn = { bg = "#073642" },
+    GitSignsDeleteLn = { bg = "#073642" },
+    GitSignsCurrentLineBlame = { fg = C.Base01, italic = true },
+  })
+
+  -- ── Flash.nvim ──────────────────────────────────────────────
+  set({
+    FlashLabel = { bg = C.Yellow, fg = C.Base03, bold = true },
+    FlashMatch = { bg = C.Base02, fg = C.Base0 },
+    FlashCurrent = { bg = C.Cyan, fg = C.Base03 },
+  })
+
+  -- ── Trouble ─────────────────────────────────────────────────
+  set({
+    TroubleNormal = { bg = C.Base03, fg = C.Base0 },
+    TroubleCount = { fg = C.Cyan, bold = true },
+    TroubleError = { fg = C.Red },
+    TroubleWarning = { fg = C.Yellow },
+    TroubleInfo = { fg = C.Cyan },
+    TroubleHint = { fg = C.Cyan },
+    TroubleSignError = { fg = C.Red },
+    TroubleSignWarning = { fg = C.Yellow },
+    TroubleSignInfo = { fg = C.Cyan },
+    TroubleSignHint = { fg = C.Cyan },
+    TroubleFold = { fg = C.Base01 },
+    Location = { fg = C.Base01 },
+  })
+
+  -- ── Todo-comments ───────────────────────────────────────────
+  set({
+    TodoBgTODO = { bg = C.Yellow, fg = C.Base03, bold = true },
+    TodoBgFIXME = { bg = C.Red, fg = C.Base03, bold = true },
+    TodoBgBUG = { bg = C.Magenta, fg = C.Base03, bold = true },
+    TodoBgHACK = { bg = C.Orange, fg = C.Base03, bold = true },
+    TodoBgWARN = { bg = C.Yellow, fg = C.Base03, bold = true },
+    TodoBgPERF = { bg = C.Cyan, fg = C.Base03, bold = true },
+    TodoBgNOTE = { bg = C.Blue, fg = C.Base03, bold = true },
+    TodoBgTEST = { bg = C.Magenta, fg = C.Base03, bold = true },
+    TodoFgTODO = { fg = C.Yellow },
+    TodoFgFIXME = { fg = C.Red },
+    TodoFgBUG = { fg = C.Magenta },
+    TodoFgHACK = { fg = C.Orange },
+    TodoFgWARN = { fg = C.Yellow },
+    TodoFgPERF = { fg = C.Cyan },
+    TodoFgNOTE = { fg = C.Blue },
+    TodoFgTEST = { fg = C.Magenta },
+    TodoSignTODO = { fg = C.Yellow },
+    TodoSignFIXME = { fg = C.Red },
+    TodoSignBUG = { fg = C.Magenta },
+    TodoSignHACK = { fg = C.Orange },
+    TodoSignWARN = { fg = C.Yellow },
+    TodoSignPERF = { fg = C.Cyan },
+    TodoSignNOTE = { fg = C.Blue },
+    TodoSignTEST = { fg = C.Magenta },
+  })
+
+  -- ── Noice ───────────────────────────────────────────────────
+  set({
+    NoiceCmdline = { bg = C.Base04, fg = C.Base0 },
+    NoiceCmdlineIcon = { fg = C.Cyan },
+    NoiceCmdlineIconSearch = { fg = C.Yellow },
+    NoiceCmdlinePrompt = { fg = C.Cyan },
+    NoiceCmdlinePopup = { bg = C.Base03, fg = C.Base0 },
+    NoiceCmdlinePopupBorder = { fg = C.Cyan, bg = C.Base03 },
+    NoiceCmdlinePopupBorderTitle = { fg = C.Cyan, bg = C.Base03, bold = true },
+    NoiceCmdlinePos = { bg = C.Base02, fg = C.Cyan },
+    NoiceConfirm = { bg = C.Base03, fg = C.Base0 },
+    NoiceConfirmBorder = { fg = C.Cyan, bg = C.Base03 },
+    NoiceMini = { bg = C.Base04 },
+    NoiceFormatProgressDone = { bg = C.Cyan, fg = C.Base03, bold = true },
+    NoiceFormatProgressTodo = { bg = C.Base02, fg = C.Base01 },
+    NoiceLspProgressTitle = { fg = C.Base1 },
+    NoiceLspProgressClient = { fg = C.Cyan },
+    NoiceLspProgressSpinner = { fg = C.Cyan },
+  })
+
+  -- ── Aerial ──────────────────────────────────────────────────
+  set({
+    AerialNormal = { bg = C.Base03, fg = C.Base0 },
+    AerialGuide = { fg = C.Base02 },
+    AerialLine = { bg = C.Base02 },
+    AerialLineNC = { bg = C.Base04 },
+    AerialHeadIcon = { fg = C.Cyan },
+    AerialArrayIcon = { fg = C.Yellow },
+    AerialBooleanIcon = { fg = C.Yellow },
+    AerialClassIcon = { fg = C.Yellow },
+    AerialColorIcon = { fg = C.Cyan },
+    AerialConstantIcon = { fg = C.Yellow },
+    AerialConstructorIcon = { fg = C.Cyan },
+    AerialEnumIcon = { fg = C.Yellow },
+    AerialEnumMemberIcon = { fg = C.Cyan },
+    AerialEventIcon = { fg = C.Orange },
+    AerialFieldIcon = { fg = C.Cyan },
+    AerialFileIcon = { fg = C.Blue },
+    AerialFunctionIcon = { fg = C.Cyan },
+    AerialInterfaceIcon = { fg = C.Yellow },
+    AerialKeyIcon = { fg = C.Orange },
+    AerialKeywordIcon = { fg = C.Blue },
+    AerialMethodIcon = { fg = C.Cyan },
+    AerialModuleIcon = { fg = C.Blue },
+    AerialNamespaceIcon = { fg = C.Blue },
+    AerialNullIcon = { fg = C.Yellow },
+    AerialNumberIcon = { fg = C.Yellow },
+    AerialObjectIcon = { fg = C.Yellow },
+    AerialOperatorIcon = { fg = C.Base1 },
+    AerialPackageIcon = { fg = C.Blue },
+    AerialPropertyIcon = { fg = C.Cyan },
+    AerialStringIcon = { fg = C.Green },
+    AerialTypeIcon = { fg = C.Yellow },
+    AerialTypeParameterIcon = { fg = C.Yellow },
+    AerialVariableIcon = { fg = C.Base0 },
+  })
+
+  -- ── Cmp / Blink ─────────────────────────────────────────────
+  set({
+    CmpDocNormal = { bg = C.Base03 },
+    CmpDocBorder = { fg = C.Cyan, bg = C.Base03 },
+    CmpItemAbbr = { fg = C.Base0 },
+    CmpItemAbbrDeprecated = { fg = C.Base01, strikethrough = true },
+    CmpItemAbbrMatch = { fg = C.Cyan, bold = true },
+    CmpItemAbbrMatchFuzzy = { fg = C.Cyan },
+    CmpItemKind = { fg = C.Base1 },
+    CmpItemKindText = { fg = C.Base0 },
+    CmpItemKindMethod = { fg = C.Cyan },
+    CmpItemKindFunction = { fg = C.Cyan },
+    CmpItemKindConstructor = { fg = C.Cyan },
+    CmpItemKindField = { fg = C.Cyan },
+    CmpItemKindVariable = { fg = C.Base0 },
+    CmpItemKindClass = { fg = C.Yellow },
+    CmpItemKindInterface = { fg = C.Yellow },
+    CmpItemKindModule = { fg = C.Blue },
+    CmpItemKindProperty = { fg = C.Cyan },
+    CmpItemKindUnit = { fg = C.Yellow },
+    CmpItemKindValue = { fg = C.Yellow },
+    CmpItemKindEnum = { fg = C.Yellow },
+    CmpItemKindKeyword = { fg = C.Blue },
+    CmpItemKindSnippet = { fg = C.Magenta },
+    CmpItemKindColor = { fg = C.Cyan },
+    CmpItemKindFile = { fg = C.Blue },
+    CmpItemKindReference = { fg = C.Orange },
+    CmpItemKindFolder = { fg = C.Blue },
+    CmpItemKindEnumMember = { fg = C.Cyan },
+    CmpItemKindConstant = { fg = C.Yellow },
+    CmpItemKindStruct = { fg = C.Yellow },
+    CmpItemKindEvent = { fg = C.Orange },
+    CmpItemKindOperator = { fg = C.Base1 },
+    CmpItemKindTypeParameter = { fg = C.Yellow },
+    CmpItemMenu = { fg = C.Base01 },
+  })
+
+  -- ── Telescope / FzfLua ──────────────────────────────────────
+  set({
+    TelescopeNormal = { bg = C.Base03, fg = C.Base0 },
+    TelescopeBorder = { fg = C.Cyan, bg = C.Base03 },
+    TelescopeTitle = { fg = C.Cyan, bg = C.Base03, bold = true },
+    TelescopePromptNormal = { bg = C.Base04, fg = C.Base0 },
+    TelescopePromptBorder = { fg = C.Base02, bg = C.Base04 },
+    TelescopePromptTitle = { fg = C.Base03, bg = C.Cyan, bold = true },
+    TelescopePreviewNormal = { bg = C.Base03, fg = C.Base0 },
+    TelescopePreviewBorder = { fg = C.Base02, bg = C.Base03 },
+    TelescopePreviewTitle = { fg = C.Base03, bg = C.Green, bold = true },
+    TelescopeResultsNormal = { bg = C.Base03, fg = C.Base0 },
+    TelescopeResultsBorder = { fg = C.Base02, bg = C.Base03 },
+    TelescopeResultsTitle = { fg = C.Cyan, bg = C.Base03 },
+    TelescopeMatching = { fg = C.Cyan, bold = true },
+    TelescopeSelection = { bg = C.Base02, fg = C.Base0 },
+    TelescopeSelectionCaret = { fg = C.Cyan, bg = C.Base02 },
+    FzfLuaNormal = { bg = C.Base03, fg = C.Base0 },
+    FzfLuaBorder = { fg = C.Cyan, bg = C.Base03 },
+    FzfLuaTitle = { fg = C.Cyan, bg = C.Base03, bold = true },
+    FzfLuaPreviewNormal = { bg = C.Base03, fg = C.Base0 },
+    FzfLuaPreviewBorder = { fg = C.Base02, bg = C.Base03 },
+    FzfLuaMatch = { fg = C.Cyan, bold = true },
+    FzfLuaFzfNormal = { bg = C.Base04, fg = C.Base0 },
+    FzfLuaFzfBorder = { fg = C.Base02, bg = C.Base04 },
+    FzfLuaFzfPointer = { fg = C.Cyan },
+    FzfLuaFzfMatch = { fg = C.Cyan, bold = true },
+    FzfLuaFzfPrompt = { fg = C.Cyan },
+  })
+
+  -- ── Lspsaga ─────────────────────────────────────────────────
+  set({
+    SagaTitle = { fg = C.Base03, bg = C.Cyan, bold = true },
+    SagaBorder = { fg = C.Cyan, bg = C.Base03 },
+    SagaNormal = { bg = C.Base03, fg = C.Base0 },
+    SagaExpand = { fg = C.Cyan },
+    SagaCollapse = { fg = C.Cyan },
+    SagaCount = { fg = C.Base01 },
+    SagaReplace = { fg = C.Red },
+    LspSagaCodeActionTitle = { fg = C.Base03, bg = C.Cyan, bold = true },
+    LspSagaCodeActionBorder = { fg = C.Cyan },
+    LspFinderReference = { bg = C.Base02 },
+    LspSagaFinderSelection = { bg = C.Base02, fg = C.Cyan },
+    LspSagaHoverDoc = { bg = C.Base03, fg = C.Base0 },
+    LspSagaSignatureHelpBorder = { fg = C.Cyan },
+    LspSagaLightBulb = { fg = C.Yellow },
+    LspSagaShadow = { bg = C.Base03, fg = C.Base0 },
+  })
+
+  -- ── Rainbow delimiters ──────────────────────────────────────
+  set({
+    RainbowDelimiterRed = { fg = C.Red },
+    RainbowDelimiterYellow = { fg = C.Yellow },
+    RainbowDelimiterBlue = { fg = C.Blue },
+    RainbowDelimiterCyan = { fg = C.Cyan },
+    RainbowDelimiterGreen = { fg = C.Green },
+    RainbowDelimiterViolet = { fg = C.Violet },
+    RainbowDelimiterOrange = { fg = C.Orange },
+  })
+
+  -- ── yanky.nvim ──────────────────────────────────────────────
+  set({
+    YankyPut = { bg = C.Base02, fg = C.Yellow },
+    YankyYanked = { bg = C.Base02, fg = C.Cyan },
+  })
+
+  -- ── Inc-rename ──────────────────────────────────────────────
+  set({
+    IncRename = { bg = C.Base02, fg = C.Cyan, underline = true },
+  })
+
+  -- ── Precognition ────────────────────────────────────────────
+  set({
+    PrecognitionNormal = { fg = C.Base01 },
+    PrecognitionGrit = { fg = C.Cyan, bold = true },
+    PrecognitionGhostText = { fg = C.Base01 },
+  })
+
+  -- ── Mini.map ────────────────────────────────────────────────
+  set({
+    MiniMapNormal = { bg = C.Base04, fg = C.Base01 },
+    MiniMapSymbolView = { fg = C.Base01 },
+    MiniMapSymbolLine = { fg = C.Cyan },
+    MiniMapSymbolCount = { fg = C.Base01 },
+  })
+
+  -- ── Render-markdown ─────────────────────────────────────────
+  set({
+    RenderMarkdownCode = { bg = C.Base04 },
+    RenderMarkdownCodeInfo = { fg = C.Cyan },
+    RenderMarkdownH1 = { fg = C.Cyan, bold = true },
+    RenderMarkdownH2 = { fg = C.Blue, bold = true },
+    RenderMarkdownH3 = { fg = C.Green, bold = true },
+    RenderMarkdownH4 = { fg = C.Yellow, bold = true },
+    RenderMarkdownH5 = { fg = C.Orange, bold = true },
+    RenderMarkdownH6 = { fg = C.Magenta, bold = true },
+    RenderMarkdownSign = { fg = C.Base01 },
+    RenderMarkdownDash = { fg = C.Base01 },
+    RenderMarkdownBullet = { fg = C.Cyan },
+    RenderMarkdownQuote = { fg = C.Base01 },
+    RenderMarkdownTableHead = { fg = C.Cyan, bold = true },
+    RenderMarkdownTableRow = { fg = C.Base0 },
+    RenderMarkdownTablePipe = { fg = C.Base01 },
+    RenderMarkdownTableAlignLeft = { fg = C.Base01 },
+    RenderMarkdownTableAlignCenter = { fg = C.Cyan },
+    RenderMarkdownTableAlignRight = { fg = C.Base01 },
+  })
+
+  -- ── Fugit2 / Diffview ──────────────────────────────────────
+  set({
+    fugit2Hash = { fg = C.Yellow },
+    fugit2ObjectHash = { fg = C.Cyan },
+    fugit2Branch = { fg = C.Green },
+    fugit2Author = { fg = C.Base1 },
+    fugit2Date = { fg = C.Base01 },
+    fugit2Heading = { fg = C.Cyan, bold = true },
+    DiffviewFilePanelTitle = { fg = C.Cyan, bold = true },
+    DiffviewFilePanelCounter = { fg = C.Yellow, bold = true },
+    DiffviewFilePanelFileName = { fg = C.Base0 },
+    DiffviewFolderSign = { fg = C.Blue },
+    DiffviewNonText = { fg = C.Base01 },
+    DiffviewStatusAdded = { fg = C.Green },
+    DiffviewStatusModified = { fg = C.Yellow },
+    DiffviewStatusDeleted = { fg = C.Red },
+    DiffviewStatusRenamed = { fg = C.Magenta },
+    DiffviewStatusUntracked = { fg = C.Blue },
+    DiffviewStatusTypeChanged = { fg = C.Orange },
+    DiffviewStatusCopied = { fg = C.Cyan },
+    DiffviewStatusIgnored = { fg = C.Base01 },
+    DiffviewStatusUnmerged = { fg = C.Red },
+    DiffviewStatusBroken = { fg = C.Red },
+  })
 end
 
 --- EverGarden theme configuration
