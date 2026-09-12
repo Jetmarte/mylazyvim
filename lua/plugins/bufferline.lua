@@ -127,7 +127,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 return {
   "akinsho/bufferline.nvim",
-  version = "~> 4.7",
+  version = "^4.7",
   event = "UIEnter",
   dependencies = "nvim-tree/nvim-web-devicons",
   keys = {

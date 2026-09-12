@@ -2,7 +2,6 @@ require("mycode.execute.runCode").setup()
 require("mycode.myconfig.keymaps.necodeium-chat")
 require("mycode.myconfig.keymaps.debugger")
 require("mycode.myconfig.keymaps.window-picker")
-require("mycode.myconfig.keymaps.numeric-tabs")
 require("mycode.myconfig.keymaps.tmux-move")
 require("mycode.myconfig.keymaps.rename-variable")
 require("mycode.myconfig.keymaps.tabs-move")
@@ -42,7 +41,6 @@ map("i", ";;", "<Esc>A;")
 -- Escape alternativo
 map("i", "º", "<Esc>")
 map("v", "º", "<Esc>")
-
 
 -- Salvar archivo
 map("n", "<C-s>", ":w<CR>")
@@ -138,13 +136,8 @@ TmuxMove()
 --window Picker
 WindowPicker()
 
---numbers in numeric-tabs
-NumericTabs()
-
 -- debug code
 Debugger()
-
-
 
 -- open neocodeium chat
 NeocodeIumChat()

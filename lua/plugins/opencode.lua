@@ -287,5 +287,83 @@ return {
         end
       end,
     })
+
+    -- Recarga en vivo de buffers editados por opencode aunque el foco siga
+    -- en el mismo buffer. No dependemos de autoread/checktime (fallan con
+    -- rename atómico, mtime de baja resolución o symlinks): al llegar el
+    -- evento SSE hacemos `edit` forzoso sobre los buffers afectados.
+    local function realpath(path)
+      local ok, resolved = pcall(vim.uv.fs_realpath, path)
+      return (ok and resolved) or vim.fs.normalize(path)
+    end
+
+    local function reload_buffer(buf)
+      if vim.bo[buf].modified then
+        vim.notify(
+          string.format(
+            "opencode editó %s pero el buffer tiene cambios sin guardar: guarda o haz :e para descartarlos",
+            vim.api.nvim_buf_get_name(buf)
+          ),
+          vim.log.levels.WARN
+        )
+        return
+      end
+      vim.api.nvim_buf_call(buf, function()
+        vim.cmd("silent! edit")
+      end)
+    end
+
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "OpencodeEvent:file.edited",
+      callback = function(args)
+        local properties = args.data and args.data.event and args.data.event.properties or {}
+        local target = type(properties.file) == "string" and realpath(properties.file) or nil
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if
+            vim.api.nvim_buf_is_loaded(buf)
+            and vim.bo[buf].buftype == ""
+            and vim.api.nvim_buf_get_name(buf) ~= ""
+          then
+            if not target or realpath(vim.api.nvim_buf_get_name(buf)) == target then
+              reload_buffer(buf)
+            end
+          end
+        end
+      end,
+      desc = "Reload buffers edited by opencode in real time",
+    })
+
+    -- Barrido final al terminar la respuesta: recarga los buffers visibles
+    -- por si algún evento `file.edited` no llegó o la ruta no coincidió.
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "OpencodeEvent:session.idle",
+      callback = function()
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          if vim.bo[buf].buftype == "" and vim.api.nvim_buf_get_name(buf) ~= "" then
+            reload_buffer(buf)
+          end
+        end
+      end,
+      desc = "Force reload visible buffers when opencode finishes",
+    })
+
+    -- Fallback si los eventos SSE no llegan (p.ej. servidor externo sin events):
+    -- checktime agresivo al recuperar foco, tras inactividad o al mover cursor.
+    vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" }, {
+      callback = function()
+        vim.cmd.checktime()
+      end,
+      desc = "Force checktime to pick up external file changes",
+    })
+
+    -- Fallback si los eventos SSE no llegan (p.ej. servidor externo sin events):
+    -- checktime agresivo al recuperar foco o tras updatetime de inactividad.
+    vim.api.nvim_create_autocmd({ "FocusGained", "CursorHold", "CursorHoldI" }, {
+      callback = function()
+        vim.cmd.checktime()
+      end,
+      desc = "Force checktime to pick up external file changes",
+    })
   end,
 }
